@@ -154,8 +154,22 @@ function Navbar() {
         </div>
         <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Discover</span>
       </div>
-      <div style={{ pointerEvents: 'all', background: '#EBE88A', borderRadius: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52, padding: '0 32px', cursor: 'pointer', flexShrink: 0 }}>
-        <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 18, fontWeight: 600, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>LOGIN</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
+        <button style={{
+          width: 52, height: 52,
+          borderRadius: 9999,
+          background: 'rgba(255,255,255,0.08)',
+          border: '1px solid rgba(255,255,255,0.14)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          cursor: 'pointer', flexShrink: 0,
+        }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <div style={{ background: '#EBE88A', borderRadius: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52, padding: '0 32px', cursor: 'pointer', flexShrink: 0 }}>
+          <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 18, fontWeight: 600, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>LOGIN</span>
+        </div>
       </div>
     </div>
   );
@@ -232,68 +246,36 @@ function HeroCarousel() {
 function CategoryBar() {
   return (
     <section style={{ padding: '48px 72px 36px', background: '#000' }}>
-      <div style={{
-        display: 'flex',
-        alignItems: 'stretch',
-        background: 'rgba(255,255,255,0.06)',
-        border: '1px solid rgba(255,255,255,0.1)',
-        borderRadius: 20,
-        overflow: 'hidden',
-        marginBottom: 28,
-        backdropFilter: 'blur(12px)',
-      }}>
-        <div style={{ flex: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '20px 28px', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>What</div>
-          <input
-            placeholder="Search events, artists, venues…"
-            style={{ background: 'none', border: 'none', outline: 'none', fontFamily: F, fontSize: 16, fontWeight: 500, color: '#fff', width: '100%' }}
-          />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          background: 'rgba(255,255,255,0.06)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: 12, padding: '10px 16px',
+          cursor: 'pointer', flexShrink: 0,
+        }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(177,216,212,0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>London, UK</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
         </div>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '20px 28px', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Where</div>
-          <input
-            placeholder="City or venue"
-            style={{ background: 'none', border: 'none', outline: 'none', fontFamily: F, fontSize: 16, fontWeight: 500, color: '#fff', width: '100%' }}
-          />
-        </div>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '20px 28px', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>When</div>
-          <input
-            placeholder="Any date"
-            type="text"
-            style={{ background: 'none', border: 'none', outline: 'none', fontFamily: F, fontSize: 16, fontWeight: 500, color: '#fff', width: '100%' }}
-          />
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', padding: '12px 16px' }}>
-          <button style={{
-            background: '#EBE88A',
-            border: 'none',
-            borderRadius: 14,
-            height: '100%',
-            padding: '0 32px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            fontFamily: F,
-            fontSize: 15,
-            fontWeight: 700,
-            color: '#0e2a2c',
-            textTransform: 'uppercase',
-            letterSpacing: '0.8px',
-            whiteSpace: 'nowrap',
-          }}>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0e2a2c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
-            SEARCH
-          </button>
-        </div>
-      </div>
 
-      <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div style={{ width: 1, height: 28, background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
+
         {CATEGORIES.map((cat, i) => (
-          <button key={cat.label} style={{ background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 12, padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8, color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <button key={cat.label} style={{
+            background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)',
+            border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`,
+            borderRadius: 12, padding: '10px 20px',
+            display: 'flex', alignItems: 'center', gap: 8,
+            color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
+            fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F,
+            textTransform: 'uppercase', letterSpacing: '0.5px',
+          }}>
             <span>{cat.icon}</span><span>{cat.label}</span>
           </button>
         ))}
