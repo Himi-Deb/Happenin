@@ -230,7 +230,7 @@ function HeroCarousel() {
     <section style={{
       position: 'relative',
       width: '100%',
-      height: '100vh',
+      aspectRatio: '1920 / 1280',
       overflow: 'hidden',
       background: '#000',
     }}>
