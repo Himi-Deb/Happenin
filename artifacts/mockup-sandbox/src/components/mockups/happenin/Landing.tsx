@@ -1,6 +1,5 @@
 import './_group.css';
-
-const NAV_LINKS = ['Discover', 'Create Event', 'How it Works', 'Pricing'];
+import React from 'react';
 
 const CATEGORIES = [
   { icon: '🎵', label: 'Music' },
@@ -58,6 +57,23 @@ const STEPS = [
   { num: '03', title: 'Engage Attendees', desc: 'Broadcast updates, chat live with ticket holders and collect feedback — no extra apps needed.' },
 ];
 
+const SQUIRCLE = '22%';
+
+function NavSquircle({ children, active, style = {} }: { children: React.ReactNode; active?: boolean; style?: React.CSSProperties }) {
+  return (
+    <div style={{
+      background: active ? '#EBE88A' : 'rgba(22,22,22,0.88)',
+      backdropFilter: 'blur(20px)',
+      border: active ? '1px solid rgba(235,232,138,0.4)' : '1px solid rgba(255,255,255,0.09)',
+      borderRadius: SQUIRCLE,
+      boxShadow: '0 4px 24px rgba(0,0,0,0.45)',
+      ...style,
+    }}>
+      {children}
+    </div>
+  );
+}
+
 function Navbar() {
   return (
     <div style={{
@@ -67,56 +83,73 @@ function Navbar() {
       right: 0,
       zIndex: 100,
       display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
       pointerEvents: 'none',
+      padding: '0 32px',
     }}>
-      <nav style={{
-        pointerEvents: 'all',
-        background: 'rgba(22,22,22,0.85)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 'var(--radius-pill)',
-        padding: '10px 16px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        boxShadow: '0 4px 40px rgba(0,0,0,0.5)',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingRight: 16, borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{
-            width: 30, height: 30, borderRadius: '50%',
-            background: 'var(--primary)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 14, fontWeight: 800, color: '#0C0C0C',
-          }}>H</div>
-          <span style={{ fontWeight: 700, fontSize: 15, color: 'var(--text-primary)', letterSpacing: '-0.3px' }}>Happenin</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 2, padding: '0 8px' }}>
-          {NAV_LINKS.map(link => (
-            <a key={link} href="#" style={{
-              color: link === 'Discover' ? 'var(--primary)' : 'var(--text-secondary)',
-              fontSize: 13.5,
-              fontWeight: 500,
-              padding: '6px 14px',
-              borderRadius: 'var(--radius-pill)',
-              textDecoration: 'none',
-              background: link === 'Discover' ? 'var(--primary-dim)' : 'transparent',
-              transition: 'all 0.2s',
-            }}>{link}</a>
-          ))}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingLeft: 8, borderLeft: '1px solid rgba(255,255,255,0.08)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, pointerEvents: 'all' }}>
+        <NavSquircle active>
+          <a href="#" style={{
+            display: 'flex', alignItems: 'center', gap: 7,
+            padding: '11px 20px',
+            color: '#1a1a00',
+            fontSize: 14, fontWeight: 700,
+            textDecoration: 'none', letterSpacing: '-0.1px',
+          }}>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+              <circle cx="6" cy="6" r="5" stroke="#1a1a00" strokeWidth="1.8"/>
+              <path d="M10 10L14 14" stroke="#1a1a00" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+            Discover
+          </a>
+        </NavSquircle>
+
+        <NavSquircle style={{ padding: '9px 22px' }}>
+          <img
+            src={`${import.meta.env.BASE_URL}happenin-logo.png`}
+            alt="Happenin"
+            style={{ height: 22, width: 'auto', display: 'block', filter: 'brightness(1)' }}
+          />
+        </NavSquircle>
+
+        <NavSquircle>
+          <a href="#" style={{
+            display: 'flex', alignItems: 'center', gap: 7,
+            padding: '11px 20px',
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: 14, fontWeight: 500,
+            textDecoration: 'none', letterSpacing: '-0.1px',
+          }}>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="5" height="5" rx="1.5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6"/>
+              <rect x="9" y="2" width="5" height="5" rx="1.5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6"/>
+              <rect x="2" y="9" width="5" height="5" rx="1.5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6"/>
+              <path d="M9 11.5H14M11.5 9V14" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+            Create Event
+          </a>
+        </NavSquircle>
+      </div>
+
+      <div style={{ position: 'absolute', right: 32, pointerEvents: 'all', display: 'flex', gap: 8 }}>
+        <NavSquircle>
           <button style={{
-            background: 'transparent', border: 'none', color: 'var(--text-secondary)',
-            fontSize: 13.5, fontWeight: 500, cursor: 'pointer', padding: '7px 14px', borderRadius: 'var(--radius-pill)',
+            background: 'transparent', border: 'none', cursor: 'pointer',
+            padding: '11px 22px',
+            color: 'rgba(255,255,255,0.65)', fontSize: 14, fontWeight: 500,
+            letterSpacing: '-0.1px', fontFamily: 'var(--font)',
           }}>Sign In</button>
+        </NavSquircle>
+        <NavSquircle style={{ background: 'var(--primary)', border: '1px solid rgba(177,216,212,0.3)' }}>
           <button style={{
-            background: 'var(--primary)', border: 'none', color: '#0C0C0C',
-            fontSize: 13.5, fontWeight: 700, cursor: 'pointer', padding: '8px 18px',
-            borderRadius: 'var(--radius-pill)',
+            background: 'transparent', border: 'none', cursor: 'pointer',
+            padding: '11px 22px',
+            color: '#0C0C0C', fontSize: 14, fontWeight: 700,
+            letterSpacing: '-0.1px', fontFamily: 'var(--font)',
           }}>Get Started</button>
-        </div>
-      </nav>
+        </NavSquircle>
+      </div>
     </div>
   );
 }
