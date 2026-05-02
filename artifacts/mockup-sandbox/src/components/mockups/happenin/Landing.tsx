@@ -139,10 +139,12 @@ function Navbar() {
           color: '#0e2a2c',
           fontFamily: 'var(--font)',
           fontSize: 24,
-          fontWeight: 500,
+          fontWeight: 600,
           whiteSpace: 'nowrap',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
         }}>
-          Login
+          LOGIN
         </span>
       </div>
     </div>
@@ -151,8 +153,8 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section style={{
-      padding: '180px 80px 100px',
+    <section className="happenin-hero-bg" style={{
+      padding: '180px 80px 80px',
       textAlign: 'center',
       position: 'relative',
       overflow: 'hidden',
@@ -189,29 +191,21 @@ function Hero() {
         Discover events near you, create unforgettable experiences, and connect with your audience — all in one place.
       </p>
       <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 72,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14,
       }}>
         <button style={{
           background: '#B1D8D4', color: '#0a1e1f', border: 'none',
-          fontSize: 17, fontWeight: 700, padding: '16px 36px', borderRadius: 9999,
+          fontSize: 16, fontWeight: 600, padding: '16px 36px', borderRadius: 9999,
           cursor: 'pointer', fontFamily: 'var(--font)',
-        }}>Explore Events</button>
+          textTransform: 'uppercase', letterSpacing: '0.8px',
+        }}>EXPLORE EVENTS</button>
         <button style={{
           background: 'rgba(255,255,255,0.07)', color: '#fff',
           border: '1px solid rgba(255,255,255,0.12)',
-          fontSize: 17, fontWeight: 500, padding: '16px 36px', borderRadius: 9999,
+          fontSize: 16, fontWeight: 600, padding: '16px 36px', borderRadius: 9999,
           cursor: 'pointer', fontFamily: 'var(--font)',
-        }}>Create an Event →</button>
-      </div>
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 64,
-      }}>
-        {[['12K+', 'Events Hosted'], ['340K+', 'Tickets Booked'], ['98%', 'Organizer Satisfaction']].map(([num, label]) => (
-          <div key={label}>
-            <div style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: 'var(--font)' }}>{num}</div>
-            <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', marginTop: 4, fontFamily: 'var(--font)' }}>{label}</div>
-          </div>
-        ))}
+          textTransform: 'uppercase', letterSpacing: '0.8px',
+        }}>CREATE AN EVENT →</button>
       </div>
     </section>
   );
@@ -219,7 +213,7 @@ function Hero() {
 
 function CategoryBar() {
   return (
-    <section style={{ padding: '0 80px 80px' }}>
+    <section className="happenin-hero-bg" style={{ padding: '110px 80px 60px' }}>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
         {CATEGORIES.map((cat, i) => (
           <button key={cat.label} style={{
@@ -229,8 +223,9 @@ function CategoryBar() {
             padding: '10px 20px',
             display: 'flex', alignItems: 'center', gap: 8,
             color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
-            fontSize: 15, fontWeight: i === 0 ? 600 : 400,
+            fontSize: 15, fontWeight: i === 0 ? 600 : 500,
             cursor: 'pointer', fontFamily: 'var(--font)',
+            textTransform: 'uppercase', letterSpacing: '0.5px',
           }}>
             <span>{cat.icon}</span>
             <span>{cat.label}</span>
@@ -400,7 +395,6 @@ export function Landing() {
   return (
     <div className="happenin-root">
       <Navbar />
-      <Hero />
       <CategoryBar />
       <FeaturedEvents />
       <HowItWorks />

@@ -35,9 +35,12 @@ body {
 
 .happenin-root {
   font-family: var(--font);
-  background: linear-gradient(114deg, #505143 0%, #000000 60%);
-  background-attachment: fixed;
+  background: #000000;
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+.happenin-hero-bg {
+  background: linear-gradient(114deg, #505143 0%, #000000 60%);
 }
