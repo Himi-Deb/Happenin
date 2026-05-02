@@ -1,5 +1,5 @@
 import './_group.css';
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const CATEGORIES = [
   { icon: '🎵', label: 'Music' },
@@ -10,6 +10,59 @@ const CATEGORIES = [
   { icon: '🎭', label: 'Theatre' },
   { icon: '🎮', label: 'Gaming' },
   { icon: '📚', label: 'Education' },
+];
+
+const CAROUSEL_SLIDES = [
+  {
+    id: 1,
+    title: 'Neon Pulse Music Festival',
+    date: 'Sat, 14 Jun 2025 · 6:00 PM',
+    location: 'Rooftop Arena, London',
+    category: 'Music',
+    tag: 'Featured',
+    bg: 'linear-gradient(135deg, #0d0221 0%, #150a3a 30%, #1e0e52 55%, #0a1628 100%)',
+    accent: '#B1D8D4',
+  },
+  {
+    id: 2,
+    title: 'Digital Art & Design Summit',
+    date: 'Fri, 20 Jun 2025 · 10:00 AM',
+    location: 'East Wing Gallery, Berlin',
+    category: 'Art',
+    tag: 'Trending',
+    bg: 'linear-gradient(135deg, #051e1a 0%, #082f28 35%, #0a3d32 60%, #051410 100%)',
+    accent: '#EBE88A',
+  },
+  {
+    id: 3,
+    title: 'Startup Founders Meetup',
+    date: 'Thu, 26 Jun 2025 · 7:00 PM',
+    location: 'Tech Hub, Amsterdam',
+    category: 'Business',
+    tag: '',
+    bg: 'linear-gradient(135deg, #1a0d00 0%, #2e1a05 35%, #3d2408 60%, #1a0d00 100%)',
+    accent: '#EBE88A',
+  },
+  {
+    id: 4,
+    title: 'Global Street Food Festival',
+    date: 'Sun, 6 Jul 2025 · 12:00 PM',
+    location: 'Victoria Park, Melbourne',
+    category: 'Food',
+    tag: 'Hot',
+    bg: 'linear-gradient(135deg, #1a0505 0%, #2e0c0c 35%, #3d1010 60%, #1a0505 100%)',
+    accent: '#EBE88A',
+  },
+  {
+    id: 5,
+    title: 'Championship Gaming League',
+    date: 'Fri, 11 Jul 2025 · 3:00 PM',
+    location: 'Esports Arena, Seoul',
+    category: 'Gaming',
+    tag: 'New',
+    bg: 'linear-gradient(135deg, #000d1a 0%, #001428 35%, #001f3d 60%, #000d1a 100%)',
+    accent: '#B1D8D4',
+  },
 ];
 
 const FEATURED_EVENTS = [
@@ -85,7 +138,7 @@ function Navbar() {
       display: 'flex',
       alignItems: 'flex-start',
       justifyContent: 'space-between',
-      padding: '40px 56px 0',
+      padding: '32px 56px 0',
       pointerEvents: 'none',
     }}>
       <div style={{
@@ -114,7 +167,7 @@ function Navbar() {
         <span style={{
           color: '#ffffff',
           fontFamily: 'var(--font)',
-          fontSize: 24,
+          fontSize: 18,
           fontWeight: 400,
           whiteSpace: 'nowrap',
         }}>
@@ -125,24 +178,24 @@ function Navbar() {
       <div style={{
         pointerEvents: 'all',
         background: '#EBE88A',
-        borderRadius: 20,
+        borderRadius: 9999,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 10,
-        height: 59,
-        padding: '14px 32px 16px',
-        overflow: 'hidden',
+        height: 52,
+        padding: '0 32px',
         cursor: 'pointer',
+        flexShrink: 0,
       }}>
         <span style={{
           color: '#0e2a2c',
           fontFamily: 'var(--font)',
-          fontSize: 24,
+          fontSize: 18,
           fontWeight: 600,
           whiteSpace: 'nowrap',
           textTransform: 'uppercase',
-          letterSpacing: '0.5px',
+          letterSpacing: '1px',
+          lineHeight: 1,
         }}>
           LOGIN
         </span>
@@ -151,61 +204,218 @@ function Navbar() {
   );
 }
 
-function Hero() {
+function HeroCarousel() {
+  const [current, setCurrent] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const total = CAROUSEL_SLIDES.length;
+
+  const goTo = useCallback((index: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrent((index + total) % total);
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, [isTransitioning, total]);
+
+  const prev = () => goTo(current - 1);
+  const next = useCallback(() => goTo(current + 1), [current, goTo]);
+
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
+
+  const slide = CAROUSEL_SLIDES[current];
+
   return (
-    <section className="happenin-hero-bg" style={{
-      padding: '180px 80px 80px',
-      textAlign: 'center',
+    <section style={{
       position: 'relative',
+      width: '100%',
+      height: '100vh',
       overflow: 'hidden',
+      background: '#000',
     }}>
+      {CAROUSEL_SLIDES.map((s, i) => (
+        <div
+          key={s.id}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: s.bg,
+            opacity: i === current ? 1 : 0,
+            transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)',
+            pointerEvents: 'none',
+          }}
+        >
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.04) 0%, transparent 60%)',
+          }} />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `
+              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.015) 1px, transparent 1px),
+              radial-gradient(circle at 60% 70%, rgba(255,255,255,0.01) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px, 120px 120px',
+          }} />
+        </div>
+      ))}
+
       <div style={{
-        position: 'absolute', top: -200, left: '50%', transform: 'translateX(-50%)',
-        width: 900, height: 900,
-        background: 'radial-gradient(circle, rgba(177,216,212,0.07) 0%, transparent 65%)',
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.1) 65%, transparent 100%)',
         pointerEvents: 'none',
+        zIndex: 2,
       }} />
+
       <div style={{
-        display: 'inline-flex', alignItems: 'center', gap: 8,
-        background: 'rgba(177,216,212,0.12)', border: '1px solid rgba(177,216,212,0.2)',
-        borderRadius: 9999, padding: '6px 18px',
-        marginBottom: 36, fontSize: 14, fontWeight: 500, color: '#B1D8D4',
-        fontFamily: 'var(--font)',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '0 72px 56px',
+        zIndex: 3,
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        gap: 40,
       }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B1D8D4', display: 'inline-block' }} />
-        All-in-one event management platform
-      </div>
-      <h1 style={{
-        fontSize: 80, fontWeight: 800, lineHeight: 1.0, letterSpacing: '-2.5px',
-        marginBottom: 28, maxWidth: 800, margin: '0 auto 28px',
-        fontFamily: 'var(--font)',
-      }}>
-        Plan, Manage &<br />
-        <span style={{ color: '#B1D8D4' }}>Make it Happen.</span>
-      </h1>
-      <p style={{
-        fontSize: 20, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65,
-        maxWidth: 520, margin: '0 auto 52px', fontWeight: 400,
-        fontFamily: 'var(--font)',
-      }}>
-        Discover events near you, create unforgettable experiences, and connect with your audience — all in one place.
-      </p>
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14,
-      }}>
-        <button style={{
-          background: '#B1D8D4', color: '#0a1e1f', border: 'none',
-          fontSize: 16, fontWeight: 600, padding: '16px 36px', borderRadius: 9999,
-          cursor: 'pointer', fontFamily: 'var(--font)',
-          textTransform: 'uppercase', letterSpacing: '0.8px',
-        }}>EXPLORE EVENTS</button>
-        <button style={{
-          background: 'rgba(255,255,255,0.07)', color: '#fff',
-          border: '1px solid rgba(255,255,255,0.12)',
-          fontSize: 16, fontWeight: 600, padding: '16px 36px', borderRadius: 9999,
-          cursor: 'pointer', fontFamily: 'var(--font)',
-          textTransform: 'uppercase', letterSpacing: '0.8px',
-        }}>CREATE AN EVENT →</button>
+        <div style={{ flex: 1, maxWidth: 720 }}>
+          {slide.tag && (
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              background: slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.15)' : 'rgba(177,216,212,0.15)',
+              border: `1px solid ${slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.35)' : 'rgba(177,216,212,0.35)'}`,
+              borderRadius: 9999,
+              padding: '5px 14px',
+              marginBottom: 16,
+            }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%',
+                background: slide.accent, display: 'inline-block', flexShrink: 0,
+              }} />
+              <span style={{
+                color: slide.accent,
+                fontFamily: 'var(--font)',
+                fontSize: 12,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+              }}>{slide.tag} · {slide.category}</span>
+            </div>
+          )}
+
+          <h1 style={{
+            fontFamily: 'var(--font)',
+            fontSize: 68,
+            fontWeight: 800,
+            lineHeight: 1.0,
+            letterSpacing: '-2px',
+            color: '#ffffff',
+            margin: '0 0 20px',
+          }}>
+            {slide.title}
+          </h1>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 16, opacity: 0.6 }}>📅</span>
+              <span style={{
+                fontFamily: 'var(--font)',
+                fontSize: 16,
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.7)',
+              }}>{slide.date}</span>
+            </div>
+            <div style={{
+              width: 4, height: 4, borderRadius: '50%',
+              background: 'rgba(255,255,255,0.3)',
+            }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 16, opacity: 0.6 }}>📍</span>
+              <span style={{
+                fontFamily: 'var(--font)',
+                fontSize: 16,
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.7)',
+              }}>{slide.location}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-end',
+          gap: 20,
+          flexShrink: 0,
+        }}>
+          <div style={{
+            fontFamily: 'var(--font)',
+            fontSize: 13,
+            color: 'rgba(255,255,255,0.35)',
+            letterSpacing: '1px',
+          }}>
+            {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+          </div>
+
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button
+              onClick={prev}
+              style={{
+                width: 48, height: 48,
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: '#fff',
+                fontSize: 18,
+                cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font)',
+                transition: 'background 0.2s',
+              }}
+            >←</button>
+            <button
+              onClick={next}
+              style={{
+                width: 48, height: 48,
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.12)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: '#fff',
+                fontSize: 18,
+                cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font)',
+                transition: 'background 0.2s',
+              }}
+            >→</button>
+          </div>
+
+          <div style={{ display: 'flex', gap: 6 }}>
+            {CAROUSEL_SLIDES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                style={{
+                  width: i === current ? 24 : 6,
+                  height: 6,
+                  borderRadius: 9999,
+                  background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  transition: 'all 0.3s ease',
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -213,7 +423,7 @@ function Hero() {
 
 function CategoryBar() {
   return (
-    <section className="happenin-hero-bg" style={{ padding: '110px 80px 60px' }}>
+    <section style={{ padding: '32px 72px', background: '#000' }}>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
         {CATEGORIES.map((cat, i) => (
           <button key={cat.label} style={{
@@ -223,7 +433,7 @@ function CategoryBar() {
             padding: '10px 20px',
             display: 'flex', alignItems: 'center', gap: 8,
             color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
-            fontSize: 15, fontWeight: i === 0 ? 600 : 500,
+            fontSize: 14, fontWeight: 600,
             cursor: 'pointer', fontFamily: 'var(--font)',
             textTransform: 'uppercase', letterSpacing: '0.5px',
           }}>
@@ -257,7 +467,7 @@ function EventCard({ event }: { event: typeof FEATURED_EVENTS[0] }) {
             background: event.tag === 'Featured' ? '#B1D8D4' : '#EBE88A',
             color: '#0a1e1f', fontSize: 11, fontWeight: 700,
             padding: '4px 12px', borderRadius: 9999, letterSpacing: '0.5px',
-            fontFamily: 'var(--font)',
+            fontFamily: 'var(--font)', textTransform: 'uppercase',
           }}>{event.tag}</span>
         ) : <span />}
         <button style={{
@@ -320,13 +530,13 @@ function EventCard({ event }: { event: typeof FEATURED_EVENTS[0] }) {
 
 function FeaturedEvents() {
   return (
-    <section style={{ padding: '0 80px 100px' }}>
+    <section style={{ padding: '80px 72px 100px' }}>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 40 }}>
         <div>
           <div style={{ fontSize: 12, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 10, fontFamily: 'var(--font)' }}>Happening Now</div>
           <h2 style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-1.5px', fontFamily: 'var(--font)' }}>Featured Events</h2>
         </div>
-        <a href="#" style={{ fontSize: 15, color: '#B1D8D4', fontWeight: 500, textDecoration: 'none', fontFamily: 'var(--font)' }}>View all events →</a>
+        <a href="#" style={{ fontSize: 15, color: '#B1D8D4', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>VIEW ALL EVENTS →</a>
       </div>
       <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
         {FEATURED_EVENTS.map(event => <EventCard key={event.id} event={event} />)}
@@ -338,7 +548,7 @@ function FeaturedEvents() {
 function HowItWorks() {
   return (
     <section style={{
-      margin: '0 80px 100px',
+      margin: '0 72px 100px',
       background: 'rgba(255,255,255,0.03)',
       border: '1px solid rgba(255,255,255,0.07)',
       borderRadius: 28,
@@ -376,7 +586,7 @@ function HowItWorks() {
 function Footer() {
   return (
     <footer style={{
-      padding: '40px 80px',
+      padding: '40px 72px',
       borderTop: '1px solid rgba(255,255,255,0.07)',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     }}>
@@ -395,6 +605,7 @@ export function Landing() {
   return (
     <div className="happenin-root">
       <Navbar />
+      <HeroCarousel />
       <CategoryBar />
       <FeaturedEvents />
       <HowItWorks />
