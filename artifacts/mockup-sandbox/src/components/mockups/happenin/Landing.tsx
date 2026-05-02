@@ -156,14 +156,11 @@ function Navbar() {
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
         <button style={{
-          width: 52, height: 52,
-          borderRadius: 9999,
-          background: 'rgba(255,255,255,0.08)',
-          border: '1px solid rgba(255,255,255,0.14)',
+          background: 'none', border: 'none',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', flexShrink: 0,
+          cursor: 'pointer', flexShrink: 0, padding: 4,
         }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
         </button>
@@ -246,13 +243,29 @@ function HeroCarousel() {
 function CategoryBar() {
   return (
     <section style={{ padding: '48px 72px 36px', background: '#000' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
+          {CATEGORIES.map((cat, i) => (
+            <button key={cat.label} style={{
+              background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)',
+              border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`,
+              borderRadius: 12, padding: '10px 20px',
+              display: 'flex', alignItems: 'center', gap: 8,
+              color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
+              fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F,
+              textTransform: 'uppercase', letterSpacing: '0.5px',
+            }}>
+              <span>{cat.icon}</span><span>{cat.label}</span>
+            </button>
+          ))}
+        </div>
+
         <div style={{
           display: 'flex', alignItems: 'center', gap: 8,
           background: 'rgba(255,255,255,0.06)',
           border: '1px solid rgba(255,255,255,0.1)',
           borderRadius: 12, padding: '10px 16px',
-          cursor: 'pointer', flexShrink: 0,
+          cursor: 'pointer', flexShrink: 0, marginLeft: 16,
         }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(177,216,212,0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
@@ -263,22 +276,6 @@ function CategoryBar() {
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         </div>
-
-        <div style={{ width: 1, height: 28, background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
-
-        {CATEGORIES.map((cat, i) => (
-          <button key={cat.label} style={{
-            background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)',
-            border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`,
-            borderRadius: 12, padding: '10px 20px',
-            display: 'flex', alignItems: 'center', gap: 8,
-            color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
-            fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F,
-            textTransform: 'uppercase', letterSpacing: '0.5px',
-          }}>
-            <span>{cat.icon}</span><span>{cat.label}</span>
-          </button>
-        ))}
       </div>
     </section>
   );
