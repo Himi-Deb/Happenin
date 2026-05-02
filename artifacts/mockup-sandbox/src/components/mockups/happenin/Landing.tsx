@@ -57,20 +57,20 @@ const STEPS = [
   { num: '03', title: 'Engage Attendees', desc: 'Broadcast updates, chat live with ticket holders and collect feedback — no extra apps needed.' },
 ];
 
-const SQUIRCLE = '22%';
-
-function NavSquircle({ children, active, style = {} }: { children: React.ReactNode; active?: boolean; style?: React.CSSProperties }) {
+function HappeninLogo() {
   return (
-    <div style={{
-      background: active ? '#EBE88A' : 'rgba(22,22,22,0.88)',
-      backdropFilter: 'blur(20px)',
-      border: active ? '1px solid rgba(235,232,138,0.4)' : '1px solid rgba(255,255,255,0.09)',
-      borderRadius: SQUIRCLE,
-      boxShadow: '0 4px 24px rgba(0,0,0,0.45)',
-      ...style,
-    }}>
-      {children}
-    </div>
+    <svg width="116" height="29" viewBox="0 0 116 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2.05 22V14.728V5.248H4.282V9.064C4.282 9.4 4.274 9.76 4.258 10.144C4.242 10.512 4.21 10.896 4.162 11.296C4.114 11.696 4.066 12.104 4.018 12.52C3.97 12.92 3.914 13.328 3.85 13.744H4.234C4.458 12.736 4.754 11.904 5.122 11.248C5.49 10.592 5.962 10.104 6.538 9.784C7.114 9.448 7.786 9.28 8.554 9.28C9.962 9.28 11.01 9.776 11.698 10.768C12.386 11.744 12.73 13.208 12.73 15.16V22H10.522V15.376C10.522 13.936 10.298 12.888 9.85 12.232C9.418 11.56 8.77 11.224 7.906 11.224C7.298 11.224 6.77 11.408 6.322 11.776C5.874 12.128 5.53 12.648 5.29 13.336C5.05 14.008 4.93 14.84 4.93 15.832V22H2.05Z" fill="white"/>
+      <path d="M21.4785 22.24C20.3745 22.24 19.4385 22.008 18.6705 21.544C17.9025 21.08 17.3185 20.416 16.9185 19.552C16.5185 18.688 16.3185 17.648 16.3185 16.432C16.3185 15.2 16.5185 14.144 16.9185 13.264C17.3185 12.384 17.8865 11.704 18.6225 11.224C19.3745 10.744 20.2625 10.504 21.2865 10.504C21.9185 10.504 22.5105 10.6 23.0625 10.792C23.6305 10.984 24.1265 11.288 24.5505 11.704C24.9905 12.12 25.3345 12.656 25.5825 13.312C25.8305 13.952 25.9545 14.72 25.9545 15.616V16.696H17.8305V15.16H24.0225C24.0065 14.472 23.8705 13.888 23.6145 13.408C23.3745 12.928 23.0305 12.56 22.5825 12.304C22.1345 12.048 21.6065 11.92 21.0025 11.92C20.3505 11.92 19.7825 12.072 19.2945 12.376C18.8225 12.68 18.4545 13.104 18.1905 13.648C17.9265 14.192 17.7945 14.824 17.7945 15.544V16.888C17.7945 17.896 17.9585 18.736 18.2865 19.408C18.6305 20.064 19.1025 20.56 19.7025 20.896C20.3025 21.216 20.9905 21.376 21.7665 21.376C22.2945 21.376 22.7745 21.304 23.2065 21.16C23.6545 21.016 24.0385 20.8 24.3585 20.512C24.6945 20.224 24.9425 19.864 25.1025 19.432L26.8785 19.888C26.6785 20.528 26.3425 21.088 25.8705 21.568C25.3985 22.048 24.8065 22.424 24.0945 22.696C23.3825 22.952 22.5745 23.08 21.6705 23.08L21.4785 22.24Z" fill="white"/>
+      <path d="M29.3672 22V10.744H31.4312V12.784H31.6952C31.9192 12.112 32.3112 11.584 32.8712 11.2C33.4312 10.8 34.0952 10.6 34.8632 10.6C34.9912 10.6 35.1432 10.608 35.3192 10.624C35.4952 10.64 35.6232 10.656 35.7032 10.672V12.712C35.6552 12.696 35.5192 12.672 35.2952 12.64C35.0872 12.608 34.8632 12.592 34.6232 12.592C34.0072 12.592 33.4552 12.728 32.9672 13C32.4952 13.272 32.1192 13.648 31.8392 14.128C31.5592 14.608 31.4192 15.16 31.4192 15.784V22H29.3672Z" fill="white"/>
+      <path d="M38.1797 27.04V10.744H40.2077V12.736H40.4717C40.6317 12.416 40.8717 12.088 41.1917 11.752C41.5117 11.4 41.9277 11.104 42.4397 10.864C42.9677 10.624 43.6237 10.504 44.4077 10.504C45.3957 10.504 46.2717 10.752 47.0317 11.248C47.7917 11.728 48.3917 12.416 48.8317 13.312C49.2717 14.192 49.4917 15.24 49.4917 16.456C49.4917 17.672 49.2717 18.728 48.8317 19.624C48.3917 20.52 47.7957 21.216 47.0437 21.712C46.2917 22.192 45.4237 22.432 44.4397 22.432C43.6717 22.432 43.0157 22.312 42.4717 22.072C41.9277 21.832 41.5037 21.536 41.1997 21.184C40.8957 20.816 40.6557 20.48 40.4797 20.176H40.2797V27.04H38.1797ZM40.2557 16.432C40.2557 17.296 40.3837 18.048 40.6397 18.688C40.9117 19.312 41.2957 19.8 41.7917 20.152C42.2877 20.488 42.8717 20.656 43.5437 20.656C44.2477 20.656 44.8477 20.48 45.3437 20.128C45.8397 19.76 46.2157 19.256 46.4717 18.616C46.7437 17.96 46.8797 17.224 46.8797 16.408C46.8797 15.6 46.7477 14.88 46.4837 14.248C46.2197 13.6 45.8437 13.096 45.3557 12.736C44.8677 12.36 44.2637 12.172 43.5437 12.172C42.8717 12.172 42.2877 12.336 41.7917 12.664C41.2957 12.992 40.9117 13.464 40.6397 14.08C40.3837 14.696 40.2557 15.416 40.2557 16.24V16.432Z" fill="white"/>
+      <path d="M52.4629 22V10.744H54.5269V12.784H54.7909C55.0149 12.112 55.4069 11.584 55.9669 11.2C56.5269 10.8 57.1909 10.6 57.9589 10.6C58.0869 10.6 58.2389 10.608 58.4149 10.624C58.5909 10.64 58.7189 10.656 58.7989 10.672V12.712C58.7509 12.696 58.6149 12.672 58.3909 12.64C58.1829 12.608 57.9589 12.592 57.7189 12.592C57.1029 12.592 56.5509 12.728 56.0629 13C55.5909 13.272 55.2149 13.648 54.9349 14.128C54.6549 14.608 54.5149 15.16 54.5149 15.784V22H52.4629Z" fill="white"/>
+      <path d="M61.3945 8.272V5.968H63.5185V8.272H61.3945ZM61.4425 22V10.744H63.4945V22H61.4425Z" fill="white"/>
+      <path d="M67.0996 22V10.744H69.1396V12.784H69.3796C69.5876 12.176 69.9716 11.664 70.5316 11.248C71.1076 10.816 71.8596 10.6 72.7876 10.6C73.7116 10.6 74.4956 10.832 75.1396 11.296C75.7996 11.744 76.2956 12.4 76.6276 13.264H76.8916C77.2396 12.416 77.7836 11.76 78.5236 11.296C79.2796 10.832 80.1556 10.6 81.1556 10.6C82.4276 10.6 83.4436 11.008 84.2036 11.824C84.9796 12.624 85.3676 13.832 85.3676 15.448V22H83.2916V15.64C83.2916 14.6 83.0596 13.832 82.5956 13.336C82.1316 12.824 81.4996 12.568 80.6996 12.568C79.8036 12.568 79.0836 12.872 78.5396 13.48C77.9956 14.088 77.7236 14.9 77.7236 15.916V22H75.6476V15.448C75.6476 14.504 75.4076 13.768 74.9276 13.24C74.4476 12.696 73.8076 12.424 73.0076 12.424C72.4556 12.424 71.9516 12.568 71.4956 12.856C71.0556 13.128 70.7036 13.52 70.4396 14.032C70.1756 14.528 70.0436 15.112 70.0436 15.784V22H67.0996Z" fill="white"/>
+      <path d="M89.0762 8.272V5.968H91.2002V8.272H89.0762ZM89.1242 22V10.744H91.1762V22H89.1242Z" fill="white"/>
+      <path d="M95.0293 22V10.744H97.0693V12.784H97.3093C97.5173 12.176 97.9013 11.664 98.4613 11.248C99.0373 10.816 99.7893 10.6 100.717 10.6C102.125 10.6 103.173 11.096 103.861 12.088C104.549 13.064 104.893 14.528 104.893 16.48V22H102.685V15.376C102.685 13.936 102.461 12.888 102.013 12.232C101.581 11.56 100.933 11.224 100.069 11.224C99.461 11.224 98.933 11.408 98.485 11.776C98.037 12.128 97.693 12.648 97.453 13.336C97.213 14.008 97.093 14.84 97.093 15.832V22H95.0293Z" fill="white"/>
+      <path d="M109.669 10L107.755 8.72L110.238 6.48L110.212 6.35692L106.824 5.76615L107.522 3.62462L110.6 5.24923L110.677 5.15077L110.16 2H112.488L111.945 5.15077L112.074 5.24923L115.1 3.62462L115.824 5.76615L112.462 6.35692L112.41 6.48L114.971 8.69538L113.108 10L111.427 7.14462H111.272L109.669 10Z" fill="#B1D8D4"/>
+    </svg>
   );
 }
 
@@ -78,77 +78,72 @@ function Navbar() {
   return (
     <div style={{
       position: 'fixed',
-      top: 20,
+      top: 0,
       left: 0,
       right: 0,
       zIndex: 100,
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      padding: '40px 56px 0',
       pointerEvents: 'none',
-      padding: '0 32px',
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, pointerEvents: 'all' }}>
-        <NavSquircle active>
-          <a href="#" style={{
-            display: 'flex', alignItems: 'center', gap: 7,
-            padding: '11px 20px',
-            color: '#1a1a00',
-            fontSize: 14, fontWeight: 700,
-            textDecoration: 'none', letterSpacing: '-0.1px',
-          }}>
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-              <circle cx="6" cy="6" r="5" stroke="#1a1a00" strokeWidth="1.8"/>
-              <path d="M10 10L14 14" stroke="#1a1a00" strokeWidth="1.8" strokeLinecap="round"/>
-            </svg>
-            Discover
-          </a>
-        </NavSquircle>
-
-        <NavSquircle style={{ padding: '9px 22px' }}>
-          <img
-            src={`${import.meta.env.BASE_URL}happenin-logo.png`}
-            alt="Happenin"
-            style={{ height: 22, width: 'auto', display: 'block', filter: 'brightness(1)' }}
-          />
-        </NavSquircle>
-
-        <NavSquircle>
-          <a href="#" style={{
-            display: 'flex', alignItems: 'center', gap: 7,
-            padding: '11px 20px',
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: 14, fontWeight: 500,
-            textDecoration: 'none', letterSpacing: '-0.1px',
-          }}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="5" height="5" rx="1.5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6"/>
-              <rect x="9" y="2" width="5" height="5" rx="1.5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6"/>
-              <rect x="2" y="9" width="5" height="5" rx="1.5" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6"/>
-              <path d="M9 11.5H14M11.5 9V14" stroke="rgba(255,255,255,0.6)" strokeWidth="1.6" strokeLinecap="round"/>
-            </svg>
-            Create Event
-          </a>
-        </NavSquircle>
+      <div style={{
+        pointerEvents: 'all',
+        background: 'rgba(177,216,212,0.16)',
+        borderRadius: 16,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 20,
+        paddingRight: 28,
+      }}>
+        <div style={{
+          background: '#0e2a2c',
+          borderRadius: 16,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 164,
+          height: 61,
+          padding: '16px 24px',
+          flexShrink: 0,
+          overflow: 'hidden',
+        }}>
+          <HappeninLogo />
+        </div>
+        <span style={{
+          color: '#ffffff',
+          fontFamily: 'var(--font)',
+          fontSize: 24,
+          fontWeight: 400,
+          whiteSpace: 'nowrap',
+        }}>
+          Discover
+        </span>
       </div>
 
-      <div style={{ position: 'absolute', right: 32, pointerEvents: 'all', display: 'flex', gap: 8 }}>
-        <NavSquircle>
-          <button style={{
-            background: 'transparent', border: 'none', cursor: 'pointer',
-            padding: '11px 22px',
-            color: 'rgba(255,255,255,0.65)', fontSize: 14, fontWeight: 500,
-            letterSpacing: '-0.1px', fontFamily: 'var(--font)',
-          }}>Sign In</button>
-        </NavSquircle>
-        <NavSquircle style={{ background: 'var(--primary)', border: '1px solid rgba(177,216,212,0.3)' }}>
-          <button style={{
-            background: 'transparent', border: 'none', cursor: 'pointer',
-            padding: '11px 22px',
-            color: '#0C0C0C', fontSize: 14, fontWeight: 700,
-            letterSpacing: '-0.1px', fontFamily: 'var(--font)',
-          }}>Get Started</button>
-        </NavSquircle>
+      <div style={{
+        pointerEvents: 'all',
+        background: '#EBE88A',
+        borderRadius: 20,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10,
+        height: 59,
+        padding: '14px 32px 16px',
+        overflow: 'hidden',
+        cursor: 'pointer',
+      }}>
+        <span style={{
+          color: '#0e2a2c',
+          fontFamily: 'var(--font)',
+          fontSize: 24,
+          fontWeight: 500,
+          whiteSpace: 'nowrap',
+        }}>
+          Login
+        </span>
       </div>
     </div>
   );
@@ -157,60 +152,64 @@ function Navbar() {
 function Hero() {
   return (
     <section style={{
-      padding: '160px 80px 100px',
+      padding: '180px 80px 100px',
       textAlign: 'center',
       position: 'relative',
       overflow: 'hidden',
     }}>
       <div style={{
         position: 'absolute', top: -200, left: '50%', transform: 'translateX(-50%)',
-        width: 800, height: 800,
-        background: 'radial-gradient(circle, rgba(177,216,212,0.08) 0%, transparent 70%)',
+        width: 900, height: 900,
+        background: 'radial-gradient(circle, rgba(177,216,212,0.07) 0%, transparent 65%)',
         pointerEvents: 'none',
       }} />
       <div style={{
         display: 'inline-flex', alignItems: 'center', gap: 8,
-        background: 'var(--primary-dim)', border: '1px solid rgba(177,216,212,0.2)',
-        borderRadius: 'var(--radius-pill)', padding: '6px 16px',
-        marginBottom: 32, fontSize: 13, fontWeight: 500, color: 'var(--primary)',
+        background: 'rgba(177,216,212,0.12)', border: '1px solid rgba(177,216,212,0.2)',
+        borderRadius: 9999, padding: '6px 18px',
+        marginBottom: 36, fontSize: 14, fontWeight: 500, color: '#B1D8D4',
+        fontFamily: 'var(--font)',
       }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--primary)', display: 'inline-block' }} />
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B1D8D4', display: 'inline-block' }} />
         All-in-one event management platform
       </div>
       <h1 style={{
-        fontSize: 72, fontWeight: 900, lineHeight: 1.05, letterSpacing: '-2px',
-        marginBottom: 24, maxWidth: 780, margin: '0 auto 24px',
+        fontSize: 80, fontWeight: 800, lineHeight: 1.0, letterSpacing: '-2.5px',
+        marginBottom: 28, maxWidth: 800, margin: '0 auto 28px',
+        fontFamily: 'var(--font)',
       }}>
         Plan, Manage &<br />
-        <span style={{ color: 'var(--primary)' }}>Make it Happen.</span>
+        <span style={{ color: '#B1D8D4' }}>Make it Happen.</span>
       </h1>
       <p style={{
-        fontSize: 18, color: 'var(--text-secondary)', lineHeight: 1.7,
-        maxWidth: 520, margin: '0 auto 48px', fontWeight: 400,
+        fontSize: 20, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65,
+        maxWidth: 520, margin: '0 auto 52px', fontWeight: 400,
+        fontFamily: 'var(--font)',
       }}>
         Discover events near you, create unforgettable experiences, and connect with your audience — all in one place.
       </p>
       <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 64,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 72,
       }}>
         <button style={{
-          background: 'var(--primary)', color: '#0C0C0C', border: 'none',
-          fontSize: 15, fontWeight: 700, padding: '14px 32px', borderRadius: 'var(--radius-pill)',
-          cursor: 'pointer', letterSpacing: '-0.2px',
+          background: '#B1D8D4', color: '#0a1e1f', border: 'none',
+          fontSize: 17, fontWeight: 700, padding: '16px 36px', borderRadius: 9999,
+          cursor: 'pointer', fontFamily: 'var(--font)',
         }}>Explore Events</button>
         <button style={{
-          background: 'var(--surface)', color: 'var(--text-primary)', border: '1px solid var(--border)',
-          fontSize: 15, fontWeight: 600, padding: '14px 32px', borderRadius: 'var(--radius-pill)',
-          cursor: 'pointer',
+          background: 'rgba(255,255,255,0.07)', color: '#fff',
+          border: '1px solid rgba(255,255,255,0.12)',
+          fontSize: 17, fontWeight: 500, padding: '16px 36px', borderRadius: 9999,
+          cursor: 'pointer', fontFamily: 'var(--font)',
         }}>Create an Event →</button>
       </div>
       <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 48,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 64,
       }}>
         {[['12K+', 'Events Hosted'], ['340K+', 'Tickets Booked'], ['98%', 'Organizer Satisfaction']].map(([num, label]) => (
           <div key={label}>
-            <div style={{ fontSize: 26, fontWeight: 800, color: 'var(--text-primary)' }}>{num}</div>
-            <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>{label}</div>
+            <div style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: 'var(--font)' }}>{num}</div>
+            <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', marginTop: 4, fontFamily: 'var(--font)' }}>{label}</div>
           </div>
         ))}
       </div>
@@ -221,16 +220,17 @@ function Hero() {
 function CategoryBar() {
   return (
     <section style={{ padding: '0 80px 80px' }}>
-      <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-        {CATEGORIES.map(cat => (
+      <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+        {CATEGORIES.map((cat, i) => (
           <button key={cat.label} style={{
-            background: 'var(--surface)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-pill)',
+            background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)',
+            border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`,
+            borderRadius: 12,
             padding: '10px 20px',
             display: 'flex', alignItems: 'center', gap: 8,
-            color: 'var(--text-secondary)', fontSize: 13.5, fontWeight: 500,
-            cursor: 'pointer',
+            color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
+            fontSize: 15, fontWeight: i === 0 ? 600 : 400,
+            cursor: 'pointer', fontFamily: 'var(--font)',
           }}>
             <span>{cat.icon}</span>
             <span>{cat.label}</span>
@@ -244,53 +244,63 @@ function CategoryBar() {
 function EventCard({ event }: { event: typeof FEATURED_EVENTS[0] }) {
   return (
     <div style={{
-      background: 'var(--surface)',
-      border: '1px solid var(--border)',
-      borderRadius: 'var(--radius-lg)',
+      background: 'rgba(255,255,255,0.04)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      borderRadius: 20,
       overflow: 'hidden',
       flex: '1 1 340px',
       maxWidth: 400,
-      transition: 'transform 0.2s, border-color 0.2s',
     }}>
       <div style={{
-        height: 200,
+        height: 210,
         background: event.image,
         position: 'relative',
-        display: 'flex', alignItems: 'flex-start', padding: 16,
+        display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: 16,
       }}>
-        {event.tag && (
+        {event.tag ? (
           <span style={{
-            background: event.tag === 'Featured' ? 'var(--primary)' : 'var(--gold)',
-            color: '#0C0C0C', fontSize: 11, fontWeight: 700,
-            padding: '4px 10px', borderRadius: 'var(--radius-pill)', letterSpacing: '0.5px',
+            background: event.tag === 'Featured' ? '#B1D8D4' : '#EBE88A',
+            color: '#0a1e1f', fontSize: 11, fontWeight: 700,
+            padding: '4px 12px', borderRadius: 9999, letterSpacing: '0.5px',
+            fontFamily: 'var(--font)',
           }}>{event.tag}</span>
-        )}
+        ) : <span />}
+        <button style={{
+          background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '50%', width: 34, height: 34, display: 'flex',
+          alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+          color: 'white', fontSize: 15, flexShrink: 0,
+        }}>♡</button>
         <div style={{
           position: 'absolute', bottom: 16, left: 16,
-          background: 'rgba(12,12,12,0.8)', backdropFilter: 'blur(8px)',
-          borderRadius: 8, padding: '4px 10px',
-          fontSize: 12, color: 'var(--text-secondary)', fontWeight: 500,
+          background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)',
+          borderRadius: 8, padding: '3px 10px',
+          fontSize: 11, color: 'rgba(255,255,255,0.7)', fontWeight: 500,
+          fontFamily: 'var(--font)',
         }}>{event.category}</div>
       </div>
-      <div style={{ padding: '20px 24px 24px' }}>
-        <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 12, lineHeight: 1.3, color: 'var(--text-primary)' }}>
+      <div style={{ padding: '18px 22px 22px' }}>
+        <h3 style={{
+          fontSize: 17, fontWeight: 700, marginBottom: 12, lineHeight: 1.3,
+          color: '#fff', fontFamily: 'var(--font)',
+        }}>
           {event.title}
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 20 }}>
-          <div style={{ fontSize: 13, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 18 }}>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font)' }}>
             <span>📅</span>{event.date} · {event.time}
           </div>
-          <div style={{ fontSize: 13, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font)' }}>
             <span>📍</span>{event.location}
           </div>
         </div>
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          paddingTop: 16, borderTop: '1px solid var(--border)',
+          paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.07)',
         }}>
           <div>
-            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.5px' }}>From</div>
-            <div style={{ fontSize: 16, fontWeight: 700, color: event.price === 'Free' ? 'var(--primary)' : 'var(--text-primary)' }}>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.5px', fontFamily: 'var(--font)' }}>From</div>
+            <div style={{ fontSize: 17, fontWeight: 700, color: '#B1D8D4', fontFamily: 'var(--font)' }}>
               {event.price}
             </div>
           </div>
@@ -298,14 +308,14 @@ function EventCard({ event }: { event: typeof FEATURED_EVENTS[0] }) {
             <div style={{ display: 'flex' }}>
               {[0,1,2].map(i => (
                 <div key={i} style={{
-                  width: 24, height: 24, borderRadius: '50%',
-                  background: `hsl(${i * 40 + 160}, 30%, 40%)`,
-                  border: '2px solid var(--surface)',
-                  marginLeft: i > 0 ? -8 : 0,
+                  width: 26, height: 26, borderRadius: '50%',
+                  background: `hsl(${i * 40 + 160}, 25%, 38%)`,
+                  border: '2px solid rgba(0,0,0,0.4)',
+                  marginLeft: i > 0 ? -9 : 0,
                 }} />
               ))}
             </div>
-            <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{event.attendees}+</span>
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font)' }}>{event.attendees}+</span>
           </div>
         </div>
       </div>
@@ -318,10 +328,10 @@ function FeaturedEvents() {
     <section style={{ padding: '0 80px 100px' }}>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 40 }}>
         <div>
-          <div style={{ fontSize: 12, color: 'var(--primary)', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 8 }}>Happening Now</div>
-          <h2 style={{ fontSize: 40, fontWeight: 800, letterSpacing: '-1px' }}>Featured Events</h2>
+          <div style={{ fontSize: 12, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 10, fontFamily: 'var(--font)' }}>Happening Now</div>
+          <h2 style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-1.5px', fontFamily: 'var(--font)' }}>Featured Events</h2>
         </div>
-        <a href="#" style={{ fontSize: 14, color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>View all events →</a>
+        <a href="#" style={{ fontSize: 15, color: '#B1D8D4', fontWeight: 500, textDecoration: 'none', fontFamily: 'var(--font)' }}>View all events →</a>
       </div>
       <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
         {FEATURED_EVENTS.map(event => <EventCard key={event.id} event={event} />)}
@@ -334,14 +344,14 @@ function HowItWorks() {
   return (
     <section style={{
       margin: '0 80px 100px',
-      background: 'var(--surface)',
-      border: '1px solid var(--border)',
-      borderRadius: 'var(--radius-xl)',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.07)',
+      borderRadius: 28,
       padding: '64px 80px',
     }}>
       <div style={{ textAlign: 'center', marginBottom: 56 }}>
-        <div style={{ fontSize: 12, color: 'var(--primary)', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 8 }}>Simple Process</div>
-        <h2 style={{ fontSize: 40, fontWeight: 800, letterSpacing: '-1px' }}>How Happenin Works</h2>
+        <div style={{ fontSize: 12, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 10, fontFamily: 'var(--font)' }}>Simple Process</div>
+        <h2 style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-1.5px', fontFamily: 'var(--font)' }}>How Happenin Works</h2>
       </div>
       <div style={{ display: 'flex', gap: 48, justifyContent: 'center' }}>
         {STEPS.map((step, i) => (
@@ -349,17 +359,18 @@ function HowItWorks() {
             {i < STEPS.length - 1 && (
               <div style={{
                 position: 'absolute', top: 24, left: 'calc(100% - 0px)', width: 48,
-                height: 1, background: 'var(--border)',
+                height: 1, background: 'rgba(255,255,255,0.07)',
               }} />
             )}
             <div style={{
-              width: 48, height: 48, borderRadius: 'var(--radius-md)',
-              background: 'var(--primary-dim)', border: '1px solid rgba(177,216,212,0.2)',
+              width: 48, height: 48, borderRadius: 14,
+              background: 'rgba(177,216,212,0.1)', border: '1px solid rgba(177,216,212,0.18)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 13, fontWeight: 800, color: 'var(--primary)', marginBottom: 20,
+              fontSize: 13, fontWeight: 800, color: '#B1D8D4', marginBottom: 20,
+              fontFamily: 'var(--font)',
             }}>{step.num}</div>
-            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 10 }}>{step.title}</h3>
-            <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>{step.desc}</p>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 10, fontFamily: 'var(--font)' }}>{step.title}</h3>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, fontFamily: 'var(--font)' }}>{step.desc}</p>
           </div>
         ))}
       </div>
@@ -371,22 +382,14 @@ function Footer() {
   return (
     <footer style={{
       padding: '40px 80px',
-      borderTop: '1px solid var(--border)',
+      borderTop: '1px solid rgba(255,255,255,0.07)',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <div style={{
-          width: 28, height: 28, borderRadius: '50%',
-          background: 'var(--primary)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 13, fontWeight: 800, color: '#0C0C0C',
-        }}>H</div>
-        <span style={{ fontWeight: 700, fontSize: 14, color: 'var(--text-secondary)' }}>Happenin</span>
-      </div>
-      <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>© 2025 Happenin. All rights reserved.</p>
-      <div style={{ display: 'flex', gap: 24 }}>
+      <HappeninLogo />
+      <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font)' }}>© 2025 Happenin. All rights reserved.</p>
+      <div style={{ display: 'flex', gap: 28 }}>
         {['Privacy', 'Terms', 'Contact'].map(l => (
-          <a key={l} href="#" style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none' }}>{l}</a>
+          <a key={l} href="#" style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', textDecoration: 'none', fontFamily: 'var(--font)' }}>{l}</a>
         ))}
       </div>
     </footer>
