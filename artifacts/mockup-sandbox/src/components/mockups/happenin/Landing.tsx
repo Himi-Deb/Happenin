@@ -1,5 +1,7 @@
 import './_group.css';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+
+const F = 'var(--font)';
 
 const CATEGORIES = [
   { icon: '🎵', label: 'Music' },
@@ -13,96 +15,112 @@ const CATEGORIES = [
 ];
 
 const CAROUSEL_SLIDES = [
-  {
-    id: 1,
-    title: 'Neon Pulse Music Festival',
-    date: 'Sat, 14 Jun 2025 · 6:00 PM',
-    location: 'Rooftop Arena, London',
-    category: 'Music',
-    tag: 'Featured',
-    bg: 'linear-gradient(135deg, #0d0221 0%, #150a3a 30%, #1e0e52 55%, #0a1628 100%)',
-    accent: '#B1D8D4',
-  },
-  {
-    id: 2,
-    title: 'Digital Art & Design Summit',
-    date: 'Fri, 20 Jun 2025 · 10:00 AM',
-    location: 'East Wing Gallery, Berlin',
-    category: 'Art',
-    tag: 'Trending',
-    bg: 'linear-gradient(135deg, #051e1a 0%, #082f28 35%, #0a3d32 60%, #051410 100%)',
-    accent: '#EBE88A',
-  },
-  {
-    id: 3,
-    title: 'Startup Founders Meetup',
-    date: 'Thu, 26 Jun 2025 · 7:00 PM',
-    location: 'Tech Hub, Amsterdam',
-    category: 'Business',
-    tag: '',
-    bg: 'linear-gradient(135deg, #1a0d00 0%, #2e1a05 35%, #3d2408 60%, #1a0d00 100%)',
-    accent: '#EBE88A',
-  },
-  {
-    id: 4,
-    title: 'Global Street Food Festival',
-    date: 'Sun, 6 Jul 2025 · 12:00 PM',
-    location: 'Victoria Park, Melbourne',
-    category: 'Food',
-    tag: 'Hot',
-    bg: 'linear-gradient(135deg, #1a0505 0%, #2e0c0c 35%, #3d1010 60%, #1a0505 100%)',
-    accent: '#EBE88A',
-  },
-  {
-    id: 5,
-    title: 'Championship Gaming League',
-    date: 'Fri, 11 Jul 2025 · 3:00 PM',
-    location: 'Esports Arena, Seoul',
-    category: 'Gaming',
-    tag: 'New',
-    bg: 'linear-gradient(135deg, #000d1a 0%, #001428 35%, #001f3d 60%, #000d1a 100%)',
-    accent: '#B1D8D4',
-  },
+  { id: 1, title: 'Neon Pulse Music Festival', date: 'Sat, 14 Jun 2025 · 6:00 PM', location: 'Rooftop Arena, London', category: 'Music', tag: 'Featured', bg: 'linear-gradient(135deg, #0d0221 0%, #150a3a 30%, #1e0e52 55%, #0a1628 100%)', accent: '#B1D8D4' },
+  { id: 2, title: 'Digital Art & Design Summit', date: 'Fri, 20 Jun 2025 · 10:00 AM', location: 'East Wing Gallery, Berlin', category: 'Art', tag: 'Trending', bg: 'linear-gradient(135deg, #051e1a 0%, #082f28 35%, #0a3d32 60%, #051410 100%)', accent: '#EBE88A' },
+  { id: 3, title: 'Startup Founders Meetup', date: 'Thu, 26 Jun 2025 · 7:00 PM', location: 'Tech Hub, Amsterdam', category: 'Business', tag: '', bg: 'linear-gradient(135deg, #1a0d00 0%, #2e1a05 35%, #3d2408 60%, #1a0d00 100%)', accent: '#EBE88A' },
+  { id: 4, title: 'Global Street Food Festival', date: 'Sun, 6 Jul 2025 · 12:00 PM', location: 'Victoria Park, Melbourne', category: 'Food', tag: 'Hot', bg: 'linear-gradient(135deg, #1a0505 0%, #2e0c0c 35%, #3d1010 60%, #1a0505 100%)', accent: '#EBE88A' },
+  { id: 5, title: 'Championship Gaming League', date: 'Fri, 11 Jul 2025 · 3:00 PM', location: 'Esports Arena, Seoul', category: 'Gaming', tag: 'New', bg: 'linear-gradient(135deg, #000d1a 0%, #001428 35%, #001f3d 60%, #000d1a 100%)', accent: '#B1D8D4' },
 ];
 
-const FEATURED_EVENTS = [
-  {
-    id: 1,
-    title: 'Neon Pulse Music Festival',
+type EventItem = {
+  id: number; title: string; date: string; time: string;
+  location: string; category: string; price: string;
+  image: string; tag: string; attendees: number;
+};
+
+function makeEvents(overrides: Partial<EventItem>[], base: Partial<EventItem> = {}): EventItem[] {
+  const palettes = [
+    'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+    'linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #243447 100%)',
+    'linear-gradient(135deg, #0a1628 0%, #0e2240 50%, #132d55 100%)',
+    'linear-gradient(135deg, #1a0d00 0%, #2e1a05 50%, #3d2408 100%)',
+    'linear-gradient(135deg, #051e1a 0%, #082f28 50%, #0a3d32 100%)',
+    'linear-gradient(135deg, #1a0505 0%, #2e0c0c 50%, #3d1010 100%)',
+    'linear-gradient(135deg, #0d0221 0%, #150a3a 50%, #1e0e52 100%)',
+    'linear-gradient(135deg, #000d1a 0%, #001428 50%, #001f3d 100%)',
+    'linear-gradient(135deg, #0f1a10 0%, #1a2e1b 50%, #243d25 100%)',
+    'linear-gradient(135deg, #1a1205 0%, #2e200a 50%, #3d2d0f 100%)',
+  ];
+  return overrides.map((o, i) => ({
+    id: i + 1,
+    title: 'Event Title',
     date: 'Sat, 14 Jun 2025',
     time: '6:00 PM',
-    location: 'Rooftop Arena, London',
+    location: 'Venue, City',
     category: 'Music',
     price: 'Free',
-    image: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-    tag: 'Featured',
-    attendees: 842,
-  },
-  {
-    id: 2,
-    title: 'Digital Art & Design Summit',
-    date: 'Fri, 20 Jun 2025',
-    time: '10:00 AM',
-    location: 'East Wing Gallery, Berlin',
-    category: 'Art',
-    price: 'Free',
-    image: 'linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #243447 100%)',
-    tag: 'Trending',
-    attendees: 320,
-  },
-  {
-    id: 3,
-    title: 'Startup Founders Meetup',
-    date: 'Thu, 26 Jun 2025',
-    time: '7:00 PM',
-    location: 'Tech Hub, Amsterdam',
-    category: 'Business',
-    price: 'Free',
-    image: 'linear-gradient(135deg, #0a1628 0%, #0e2240 50%, #132d55 100%)',
+    image: palettes[i % palettes.length],
     tag: '',
-    attendees: 178,
-  },
-];
+    attendees: 100 + i * 47,
+    ...base,
+    ...o,
+  }));
+}
+
+const FEATURED_EVENTS = makeEvents([
+  { title: 'Neon Pulse Music Festival', date: 'Sat, 14 Jun 2025', time: '6:00 PM', location: 'Rooftop Arena, London', category: 'Music', price: 'Free', tag: 'Featured', attendees: 842 },
+  { title: 'Digital Art & Design Summit', date: 'Fri, 20 Jun 2025', time: '10:00 AM', location: 'East Wing Gallery, Berlin', category: 'Art', price: 'Free', tag: 'Trending', attendees: 320 },
+  { title: 'Startup Founders Meetup', date: 'Thu, 26 Jun 2025', time: '7:00 PM', location: 'Tech Hub, Amsterdam', category: 'Business', price: 'Free', tag: '', attendees: 178 },
+  { title: 'Global Street Food Festival', date: 'Sun, 6 Jul 2025', time: '12:00 PM', location: 'Victoria Park, Melbourne', category: 'Food', price: '£12', tag: 'Hot', attendees: 1240 },
+  { title: 'Theatre Night: Hamlet Redux', date: 'Fri, 27 Jun 2025', time: '8:00 PM', location: 'Royal Exchange, Manchester', category: 'Theatre', price: '£25', tag: '', attendees: 390 },
+  { title: 'Championship Gaming League', date: 'Fri, 11 Jul 2025', time: '3:00 PM', location: 'Esports Arena, Seoul', category: 'Gaming', price: 'Free', tag: 'New', attendees: 2100 },
+  { title: 'Wellness & Yoga Retreat', date: 'Sat, 5 Jul 2025', time: '9:00 AM', location: 'Kew Gardens, London', category: 'Sports', price: '£40', tag: '', attendees: 210 },
+  { title: 'Jazz Under the Stars', date: 'Wed, 9 Jul 2025', time: '7:30 PM', location: 'Harbour Park, Sydney', category: 'Music', price: '£18', tag: '', attendees: 560 },
+  { title: 'Python & AI Bootcamp', date: 'Mon, 30 Jun 2025', time: '10:00 AM', location: 'Code Space, Toronto', category: 'Education', price: '£60', tag: '', attendees: 145 },
+  { title: 'Craft Beer Festival', date: 'Sat, 19 Jul 2025', time: '2:00 PM', location: 'Battersea, London', category: 'Food', price: '£20', tag: '', attendees: 870 },
+]);
+
+const TODAY_EVENTS = makeEvents([
+  { title: 'Morning Yoga Flow', time: '8:00 AM', location: 'Hyde Park, London', category: 'Sports', price: 'Free', attendees: 80 },
+  { title: 'Indie Art Pop-up', time: '10:00 AM', location: 'Shoreditch, London', category: 'Art', price: 'Free', attendees: 130 },
+  { title: 'Lunchtime Jazz', time: '12:30 PM', location: 'Soho Square, London', category: 'Music', price: 'Free', attendees: 200 },
+  { title: 'Startup Pitch Hour', time: '2:00 PM', location: 'WeWork, Canary Wharf', category: 'Business', price: 'Free', attendees: 95 },
+  { title: 'Afternoon Photography Walk', time: '3:30 PM', location: 'South Bank, London', category: 'Art', price: 'Free', attendees: 55 },
+  { title: 'Street Food Market', time: '5:00 PM', location: 'Borough Market, London', category: 'Food', price: 'Free', attendees: 640 },
+  { title: 'Comedy Night Open Mic', time: '7:00 PM', location: 'The Comedy Store, London', category: 'Theatre', price: '£10', attendees: 180 },
+  { title: 'Rooftop DJ Set', time: '8:30 PM', location: 'Brixton, London', category: 'Music', price: '£15', attendees: 310 },
+  { title: 'Pub Quiz Night', time: '8:00 PM', location: 'The Crown, Islington', category: 'Education', price: '£5', attendees: 120 },
+  { title: 'Late Night Cinema Screening', time: '10:00 PM', location: 'BFI Southbank, London', category: 'Theatre', price: '£12', attendees: 220 },
+]);
+
+const FRESH_EVENTS = makeEvents([
+  { title: 'AR & VR Expo 2025', date: 'Sat, 26 Jul 2025', time: '10:00 AM', location: 'ExCeL London', category: 'Education', price: '£35', tag: 'New', attendees: 1800 },
+  { title: 'Salsa & Bachata Social', date: 'Fri, 18 Jul 2025', time: '8:00 PM', location: 'Dance Fusion, Bristol', category: 'Theatre', price: '£8', tag: 'New', attendees: 145 },
+  { title: 'Sustainable Fashion Show', date: 'Sun, 20 Jul 2025', time: '3:00 PM', location: 'Tate Modern, London', category: 'Art', price: 'Free', tag: 'New', attendees: 420 },
+  { title: 'Triathlon Championship', date: 'Sat, 12 Jul 2025', time: '7:00 AM', location: 'Hyde Park, London', category: 'Sports', price: '£80', tag: 'New', attendees: 300 },
+  { title: 'Night Market: Asia Edition', date: 'Sat, 19 Jul 2025', time: '5:00 PM', location: 'Spitalfields, London', category: 'Food', price: 'Free', tag: 'New', attendees: 950 },
+  { title: 'Web3 Builders Summit', date: 'Thu, 24 Jul 2025', time: '9:00 AM', location: 'Canary Wharf, London', category: 'Business', price: '£120', tag: 'New', attendees: 600 },
+  { title: 'Classical Piano Recital', date: 'Wed, 16 Jul 2025', time: '7:30 PM', location: 'Wigmore Hall, London', category: 'Music', price: '£30', tag: 'New', attendees: 250 },
+  { title: 'Mindfulness Meditation Day', date: 'Sun, 13 Jul 2025', time: '10:00 AM', location: 'Battersea Park, London', category: 'Sports', price: '£20', tag: 'New', attendees: 110 },
+  { title: 'Graphic Novel Workshop', date: 'Sat, 5 Jul 2025', time: '2:00 PM', location: 'Foyles, Charing Cross', category: 'Art', price: '£15', tag: 'New', attendees: 60 },
+  { title: 'Fintech Innovation Forum', date: 'Tue, 22 Jul 2025', time: '9:00 AM', location: 'Level39, London', category: 'Business', price: '£90', tag: 'New', attendees: 480 },
+]);
+
+const CONCERT_EVENTS = makeEvents([
+  { title: 'Arctic Monkeys: World Tour', date: 'Sat, 2 Aug 2025', time: '7:00 PM', location: 'Wembley Stadium, London', category: 'Music', price: '£85', tag: 'Popular', attendees: 85000 },
+  { title: 'Dua Lipa: Future Nostalgia', date: 'Fri, 25 Jul 2025', time: '8:00 PM', location: 'O2 Arena, London', category: 'Music', price: '£70', tag: 'Hot', attendees: 20000 },
+  { title: 'Coldplay: Music of the Spheres', date: 'Sun, 27 Jul 2025', time: '7:30 PM', location: 'Emirates Stadium, London', category: 'Music', price: '£95', tag: 'Popular', attendees: 60000 },
+  { title: 'The Weeknd: After Hours Tour', date: 'Thu, 31 Jul 2025', time: '9:00 PM', location: 'Tottenham Stadium, London', category: 'Music', price: '£75', tag: '', attendees: 35000 },
+  { title: 'Blur: Special Edition Show', date: 'Sat, 9 Aug 2025', time: '7:00 PM', location: 'Hyde Park, London', category: 'Music', price: '£60', tag: '', attendees: 25000 },
+  { title: 'Billie Eilish: Hit Me Hard', date: 'Wed, 6 Aug 2025', time: '8:00 PM', location: 'Alexandra Palace, London', category: 'Music', price: '£55', tag: '', attendees: 10000 },
+  { title: 'Jungle: Electronic Night', date: 'Fri, 1 Aug 2025', time: '10:00 PM', location: 'Fabric, London', category: 'Music', price: '£25', tag: '', attendees: 1800 },
+  { title: 'London Symphony Orchestra', date: 'Sun, 3 Aug 2025', time: '6:00 PM', location: 'Royal Albert Hall', category: 'Music', price: '£45', tag: '', attendees: 5000 },
+  { title: 'Glass Animals: Live Show', date: 'Sat, 16 Aug 2025', time: '8:30 PM', location: 'Eventim Apollo, London', category: 'Music', price: '£40', tag: '', attendees: 3500 },
+  { title: 'Frank Ocean: Rare Appearance', date: 'Fri, 22 Aug 2025', time: '9:00 PM', location: 'Brixton Academy, London', category: 'Music', price: '£110', tag: 'Hot', attendees: 4900 },
+]);
+
+const SPORTS_EVENTS = makeEvents([
+  { title: 'Premier League: Arsenal vs Chelsea', date: 'Sat, 5 Jul 2025', time: '3:00 PM', location: 'Emirates Stadium, London', category: 'Sports', price: '£65', tag: 'Hot', attendees: 60000 },
+  { title: 'Wimbledon Men\'s Final', date: 'Sun, 13 Jul 2025', time: '2:00 PM', location: 'All England Club, London', category: 'Sports', price: '£200', tag: 'Popular', attendees: 15000 },
+  { title: 'London Marathon 2025', date: 'Sun, 27 Jul 2025', time: '9:00 AM', location: 'Greenwich Park, London', category: 'Sports', price: '£50', tag: '', attendees: 42000 },
+  { title: 'UFC Fight Night London', date: 'Sat, 19 Jul 2025', time: '6:00 PM', location: 'O2 Arena, London', category: 'Sports', price: '£90', tag: 'Hot', attendees: 20000 },
+  { title: 'British Grand Prix', date: 'Sun, 6 Jul 2025', time: '3:00 PM', location: 'Silverstone Circuit', category: 'Sports', price: '£150', tag: 'Popular', attendees: 140000 },
+  { title: 'CrossFit Open Championship', date: 'Sat, 12 Jul 2025', time: '10:00 AM', location: 'Excel London', category: 'Sports', price: '£25', tag: '', attendees: 3000 },
+  { title: '5K City Run Challenge', date: 'Sat, 19 Jul 2025', time: '8:00 AM', location: 'Victoria Park, London', category: 'Sports', price: '£15', tag: '', attendees: 1500 },
+  { title: 'Basketball: London Lions vs Brighton', date: 'Fri, 18 Jul 2025', time: '7:30 PM', location: 'Crystal Palace NSC', category: 'Sports', price: '£20', tag: '', attendees: 4000 },
+  { title: 'Triathlon Open Water Swim', date: 'Sun, 20 Jul 2025', time: '7:00 AM', location: 'Serpentine, Hyde Park', category: 'Sports', price: '£35', tag: '', attendees: 800 },
+  { title: 'Rock Climbing Competition', date: 'Sat, 26 Jul 2025', time: '11:00 AM', location: 'The Climbing Hangar, London', category: 'Sports', price: '£18', tag: '', attendees: 350 },
+]);
 
 const STEPS = [
   { num: '01', title: 'Create Your Event', desc: 'Set up your event in minutes with our guided multi-step creator. Add tickets, agenda and team.' },
@@ -129,76 +147,15 @@ function HappeninLogo() {
 
 function Navbar() {
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 100,
-      display: 'flex',
-      alignItems: 'flex-start',
-      justifyContent: 'space-between',
-      padding: '32px 56px 0',
-      pointerEvents: 'none',
-    }}>
-      <div style={{
-        pointerEvents: 'all',
-        background: 'rgba(177,216,212,0.16)',
-        borderRadius: 16,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 20,
-        paddingRight: 28,
-      }}>
-        <div style={{
-          background: '#0e2a2c',
-          borderRadius: 16,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 164,
-          height: 61,
-          padding: '16px 24px',
-          flexShrink: 0,
-          overflow: 'hidden',
-        }}>
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
+      <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.16)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28 }}>
+        <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
           <HappeninLogo />
         </div>
-        <span style={{
-          color: '#ffffff',
-          fontFamily: 'var(--font)',
-          fontSize: 18,
-          fontWeight: 400,
-          whiteSpace: 'nowrap',
-        }}>
-          Discover
-        </span>
+        <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Discover</span>
       </div>
-
-      <div style={{
-        pointerEvents: 'all',
-        background: '#EBE88A',
-        borderRadius: 9999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 52,
-        padding: '0 32px',
-        cursor: 'pointer',
-        flexShrink: 0,
-      }}>
-        <span style={{
-          color: '#0e2a2c',
-          fontFamily: 'var(--font)',
-          fontSize: 18,
-          fontWeight: 600,
-          whiteSpace: 'nowrap',
-          textTransform: 'uppercase',
-          letterSpacing: '1px',
-          lineHeight: 1,
-        }}>
-          LOGIN
-        </span>
+      <div style={{ pointerEvents: 'all', background: '#EBE88A', borderRadius: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52, padding: '0 32px', cursor: 'pointer', flexShrink: 0 }}>
+        <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 18, fontWeight: 600, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>LOGIN</span>
       </div>
     </div>
   );
@@ -227,192 +184,43 @@ function HeroCarousel() {
   const slide = CAROUSEL_SLIDES[current];
 
   return (
-    <section style={{
-      position: 'relative',
-      width: '100%',
-      aspectRatio: '1920 / 1280',
-      overflow: 'hidden',
-      background: '#000',
-    }}>
+    <section style={{ position: 'relative', width: '100%', aspectRatio: '1920 / 1280', overflow: 'hidden', background: '#000' }}>
       {CAROUSEL_SLIDES.map((s, i) => (
-        <div
-          key={s.id}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: s.bg,
-            opacity: i === current ? 1 : 0,
-            transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)',
-            pointerEvents: 'none',
-          }}
-        >
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.04) 0%, transparent 60%)',
-          }} />
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `
-              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.015) 1px, transparent 1px),
-              radial-gradient(circle at 60% 70%, rgba(255,255,255,0.01) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px, 120px 120px',
-          }} />
+        <div key={s.id} style={{ position: 'absolute', inset: 0, background: s.bg, opacity: i === current ? 1 : 0, transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)', pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.04) 0%, transparent 60%)' }} />
         </div>
       ))}
-
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.1) 65%, transparent 100%)',
-        pointerEvents: 'none',
-        zIndex: 2,
-      }} />
-
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        padding: '0 72px 56px',
-        zIndex: 3,
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'space-between',
-        gap: 40,
-      }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.1) 65%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 72px 56px', zIndex: 3, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 40 }}>
         <div style={{ flex: 1, maxWidth: 720 }}>
           {slide.tag && (
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              background: slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.15)' : 'rgba(177,216,212,0.15)',
-              border: `1px solid ${slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.35)' : 'rgba(177,216,212,0.35)'}`,
-              borderRadius: 9999,
-              padding: '5px 14px',
-              marginBottom: 16,
-            }}>
-              <span style={{
-                width: 6, height: 6, borderRadius: '50%',
-                background: slide.accent, display: 'inline-block', flexShrink: 0,
-              }} />
-              <span style={{
-                color: slide.accent,
-                fontFamily: 'var(--font)',
-                fontSize: 12,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-              }}>{slide.tag} · {slide.category}</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.15)' : 'rgba(177,216,212,0.15)', border: `1px solid ${slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.35)' : 'rgba(177,216,212,0.35)'}`, borderRadius: 9999, padding: '5px 14px', marginBottom: 16 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: slide.accent, display: 'inline-block', flexShrink: 0 }} />
+              <span style={{ color: slide.accent, fontFamily: F, fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{slide.tag} · {slide.category}</span>
             </div>
           )}
-
-          <h1 style={{
-            fontFamily: 'var(--font)',
-            fontSize: 68,
-            fontWeight: 800,
-            lineHeight: 1.0,
-            letterSpacing: '-2px',
-            color: '#ffffff',
-            margin: '0 0 20px',
-          }}>
-            {slide.title}
-          </h1>
-
+          <h1 style={{ fontFamily: F, fontSize: 68, fontWeight: 800, lineHeight: 1.0, letterSpacing: '-2px', color: '#fff', margin: '0 0 20px' }}>{slide.title}</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16, opacity: 0.6 }}>📅</span>
-              <span style={{
-                fontFamily: 'var(--font)',
-                fontSize: 16,
-                fontWeight: 400,
-                color: 'rgba(255,255,255,0.7)',
-              }}>{slide.date}</span>
+              <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.7)' }}>{slide.date}</span>
             </div>
-            <div style={{
-              width: 4, height: 4, borderRadius: '50%',
-              background: 'rgba(255,255,255,0.3)',
-            }} />
+            <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.3)' }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16, opacity: 0.6 }}>📍</span>
-              <span style={{
-                fontFamily: 'var(--font)',
-                fontSize: 16,
-                fontWeight: 400,
-                color: 'rgba(255,255,255,0.7)',
-              }}>{slide.location}</span>
+              <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.7)' }}>{slide.location}</span>
             </div>
           </div>
         </div>
-
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-          gap: 20,
-          flexShrink: 0,
-        }}>
-          <div style={{
-            fontFamily: 'var(--font)',
-            fontSize: 13,
-            color: 'rgba(255,255,255,0.35)',
-            letterSpacing: '1px',
-          }}>
-            {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </div>
-
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 20, flexShrink: 0 }}>
+          <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.35)', letterSpacing: '1px' }}>{String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</div>
           <div style={{ display: 'flex', gap: 10 }}>
-            <button
-              onClick={prev}
-              style={{
-                width: 48, height: 48,
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(255,255,255,0.15)',
-                color: '#fff',
-                fontSize: 18,
-                cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: 'var(--font)',
-                transition: 'background 0.2s',
-              }}
-            >←</button>
-            <button
-              onClick={next}
-              style={{
-                width: 48, height: 48,
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.12)',
-                border: '1px solid rgba(255,255,255,0.2)',
-                color: '#fff',
-                fontSize: 18,
-                cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: 'var(--font)',
-                transition: 'background 0.2s',
-              }}
-            >→</button>
+            <button onClick={prev} style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>←</button>
+            <button onClick={next} style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>→</button>
           </div>
-
           <div style={{ display: 'flex', gap: 6 }}>
             {CAROUSEL_SLIDES.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                style={{
-                  width: i === current ? 24 : 6,
-                  height: 6,
-                  borderRadius: 9999,
-                  background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
-                  transition: 'all 0.3s ease',
-                }}
-              />
+              <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? 24 : 6, height: 6, borderRadius: 9999, background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s ease' }} />
             ))}
           </div>
         </div>
@@ -423,22 +231,11 @@ function HeroCarousel() {
 
 function CategoryBar() {
   return (
-    <section style={{ padding: '32px 72px', background: '#000' }}>
+    <section style={{ padding: '48px 72px 32px', background: '#000' }}>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
         {CATEGORIES.map((cat, i) => (
-          <button key={cat.label} style={{
-            background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)',
-            border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`,
-            borderRadius: 12,
-            padding: '10px 20px',
-            display: 'flex', alignItems: 'center', gap: 8,
-            color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
-            fontSize: 14, fontWeight: 600,
-            cursor: 'pointer', fontFamily: 'var(--font)',
-            textTransform: 'uppercase', letterSpacing: '0.5px',
-          }}>
-            <span>{cat.icon}</span>
-            <span>{cat.label}</span>
+          <button key={cat.label} style={{ background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 12, padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8, color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <span>{cat.icon}</span><span>{cat.label}</span>
           </button>
         ))}
       </div>
@@ -446,81 +243,32 @@ function CategoryBar() {
   );
 }
 
-function EventCard({ event }: { event: typeof FEATURED_EVENTS[0] }) {
+function EventCard({ event }: { event: EventItem }) {
   return (
-    <div style={{
-      background: 'rgba(255,255,255,0.04)',
-      border: '1px solid rgba(255,255,255,0.08)',
-      borderRadius: 20,
-      overflow: 'hidden',
-      flex: '1 1 340px',
-      maxWidth: 400,
-    }}>
-      <div style={{
-        height: 210,
-        background: event.image,
-        position: 'relative',
-        display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: 16,
-      }}>
+    <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, overflow: 'hidden', width: 320, flexShrink: 0 }}>
+      <div style={{ height: 200, background: event.image, position: 'relative', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: 14 }}>
         {event.tag ? (
-          <span style={{
-            background: event.tag === 'Featured' ? '#B1D8D4' : '#EBE88A',
-            color: '#0a1e1f', fontSize: 11, fontWeight: 700,
-            padding: '4px 12px', borderRadius: 9999, letterSpacing: '0.5px',
-            fontFamily: 'var(--font)', textTransform: 'uppercase',
-          }}>{event.tag}</span>
+          <span style={{ background: event.tag === 'Featured' || event.tag === 'Popular' ? '#B1D8D4' : '#EBE88A', color: '#0a1e1f', fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 9999, letterSpacing: '0.5px', fontFamily: F, textTransform: 'uppercase' }}>{event.tag}</span>
         ) : <span />}
-        <button style={{
-          background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: '50%', width: 34, height: 34, display: 'flex',
-          alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-          color: 'white', fontSize: 15, flexShrink: 0,
-        }}>♡</button>
-        <div style={{
-          position: 'absolute', bottom: 16, left: 16,
-          background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)',
-          borderRadius: 8, padding: '3px 10px',
-          fontSize: 11, color: 'rgba(255,255,255,0.7)', fontWeight: 500,
-          fontFamily: 'var(--font)',
-        }}>{event.category}</div>
+        <button style={{ background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'white', fontSize: 14, flexShrink: 0 }}>♡</button>
+        <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)', borderRadius: 8, padding: '2px 8px', fontSize: 10, color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontFamily: F }}>{event.category}</div>
       </div>
-      <div style={{ padding: '18px 22px 22px' }}>
-        <h3 style={{
-          fontSize: 17, fontWeight: 700, marginBottom: 12, lineHeight: 1.3,
-          color: '#fff', fontFamily: 'var(--font)',
-        }}>
-          {event.title}
-        </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 18 }}>
-          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font)' }}>
-            <span>📅</span>{event.date} · {event.time}
-          </div>
-          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font)' }}>
-            <span>📍</span>{event.location}
-          </div>
+      <div style={{ padding: '16px 18px 18px' }}>
+        <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 10, lineHeight: 1.3, color: '#fff', fontFamily: F }}>{event.title}</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 14 }}>
+          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 5, fontFamily: F }}><span>📅</span>{event.date} · {event.time}</div>
+          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 5, fontFamily: F }}><span>📍</span>{event.location}</div>
         </div>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.07)',
-        }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.07)' }}>
           <div>
-            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.5px', fontFamily: 'var(--font)' }}>From</div>
-            <div style={{ fontSize: 17, fontWeight: 700, color: '#B1D8D4', fontFamily: 'var(--font)' }}>
-              {event.price}
-            </div>
+            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.5px', fontFamily: F }}>From</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#B1D8D4', fontFamily: F }}>{event.price}</div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             <div style={{ display: 'flex' }}>
-              {[0,1,2].map(i => (
-                <div key={i} style={{
-                  width: 26, height: 26, borderRadius: '50%',
-                  background: `hsl(${i * 40 + 160}, 25%, 38%)`,
-                  border: '2px solid rgba(0,0,0,0.4)',
-                  marginLeft: i > 0 ? -9 : 0,
-                }} />
-              ))}
+              {[0,1,2].map(i => (<div key={i} style={{ width: 22, height: 22, borderRadius: '50%', background: `hsl(${i * 40 + 160}, 25%, 38%)`, border: '2px solid rgba(0,0,0,0.4)', marginLeft: i > 0 ? -8 : 0 }} />))}
             </div>
-            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font)' }}>{event.attendees}+</span>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontFamily: F }}>{event.attendees}+</span>
           </div>
         </div>
       </div>
@@ -528,54 +276,69 @@ function EventCard({ event }: { event: typeof FEATURED_EVENTS[0] }) {
   );
 }
 
-function FeaturedEvents() {
+function ViewMoreCard() {
   return (
-    <section style={{ padding: '80px 72px 100px' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 40 }}>
-        <div>
-          <div style={{ fontSize: 12, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 10, fontFamily: 'var(--font)' }}>Happening Now</div>
-          <h2 style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-1.5px', fontFamily: 'var(--font)' }}>Featured Events</h2>
-        </div>
-        <a href="#" style={{ fontSize: 15, color: '#B1D8D4', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>VIEW ALL EVENTS →</a>
+    <div style={{ width: 280, flexShrink: 0, borderRadius: 20, border: '1px dashed rgba(177,216,212,0.25)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, cursor: 'pointer', padding: '40px 24px', background: 'rgba(177,216,212,0.03)' }}>
+      <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(177,216,212,0.1)', border: '1px solid rgba(177,216,212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>→</div>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontFamily: F, fontSize: 15, fontWeight: 700, color: '#B1D8D4', marginBottom: 6 }}>VIEW MORE</div>
+        <div style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>Explore all events</div>
       </div>
-      <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-        {FEATURED_EVENTS.map(event => <EventCard key={event.id} event={event} />)}
+    </div>
+  );
+}
+
+function SectionHeader({ label, title, link }: { label: string; title: string; link: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 28, paddingRight: 72 }}>
+      <div>
+        <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 8, fontFamily: F }}>{label}</div>
+        <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-1px', fontFamily: F, margin: 0 }}>{title}</h2>
       </div>
+      <a href="#" style={{ fontSize: 13, color: '#B1D8D4', fontWeight: 600, textDecoration: 'none', fontFamily: F, textTransform: 'uppercase', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>{link} →</a>
+    </div>
+  );
+}
+
+function HScrollRow({ events, showViewMore = false }: { events: EventItem[]; showViewMore?: boolean }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  return (
+    <div style={{ position: 'relative' }}>
+      <div
+        ref={scrollRef}
+        style={{ display: 'flex', gap: 20, overflowX: 'auto', paddingBottom: 12, scrollbarWidth: 'none' }}
+      >
+        <style>{`.happenin-hscroll::-webkit-scrollbar { display: none; }`}</style>
+        {events.map(event => <EventCard key={event.id} event={event} />)}
+        {showViewMore && <ViewMoreCard />}
+      </div>
+    </div>
+  );
+}
+
+function EventSection({ label, title, link, events, showViewMore = false }: { label: string; title: string; link: string; events: EventItem[]; showViewMore?: boolean }) {
+  return (
+    <section style={{ padding: '0 0 72px', paddingLeft: 72 }}>
+      <SectionHeader label={label} title={title} link={link} />
+      <HScrollRow events={events} showViewMore={showViewMore} />
     </section>
   );
 }
 
 function HowItWorks() {
   return (
-    <section style={{
-      margin: '0 72px 100px',
-      background: 'rgba(255,255,255,0.03)',
-      border: '1px solid rgba(255,255,255,0.07)',
-      borderRadius: 28,
-      padding: '64px 80px',
-    }}>
+    <section style={{ margin: '0 72px 100px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 28, padding: '64px 80px' }}>
       <div style={{ textAlign: 'center', marginBottom: 56 }}>
-        <div style={{ fontSize: 12, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 10, fontFamily: 'var(--font)' }}>Simple Process</div>
-        <h2 style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-1.5px', fontFamily: 'var(--font)' }}>How Happenin Works</h2>
+        <div style={{ fontSize: 12, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 10, fontFamily: F }}>Simple Process</div>
+        <h2 style={{ fontSize: 42, fontWeight: 800, letterSpacing: '-1.5px', fontFamily: F }}>How Happenin Works</h2>
       </div>
       <div style={{ display: 'flex', gap: 48, justifyContent: 'center' }}>
         {STEPS.map((step, i) => (
           <div key={step.num} style={{ flex: 1, maxWidth: 280, position: 'relative' }}>
-            {i < STEPS.length - 1 && (
-              <div style={{
-                position: 'absolute', top: 24, left: 'calc(100% - 0px)', width: 48,
-                height: 1, background: 'rgba(255,255,255,0.07)',
-              }} />
-            )}
-            <div style={{
-              width: 48, height: 48, borderRadius: 14,
-              background: 'rgba(177,216,212,0.1)', border: '1px solid rgba(177,216,212,0.18)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 13, fontWeight: 800, color: '#B1D8D4', marginBottom: 20,
-              fontFamily: 'var(--font)',
-            }}>{step.num}</div>
-            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 10, fontFamily: 'var(--font)' }}>{step.title}</h3>
-            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, fontFamily: 'var(--font)' }}>{step.desc}</p>
+            {i < STEPS.length - 1 && <div style={{ position: 'absolute', top: 24, left: 'calc(100%)', width: 48, height: 1, background: 'rgba(255,255,255,0.07)' }} />}
+            <div style={{ width: 48, height: 48, borderRadius: 14, background: 'rgba(177,216,212,0.1)', border: '1px solid rgba(177,216,212,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#B1D8D4', marginBottom: 20, fontFamily: F }}>{step.num}</div>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 10, fontFamily: F }}>{step.title}</h3>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, fontFamily: F }}>{step.desc}</p>
           </div>
         ))}
       </div>
@@ -585,16 +348,12 @@ function HowItWorks() {
 
 function Footer() {
   return (
-    <footer style={{
-      padding: '40px 72px',
-      borderTop: '1px solid rgba(255,255,255,0.07)',
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    }}>
+    <footer style={{ padding: '40px 72px', borderTop: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <HappeninLogo />
-      <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font)' }}>© 2025 Happenin. All rights reserved.</p>
+      <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontFamily: F }}>© 2025 Happenin. All rights reserved.</p>
       <div style={{ display: 'flex', gap: 28 }}>
         {['Privacy', 'Terms', 'Contact'].map(l => (
-          <a key={l} href="#" style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', textDecoration: 'none', fontFamily: 'var(--font)' }}>{l}</a>
+          <a key={l} href="#" style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', textDecoration: 'none', fontFamily: F }}>{l}</a>
         ))}
       </div>
     </footer>
@@ -607,7 +366,14 @@ export function Landing() {
       <Navbar />
       <HeroCarousel />
       <CategoryBar />
-      <FeaturedEvents />
+      <section style={{ padding: '48px 0 72px', paddingLeft: 72 }}>
+        <SectionHeader label="Happening Now" title="Featured Events" link="VIEW ALL" />
+        <HScrollRow events={FEATURED_EVENTS} showViewMore />
+      </section>
+      <EventSection label="Today Only" title="Happening Today" link="VIEW TODAY" events={TODAY_EVENTS} showViewMore />
+      <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={FRESH_EVENTS} showViewMore />
+      <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={CONCERT_EVENTS} showViewMore />
+      <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={SPORTS_EVENTS} showViewMore />
       <HowItWorks />
       <Footer />
     </div>
