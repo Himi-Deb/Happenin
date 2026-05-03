@@ -15,11 +15,11 @@ const CATEGORIES = [
 ];
 
 const CAROUSEL_SLIDES = [
-  { id: 1, title: 'Neon Pulse Music Festival', date: 'Sat, 14 Jun 2025 · 6:00 PM', location: 'Rooftop Arena, London', category: 'Music', tag: 'Featured', bg: 'linear-gradient(135deg, #0d0221 0%, #150a3a 30%, #1e0e52 55%, #0a1628 100%)', accent: '#B1D8D4' },
-  { id: 2, title: 'Digital Art & Design Summit', date: 'Fri, 20 Jun 2025 · 10:00 AM', location: 'East Wing Gallery, Berlin', category: 'Art', tag: 'Trending', bg: 'linear-gradient(135deg, #051e1a 0%, #082f28 35%, #0a3d32 60%, #051410 100%)', accent: '#EBE88A' },
-  { id: 3, title: 'Startup Founders Meetup', date: 'Thu, 26 Jun 2025 · 7:00 PM', location: 'Tech Hub, Amsterdam', category: 'Business', tag: '', bg: 'linear-gradient(135deg, #1a0d00 0%, #2e1a05 35%, #3d2408 60%, #1a0d00 100%)', accent: '#EBE88A' },
-  { id: 4, title: 'Global Street Food Festival', date: 'Sun, 6 Jul 2025 · 12:00 PM', location: 'Victoria Park, Melbourne', category: 'Food', tag: 'Hot', bg: 'linear-gradient(135deg, #1a0505 0%, #2e0c0c 35%, #3d1010 60%, #1a0505 100%)', accent: '#EBE88A' },
-  { id: 5, title: 'Championship Gaming League', date: 'Fri, 11 Jul 2025 · 3:00 PM', location: 'Esports Arena, Seoul', category: 'Gaming', tag: 'New', bg: 'linear-gradient(135deg, #000d1a 0%, #001428 35%, #001f3d 60%, #000d1a 100%)', accent: '#B1D8D4' },
+  { id: 1, title: 'Neon Pulse Music Festival', date: 'Sat, 14 Jun 2025 · 6:00 PM', location: 'Rooftop Arena, London', category: 'Music', tag: 'Featured', bg: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%), url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1600&q=80)', accent: '#B1D8D4' },
+  { id: 2, title: 'Digital Art & Design Summit', date: 'Fri, 20 Jun 2025 · 10:00 AM', location: 'East Wing Gallery, Berlin', category: 'Art', tag: 'Trending', bg: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%), url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80)', accent: '#EBE88A' },
+  { id: 3, title: 'Startup Founders Meetup', date: 'Thu, 26 Jun 2025 · 7:00 PM', location: 'Tech Hub, Amsterdam', category: 'Business', tag: '', bg: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%), url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80)', accent: '#EBE88A' },
+  { id: 4, title: 'Global Street Food Festival', date: 'Sun, 6 Jul 2025 · 12:00 PM', location: 'Victoria Park, Melbourne', category: 'Food', tag: 'Hot', bg: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%), url(https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80)', accent: '#EBE88A' },
+  { id: 5, title: 'Championship Gaming League', date: 'Fri, 11 Jul 2025 · 3:00 PM', location: 'Esports Arena, Seoul', category: 'Gaming', tag: 'New', bg: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%), url(https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80)', accent: '#B1D8D4' },
 ];
 
 type EventItem = {
