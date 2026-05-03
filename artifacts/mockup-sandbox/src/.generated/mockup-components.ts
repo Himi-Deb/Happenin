@@ -6,6 +6,7 @@ export const modules: ModuleMap = {
   "./components/mockups/happenin/EventDetail.tsx": () => import("../components/mockups/happenin/EventDetail.tsx"),
   "./components/mockups/happenin/Landing.tsx": () => import("../components/mockups/happenin/Landing.tsx"),
   "./components/mockups/happenin/Login.tsx": () => import("../components/mockups/happenin/Login.tsx"),
+  "./components/mockups/happenin/OrganizerHub.tsx": () => import("../components/mockups/happenin/OrganizerHub.tsx"),
   "./components/mockups/happenin/SignUp.tsx": () => import("../components/mockups/happenin/SignUp.tsx"),
   "./components/mockups/happenin/TicketCheckout.tsx": () => import("../components/mockups/happenin/TicketCheckout.tsx"),
   "./components/mockups/happenin/TicketConfirmation.tsx": () => import("../components/mockups/happenin/TicketConfirmation.tsx")
