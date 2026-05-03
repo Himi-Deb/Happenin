@@ -93,7 +93,7 @@ function SetupView({ avatar, setAvatar, username, setUsername, err, setErr, onJo
           <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
             <img src={LOGO_URL} alt="happenin" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
           </div>
-          <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400 }}>Event Chat</span>
+          <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Event Chat</span>
         </div>
       </div>
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 93 }}>

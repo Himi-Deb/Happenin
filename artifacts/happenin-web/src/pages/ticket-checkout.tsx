@@ -102,7 +102,7 @@ export default function TicketCheckout() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            <span style={{ color: 'rgba(255,255,255,0.4)', fontFamily: F, fontSize: 15 }}>Neon Pulse Music Festival</span>
+            <span style={{ color: 'rgba(255,255,255,0.4)', fontFamily: F, fontSize: 15, whiteSpace: 'nowrap' }}>Neon Pulse Music Festival</span>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>

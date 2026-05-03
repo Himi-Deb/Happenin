@@ -34,7 +34,7 @@ function Navbar() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          <span style={{ color: 'rgba(255,255,255,0.4)', fontFamily: F, fontSize: 15, cursor: 'pointer' }}>My Events</span>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontFamily: F, fontSize: 15, cursor: 'pointer', whiteSpace: 'nowrap' }}>My Events</span>
           <span style={{ color: 'rgba(255,255,255,0.18)', fontFamily: F, fontSize: 15, margin: '0 4px' }}>/</span>
           <span style={{ color: '#fff', fontFamily: F, fontSize: 15, fontWeight: 600 }}>Edit Event</span>
         </div>

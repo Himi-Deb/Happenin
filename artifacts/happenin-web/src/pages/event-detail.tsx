@@ -44,7 +44,7 @@ function Navbar() {
         <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
           <img src={LOGO_URL} alt="happenin" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
         </div>
-        <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400 }}>Discover</span>
+        <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Discover</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
         <button style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', padding: 4 }}>

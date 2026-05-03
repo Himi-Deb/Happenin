@@ -117,7 +117,7 @@ export default function OrganizerHub() {
           <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
             <img src={LOGO_URL} alt="happenin" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
           </div>
-          <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400 }}>Organiser Hub</span>
+          <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Organiser Hub</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
           <div style={{ background: 'rgba(127,224,213,0.1)', border: '1px solid rgba(127,224,213,0.25)', borderRadius: 10, padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
