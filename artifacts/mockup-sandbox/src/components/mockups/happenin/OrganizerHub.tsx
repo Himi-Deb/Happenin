@@ -83,6 +83,48 @@ function CollapseIcon({ open, color }: { open: boolean; color: string }) {
   );
 }
 
+function ChatWallpaper() {
+  return (
+    <svg width="100%" height="100%" viewBox="0 0 1200 900" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="w1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 180) rotate(45) scale(320 240)">
+          <stop stopColor="#133034" stopOpacity="0.95"/>
+          <stop offset="1" stopColor="#0a0804" stopOpacity="0"/>
+        </radialGradient>
+        <radialGradient id="w2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1030 180) rotate(145) scale(340 260)">
+          <stop stopColor="#2a1c0f" stopOpacity="0.8"/>
+          <stop offset="1" stopColor="#0a0804" stopOpacity="0"/>
+        </radialGradient>
+        <radialGradient id="w3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(760 720) rotate(120) scale(420 260)">
+          <stop stopColor="#0f2326" stopOpacity="0.8"/>
+          <stop offset="1" stopColor="#0a0804" stopOpacity="0"/>
+        </radialGradient>
+        <linearGradient id="g1" x1="90" y1="180" x2="470" y2="680" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#1c1110" stopOpacity="0.55"/>
+          <stop offset="1" stopColor="#070605" stopOpacity="0"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="820" y1="120" x2="1120" y2="520" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#11191b" stopOpacity="0.62"/>
+          <stop offset="1" stopColor="#070605" stopOpacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="900" fill="#0a0804"/>
+      <rect width="1200" height="900" fill="url(#w1)"/>
+      <rect width="1200" height="900" fill="url(#w2)"/>
+      <rect width="1200" height="900" fill="url(#w3)"/>
+      <path d="M0 250C150 200 220 260 330 214C440 168 500 94 620 110C734 126 770 234 892 248C1014 262 1108 212 1200 168V900H0V250Z" fill="url(#g1)"/>
+      <path d="M0 610C128 554 236 560 330 608C424 656 506 752 634 748C760 744 832 636 932 586C1032 536 1120 554 1200 580V900H0V610Z" fill="url(#g2)"/>
+      <path d="M196 190C306 150 388 176 452 236C516 296 556 384 648 416C738 448 826 414 928 372C1030 330 1114 314 1200 322" stroke="#7FE0D5" strokeOpacity="0.12" strokeWidth="2"/>
+      <path d="M80 680C178 620 262 612 340 646C418 680 474 750 562 766C650 782 748 744 818 690C888 636 956 606 1048 612C1120 616 1166 634 1200 650" stroke="#EBE88A" strokeOpacity="0.08" strokeWidth="2"/>
+      <circle cx="248" cy="206" r="42" fill="#7FE0D5" fillOpacity="0.06"/>
+      <circle cx="980" cy="218" r="54" fill="#EBE88A" fillOpacity="0.05"/>
+      <circle cx="706" cy="708" r="72" fill="#7FE0D5" fillOpacity="0.05"/>
+      <path d="M300 126C378 170 410 244 390 320C370 396 296 448 214 440C132 432 70 366 74 284C78 202 144 146 222 122C248 114 276 114 300 126Z" fill="#0f1415" fillOpacity="0.42"/>
+      <path d="M904 114C1000 148 1056 228 1046 308C1036 388 962 448 878 446C794 444 726 386 720 304C714 222 772 154 860 118C878 110 888 110 904 114Z" fill="#25170e" fillOpacity="0.38"/>
+    </svg>
+  );
+}
+
 /* ── Navbar ── */
 function Navbar() {
   return (
@@ -219,7 +261,7 @@ export function OrganizerHub() {
           display: 'flex',
           flexDirection: 'column',
           background: CHAT_BG,
-          borderRadius: 20,
+          borderRadius: 24,
           border: '1px solid rgba(255,255,255,0.05)',
           /* sunken / inset effect */
           boxShadow: 'inset 0 2px 18px rgba(0,0,0,0.55), inset 0 1px 3px rgba(0,0,0,0.4)',
@@ -230,8 +272,11 @@ export function OrganizerHub() {
           {/* channel header inside chat card */}
           <div style={{ flexShrink: 0 }}>
             {/* colour accent top stripe */}
+            <div style={{ position: 'absolute', inset: 0, opacity: 0.6, pointerEvents: 'none' }}>
+              <ChatWallpaper />
+            </div>
             <div style={{ height: 2, background: `linear-gradient(90deg, ${ch.color}80 0%, ${ch.color}00 60%)`, borderRadius: '20px 20px 0 0' }} />
-            <div style={{ padding: '16px 32px 14px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ position: 'relative', zIndex: 1, padding: '16px 32px 14px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', gap: 12 }}>
               <div style={{ width: 36, height: 36, borderRadius: 11, background: `${ch.color}10`, border: `1px solid ${ch.color}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <ChIcon id={ch.id} size={15} color={ch.color}/>
               </div>
@@ -253,7 +298,7 @@ export function OrganizerHub() {
           </div>
 
           {/* messages feed */}
-          <div className="feed" style={{ flex: 1, overflowY: 'auto', padding: '18px 0 6px' }}>
+          <div className="feed" style={{ position: 'relative', zIndex: 1, flex: 1, overflowY: 'auto', padding: '18px 0 6px' }}>
             {/* channel info banner */}
             <div style={{ margin: '0 32px 18px', background: `${ch.color}06`, border: `1px solid ${ch.color}14`, borderRadius: 11, padding: '10px 16px', display: 'flex', gap: 10, alignItems: 'flex-start' }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={ch.color} strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -298,7 +343,7 @@ export function OrganizerHub() {
           </div>
 
           {/* input bar */}
-          <div style={{ padding: '12px 24px 18px', flexShrink: 0 }}>
+          <div style={{ position: 'relative', zIndex: 1, padding: '12px 24px 18px', flexShrink: 0 }}>
             {ch.readOnly && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 9 }}>
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(235,232,138,0.45)" strokeWidth="2.5" strokeLinecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
