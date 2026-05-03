@@ -128,6 +128,29 @@ function HappeninLogo({ height = 32 }: { height?: number }) {
 
 function Navbar() {
   const [, navigate] = useLocation();
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const searchRef = useRef<HTMLDivElement | null>(null);
+
+  const searchableItems = [...FEATURED_EVENTS, ...TODAY_EVENTS, ...FRESH_EVENTS, ...CONCERT_EVENTS, ...SPORTS_EVENTS];
+  const filteredResults = searchTerm.trim()
+    ? searchableItems.filter((event, index, arr) => {
+        const q = searchTerm.toLowerCase();
+        return (
+          arr.findIndex((item) => item.title === event.title) === index &&
+          `${event.title} ${event.location} ${event.category}`.toLowerCase().includes(q)
+        );
+      }).slice(0, 6)
+    : searchableItems.slice(0, 6);
+
+  useEffect(() => {
+    const onDown = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) setSearchOpen(false);
+    };
+    window.addEventListener('mousedown', onDown);
+    return () => window.removeEventListener('mousedown', onDown);
+  }, []);
+
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
       <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.16)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28, cursor: 'pointer' }} onClick={() => navigate('/discover')}>
@@ -136,12 +159,37 @@ function Navbar() {
         </div>
         <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Discover</span>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
-        <button style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, padding: 4 }}>
+      <div ref={searchRef} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, pointerEvents: 'all', position: 'relative' }}>
+        <button onClick={() => setSearchOpen((v) => !v)} style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, padding: 4 }}>
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
         </button>
+        {searchOpen && (
+          <div style={{ position: 'absolute', top: 44, right: 68, width: 360, background: '#13110d', border: '1px solid rgba(127,224,213,0.18)', borderRadius: 18, padding: 14, boxShadow: '0 24px 60px rgba(0,0,0,0.35)' }}>
+            <input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search events, places, categories"
+              autoFocus
+              style={{ width: '100%', background: '#0a0804', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14 }}
+            />
+            <div style={{ marginTop: 12, maxHeight: 260, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {filteredResults.length ? filteredResults.map((event) => (
+                <button
+                  key={`${event.title}-${event.location}`}
+                  onClick={() => navigate('/discover')}
+                  style={{ textAlign: 'left', background: '#0a0804', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '12px 14px', cursor: 'pointer', color: '#fff' }}
+                >
+                  <div style={{ fontFamily: F, fontSize: 14, fontWeight: 700 }}>{event.title}</div>
+                  <div style={{ marginTop: 4, fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.62)' }}>{event.location} · {event.category}</div>
+                </button>
+              )) : (
+                <div style={{ padding: '10px 4px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>No results found.</div>
+              )}
+            </div>
+          </div>
+        )}
         <div onClick={() => navigate('/login')} style={{ background: '#EBE88A', borderRadius: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52, padding: '0 32px', cursor: 'pointer', flexShrink: 0 }}>
           <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 18, fontWeight: 600, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>LOGIN</span>
         </div>
