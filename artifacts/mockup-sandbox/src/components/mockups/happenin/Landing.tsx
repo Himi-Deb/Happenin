@@ -431,11 +431,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* Row 4 — Copyright */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '20px 72px' }}>
-        <p style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.2)', margin: 0 }}>© 2025 Happenin. All rights reserved.</p>
-      </div>
-
     </footer>
   );
 }
