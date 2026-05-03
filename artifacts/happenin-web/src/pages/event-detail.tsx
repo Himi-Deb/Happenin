@@ -39,6 +39,7 @@ const AGENDA = [
 
 function Navbar() {
   const [, navigate] = useLocation();
+  const savedUser = 'Himi';
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
       <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.13)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28, cursor: 'pointer' }} onClick={() => navigate('/discover')}>
@@ -52,7 +53,7 @@ function Navbar() {
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
         <div onClick={() => navigate('/login')} style={{ background: GOLD, borderRadius: 9999, display: 'flex', alignItems: 'center', height: 52, padding: '0 32px', cursor: 'pointer' }}>
-          <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c', textTransform: 'uppercase', letterSpacing: '1px' }}>LOGIN</span>
+          <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c', textTransform: 'uppercase', letterSpacing: '1px' }}>{savedUser}</span>
         </div>
       </div>
     </div>

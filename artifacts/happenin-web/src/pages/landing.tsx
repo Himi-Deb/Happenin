@@ -142,6 +142,7 @@ function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const searchRef = useRef<HTMLDivElement | null>(null);
+  const savedUser = 'Himi';
 
   const searchableItems = [...FEATURED_EVENTS, ...TODAY_EVENTS, ...FRESH_EVENTS, ...CONCERT_EVENTS, ...SPORTS_EVENTS];
   const filteredResults = searchTerm.trim()
@@ -202,7 +203,7 @@ function Navbar() {
           </div>
         )}
         <div onClick={() => navigate('/login')} style={{ background: '#EBE88A', borderRadius: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52, padding: '0 32px', cursor: 'pointer', flexShrink: 0 }}>
-          <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 18, fontWeight: 600, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>LOGIN</span>
+          <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 18, fontWeight: 600, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>{savedUser}</span>
         </div>
       </div>
     </div>

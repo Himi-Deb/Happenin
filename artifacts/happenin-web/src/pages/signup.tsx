@@ -252,7 +252,7 @@ export default function SignUp() {
 
           <button
             className="su-btn-primary"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate((window.history.state?.usr as { from?: string } | undefined)?.from || '/')}
             style={{ width: '100%', background: '#7FE0D5', border: 'none', borderRadius: 14, padding: '16px 0', color: '#0e2a2c', fontFamily: F, fontSize: 15, fontWeight: 800, cursor: 'pointer', letterSpacing: '0.2px', transition: 'background 0.15s', marginBottom: 22 }}
           >
             Create account
