@@ -112,7 +112,15 @@ const STEPS = [
 
 function HappeninLogo({ height = 32 }: { height?: number }) {
   return (
-    <img src={LOGO_URL} alt="Happenin" style={{ height, width: 'auto', display: 'block', objectFit: 'contain' }} />
+    <img
+      src={LOGO_URL}
+      alt="Happenin"
+      loading="eager"
+      onError={(e) => {
+        (e.currentTarget as HTMLImageElement).src = `${BASE}/happenin-wordmark-trimmed.png`;
+      }}
+      style={{ height, width: 'auto', display: 'block', objectFit: 'contain' }}
+    />
   );
 }
 
@@ -164,14 +172,14 @@ function HeroCarousel() {
   const slide = CAROUSEL_SLIDES[current];
 
   return (
-    <section style={{ position: 'relative', width: '100%', aspectRatio: '1920 / 1280', overflow: 'hidden', background: '#000' }}>
+    <section style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', background: '#000' }}>
       {CAROUSEL_SLIDES.map((s, i) => (
         <div key={s.id} style={{ position: 'absolute', inset: 0, backgroundImage: s.bg, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', opacity: i === current ? 1 : 0, transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)', pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.04) 0%, transparent 60%)' }} />
         </div>
       ))}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.1) 65%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 72px 56px', zIndex: 3, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 40 }}>
+      <div style={{ position: 'absolute', inset: 0, padding: '0 72px 56px', zIndex: 3, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 40 }}>
         <div style={{ flex: 1, maxWidth: 720 }}>
           {slide.tag && (
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.15)' : 'rgba(177,216,212,0.15)', border: `1px solid ${slide.accent === '#EBE88A' ? 'rgba(235,232,138,0.35)' : 'rgba(177,216,212,0.35)'}`, borderRadius: 9999, padding: '5px 14px', marginBottom: 16 }}>
@@ -379,7 +387,15 @@ function Footer() {
         </div>
       </div>
       <div style={{ background: '#000', width: '100%', overflow: 'hidden', paddingTop: 48, paddingBottom: 48 }}>
-        <img src={`${BASE}/happenin-wordmark-trimmed.png`} alt="happenin*" style={{ width: '100%', display: 'block', objectFit: 'contain' }} />
+        <img
+          src={`${BASE}/happenin-wordmark-trimmed.png`}
+          alt="happenin*"
+          loading="eager"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = `${BASE}/happenin-logo-new.png`;
+          }}
+          style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+        />
       </div>
     </footer>
   );
