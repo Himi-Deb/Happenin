@@ -395,7 +395,9 @@ export function TicketConfirmation() {
 
               {/* CTA + privacy */}
               <div style={{ padding: '0 22px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <button style={{ width: '100%', background: '#F4F1EA', border: 'none', borderRadius: 14, padding: '13px 0', color: '#0e1a1b', fontFamily: F, fontSize: 14, fontWeight: 800, cursor: 'pointer', letterSpacing: '0.3px' }}>
+                <button
+                  onClick={() => window.location.href = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/preview/happenin/EventChat`}
+                  style={{ width: '100%', background: '#F4F1EA', border: 'none', borderRadius: 14, padding: '13px 0', color: '#0e1a1b', fontFamily: F, fontSize: 14, fontWeight: 800, cursor: 'pointer', letterSpacing: '0.3px' }}>
                   Join the Chat
                 </button>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>

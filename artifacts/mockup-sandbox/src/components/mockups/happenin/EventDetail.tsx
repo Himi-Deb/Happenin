@@ -424,6 +424,57 @@ export function EventDetail() {
               <button style={{ background: 'rgba(177,216,212,0.1)', border: '1px solid rgba(177,216,212,0.25)', borderRadius: 9999, padding: '10px 22px', color: '#B1D8D4', fontFamily: F, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Follow</button>
             </div>
           </div>
+
+          {/* Community Chat card */}
+          <div>
+            <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 12, fontFamily: F }}>Community</div>
+            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 20, overflow: 'hidden' }}>
+              {/* Header */}
+              <div style={{ padding: '20px 24px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600 }}>EVENT CHAT</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#7FE0D5', boxShadow: '0 0 6px #7FE0D5' }} />
+                  <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(127,224,213,0.8)', fontWeight: 600 }}>247 chatting</span>
+                </div>
+              </div>
+              {/* Preview bubbles */}
+              <div style={{ padding: '0 24px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#0e2a2c,#1a4a4e)', border: '1.5px solid rgba(127,224,213,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <span style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: '#7FE0D5' }}>N</span>
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'baseline', marginBottom: 3 }}>
+                      <span style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: '#7FE0D5' }}>NeonWave Events</span>
+                      <span style={{ fontFamily: F, fontSize: 9, color: 'rgba(127,224,213,0.45)', background: 'rgba(127,224,213,0.07)', border: '1px solid rgba(127,224,213,0.12)', borderRadius: 3, padding: '1px 5px' }}>ORGANISER</span>
+                    </div>
+                    <div style={{ background: 'rgba(127,224,213,0.07)', border: '1px solid rgba(127,224,213,0.12)', borderRadius: '3px 12px 12px 12px', padding: '8px 12px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>
+                      Doors open at 6 PM — gates on the riverside side. See you tonight! 🎶
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', paddingLeft: 6 }}>
+                  <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#0e2e3a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>🌊</div>
+                  <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '3px 12px 12px 12px', padding: '8px 12px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.5 }}>
+                    Anyone coming in from North London? Happy to meet at Waterloo 👋
+                  </div>
+                </div>
+                <div style={{ height: 24, marginTop: -24, background: 'linear-gradient(to bottom, transparent, rgba(14,16,16,0.9))', position: 'relative', zIndex: 1 }} />
+              </div>
+              {/* CTA */}
+              <div style={{ padding: '0 24px 20px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <button
+                  onClick={() => window.location.href = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/preview/happenin/EventChat`}
+                  style={{ width: '100%', background: '#F4F1EA', border: 'none', borderRadius: 14, padding: '13px 0', color: '#0e1a1b', fontFamily: F, fontSize: 14, fontWeight: 800, cursor: 'pointer' }}>
+                  Join the Chat
+                </button>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.25)', lineHeight: 1.5 }}>Your personal details are never shared with other attendees.</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
