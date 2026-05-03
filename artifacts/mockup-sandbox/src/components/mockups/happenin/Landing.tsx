@@ -409,6 +409,32 @@ function Footer() {
             <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Saved</a>
             <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Profile</a>
           </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 28, fontFamily: F, fontSize: 11, color: 'rgba(255,255,255,0.34)' }}>
+            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Service</a>
+            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</a>
+            <a href="#" aria-label="Instagram" style={{ color: 'inherit', textDecoration: 'none', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+            <a href="#" aria-label="X" style={{ color: 'inherit', textDecoration: 'none', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Email" style={{ color: 'inherit', textDecoration: 'none', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)">
+                <path d="M20 4.5C21.1023 4.5 22 5.39772 22 6.5V18.5C22 19.6023 21.1023 20.5 20 20.5H4C2.89772 20.5 2 19.6023 2 18.5V6.5C2 5.39772 2.89772 4.5 4 4.5H20ZM12.5215 13.3535C12.2415 13.5246 11.8984 13.5453 11.6025 13.417L11.4785 13.3535L4 8.7832V18.5H20V8.7832L12.5215 13.3535ZM12 11.3271L19.9004 6.5H4.09961L12 11.3271Z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" style={{ color: 'inherit', textDecoration: 'none', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+          </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16 }}>
           <h2 style={{ margin: 0, fontFamily: F, fontSize: 44, lineHeight: 0.94, fontWeight: 500, letterSpacing: '-1.8px', color: '#F2E9D8', maxWidth: 560 }}>Have a question</h2>
