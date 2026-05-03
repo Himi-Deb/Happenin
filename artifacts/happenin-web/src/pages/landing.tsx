@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'wouter';
 import logoPng from '@assets/Happenin-Logo_1777804986503.png';
-import wordmarkPng from '@assets/happenin-wordmark-4x_1777805142253.jpg';
+import wordmarkPng from '@assets/happenin-wordmark-4x_1777805318717.png';
 
 const F = 'Urbanist, sans-serif';
 
