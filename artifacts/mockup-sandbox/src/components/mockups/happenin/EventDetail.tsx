@@ -73,45 +73,46 @@ function Navbar() {
 function Hero() {
   const [saved, setSaved] = useState(false);
   return (
-    <section style={{ position: 'relative', width: '100%', height: '75vh', minHeight: 560, overflow: 'hidden', background: '#000' }}>
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: EVENT.image, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.18) 70%, transparent 100%)' }} />
+    <section style={{ position: 'relative', width: '100%', aspectRatio: '1920 / 1280', background: '#000' }}>
+      {/* Background clipped separately so content can overflow the section bottom */}
+      <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: 0 }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: EVENT.image, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.18) 70%, transparent 100%)' }} />
+      </div>
 
       {/* Back button */}
       <button style={{ position: 'absolute', top: 120, left: 56, zIndex: 10, display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 9999, padding: '10px 20px', color: 'rgba(255,255,255,0.75)', fontFamily: F, fontSize: 14, cursor: 'pointer' }}>
         <span style={{ fontSize: 16 }}>←</span> Back
       </button>
 
-      {/* Bottom meta */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 72px 52px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 40 }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(177,216,212,0.15)', border: '1px solid rgba(177,216,212,0.35)', borderRadius: 9999, padding: '5px 14px', marginBottom: 18 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B1D8D4', display: 'inline-block' }} />
-            <span style={{ color: '#B1D8D4', fontFamily: F, fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{EVENT.tag} · {EVENT.category}</span>
+      {/* Bottom-left: event meta text */}
+      <div style={{ position: 'absolute', bottom: 52, left: 72, zIndex: 4, maxWidth: 860 }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(177,216,212,0.15)', border: '1px solid rgba(177,216,212,0.35)', borderRadius: 9999, padding: '5px 14px', marginBottom: 18 }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B1D8D4', display: 'inline-block' }} />
+          <span style={{ color: '#B1D8D4', fontFamily: F, fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{EVENT.tag} · {EVENT.category}</span>
+        </div>
+        <h1 style={{ fontFamily: F, fontSize: 72, fontWeight: 800, lineHeight: 1.0, letterSpacing: '-2.5px', color: '#fff', margin: '0 0 24px' }}>{EVENT.title}</h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+            <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.72)' }}>{EVENT.date}</span>
           </div>
-          <h1 style={{ fontFamily: F, fontSize: 72, fontWeight: 800, lineHeight: 1.0, letterSpacing: '-2.5px', color: '#fff', margin: '0 0 24px', maxWidth: 780 }}>{EVENT.title}</h1>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 28, flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-              <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.72)' }}>{EVENT.date}</span>
-            </div>
-            <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.25)' }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="10" r="3" /><path d="M12 2a8 8 0 0 0-8 8c0 5.4 8 13 8 13s8-7.6 8-13a8 8 0 0 0-8-8z" /></svg>
-              <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.72)' }}>{EVENT.location}</span>
-            </div>
-            <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.25)' }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
-              <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.72)' }}>{EVENT.attendees.toLocaleString()} going</span>
-            </div>
+          <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.25)' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="10" r="3" /><path d="M12 2a8 8 0 0 0-8 8c0 5.4 8 13 8 13s8-7.6 8-13a8 8 0 0 0-8-8z" /></svg>
+            <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.72)' }}>{EVENT.location}</span>
+          </div>
+          <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.25)' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+            <span style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.72)' }}>{EVENT.attendees.toLocaleString()} going</span>
           </div>
         </div>
-        {/* Save button */}
-        <button onClick={() => setSaved(s => !s)} style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8, background: saved ? 'rgba(177,216,212,0.18)' : 'rgba(255,255,255,0.07)', border: `1px solid ${saved ? 'rgba(177,216,212,0.4)' : 'rgba(255,255,255,0.12)'}`, borderRadius: 9999, padding: '12px 24px', color: saved ? '#B1D8D4' : 'rgba(255,255,255,0.7)', fontFamily: F, fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s' }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill={saved ? '#B1D8D4' : 'none'} stroke={saved ? '#B1D8D4' : 'rgba(255,255,255,0.7)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-          {saved ? 'Saved' : 'Save'}
-        </button>
+      </div>
+
+      {/* Bottom-right: ticket card pinned inside hero */}
+      <div style={{ position: 'absolute', bottom: 52, right: 72, zIndex: 5, width: 420 }}>
+        <TicketCard />
       </div>
     </section>
   );
@@ -121,7 +122,7 @@ function TicketCard() {
   const [selected, setSelected] = useState(1);
   const ticket = EVENT.tickets[selected];
   return (
-    <div style={{ position: 'sticky', top: 120, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: 32, display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div style={{ background: 'rgba(10,10,10,0.92)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 24, padding: 32, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div>
         <div style={{ fontFamily: F, fontSize: 12, color: '#B1D8D4', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 600, marginBottom: 12 }}>Select Tickets</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -255,7 +256,7 @@ export function EventDetail() {
       <Hero />
 
       {/* Main content */}
-      <div style={{ maxWidth: 1360, margin: '0 auto', padding: '64px 72px', display: 'grid', gridTemplateColumns: '1fr 420px', gap: 80, alignItems: 'start' }}>
+      <div style={{ maxWidth: 1360, margin: '0 auto', padding: '64px 72px', display: 'grid', gridTemplateColumns: '1fr', gap: 0 }}>
 
         {/* Left column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
@@ -341,10 +342,6 @@ export function EventDetail() {
           </div>
         </div>
 
-        {/* Right column — ticket card */}
-        <div>
-          <TicketCard />
-        </div>
       </div>
 
       {/* Related events */}
