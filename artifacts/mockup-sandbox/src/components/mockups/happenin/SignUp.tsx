@@ -4,128 +4,108 @@ import { useState } from 'react';
 const F = 'var(--font)';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const SLIDES = [
+  { img: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1400&q=80', emoji: '🎵', label: 'Music', sub: 'Festivals & Concerts' },
+  { img: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=80', emoji: '🎨', label: 'Art & Design', sub: 'Exhibitions & Openings' },
+  { img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80', emoji: '🍽️', label: 'Food & Drink', sub: 'Festivals & Pop-ups' },
+  { img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80', emoji: '💼', label: 'Business', sub: 'Meetups & Conferences' },
+  { img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80', emoji: '🎮', label: 'Gaming', sub: 'Tournaments & Showcases' },
+  { img: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1400&q=80', emoji: '🎭', label: 'Theatre & Culture', sub: 'Shows & Performances' },
+];
+
 function AtmospherePanel() {
+  const total = SLIDES.length;
+  const dur = 30;
+  const perSlide = dur / total;
+
   return (
     <div style={{ position: 'relative', width: '55%', height: '100vh', background: '#000', overflow: 'hidden', flexShrink: 0 }}>
       <style>{`
-        @keyframes su-float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-20px,22px) scale(1.05); } }
-        @keyframes su-float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(16px,-18px) scale(0.97); } }
-        @keyframes su-float3 { 0%,100% { transform: translate(0,0); } 33% { transform: translate(-12px,14px); } 66% { transform: translate(9px,-9px); } }
-        @keyframes su-spark  { 0%,100% { opacity: 0; transform: scale(0); } 50% { opacity: 1; transform: scale(1); } }
-        @keyframes su-scan   { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
-        @keyframes su-crowd  { 0%,100% { opacity: 0.22; } 50% { opacity: 0.30; } }
-        @keyframes su-ring   { 0%,100% { opacity: 0.12; transform: scale(1); } 50% { opacity: 0.22; transform: scale(1.08); } }
+        @keyframes su-ev-slide {
+          0%     { opacity: 0; }
+          6.67%  { opacity: 1; }
+          16.67% { opacity: 1; }
+          23.33% { opacity: 0; }
+          100%   { opacity: 0; }
+        }
+        @keyframes su-ev-zoom {
+          from { transform: scale(1) translateX(0px); }
+          to   { transform: scale(1.1) translateX(12px); }
+        }
+        @keyframes su-ev-scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
       `}</style>
 
-      {/* Background gradient layers */}
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 65% at 80% 55%, rgba(10,36,40,0.9) 0%, transparent 65%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 65% 50% at 15% 25%, rgba(55,28,5,0.65) 0%, transparent 58%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 55% 45% at 10% 80%, rgba(25,8,55,0.55) 0%, transparent 55%)' }} />
-
-      {/* Orb 1 — gold top-left */}
-      <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: 480, height: 480, borderRadius: '50%', background: 'radial-gradient(circle, rgba(235,232,138,0.2) 0%, rgba(235,232,138,0.05) 48%, transparent 70%)', animation: 'su-float1 11s ease-in-out infinite', filter: 'blur(3px)' }} />
-
-      {/* Orb 2 — teal right */}
-      <div style={{ position: 'absolute', top: '30%', right: '-12%', width: 520, height: 520, borderRadius: '50%', background: 'radial-gradient(circle, rgba(127,224,213,0.18) 0%, rgba(127,224,213,0.05) 50%, transparent 72%)', animation: 'su-float2 13s ease-in-out infinite', filter: 'blur(4px)' }} />
-
-      {/* Orb 3 — pink-violet bottom */}
-      <div style={{ position: 'absolute', bottom: '-5%', left: '20%', width: 380, height: 380, borderRadius: '50%', background: 'radial-gradient(circle, rgba(220,80,180,0.12) 0%, transparent 65%)', animation: 'su-float3 15s ease-in-out infinite' }} />
-
-      {/* Concentric rings */}
-      {[280, 360, 440].map((r, i) => (
-        <div key={i} style={{ position: 'absolute', top: '38%', left: '50%', width: r, height: r, borderRadius: '50%', border: '1px solid rgba(127,224,213,0.1)', transform: 'translate(-50%,-50%)', animation: `su-ring ${4 + i * 1.5}s ease-in-out ${i * 0.6}s infinite` }} />
+      {/* Crossfading photo slides */}
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'absolute', inset: 0,
+            opacity: 0,
+            animation: `su-ev-slide ${dur}s ease-in-out ${i * perSlide}s infinite`,
+          }}
+        >
+          <div style={{
+            position: 'absolute', inset: '-5%',
+            backgroundImage: `url(${slide.img})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            animation: `su-ev-zoom ${dur}s ease-in-out ${i * perSlide}s infinite alternate`,
+          }} />
+        </div>
       ))}
+
+      {/* Always-on dark overlay */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.28) 50%, rgba(0,0,0,0.72) 100%)' }} />
+
+      {/* Gold colour tint — distinct from Login's teal */}
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 70% 50%, rgba(40,32,8,0.4) 0%, transparent 70%)', mixBlendMode: 'multiply' }} />
 
       {/* Scan line */}
-      <div style={{ position: 'absolute', left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(235,232,138,0.07), transparent)', animation: 'su-scan 10s linear infinite', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(235,232,138,0.1), transparent)', animation: 'su-ev-scan 11s linear infinite', pointerEvents: 'none' }} />
 
-      {/* Grid */}
-      <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.04 }} xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="su-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M60 0L0 0 0 60" fill="none" stroke="#EBE88A" strokeWidth="0.6"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#su-grid)"/>
-      </svg>
-
-      {/* Sparks */}
-      {[
-        { x: '18%', y: '22%', delay: '0.2s',  size: 3,   color: '#EBE88A' },
-        { x: '62%', y: '15%', delay: '1.6s',  size: 2,   color: '#7FE0D5' },
-        { x: '42%', y: '48%', delay: '0.9s',  size: 2.5, color: '#EBE88A' },
-        { x: '78%', y: '38%', delay: '2.3s',  size: 2,   color: '#fff'    },
-        { x: '12%', y: '65%', delay: '1.1s',  size: 3,   color: '#7FE0D5' },
-        { x: '54%', y: '75%', delay: '3.0s',  size: 2,   color: '#EBE88A' },
-        { x: '30%', y: '32%', delay: '2.7s',  size: 2,   color: '#7FE0D5' },
-        { x: '70%', y: '60%', delay: '0.5s',  size: 2.5, color: '#EBE88A' },
-        { x: '86%', y: '25%', delay: '1.3s',  size: 2,   color: '#fff'    },
-        { x: '8%',  y: '44%', delay: '3.8s',  size: 3,   color: '#7FE0D5' },
-        { x: '50%', y: '10%', delay: '0.7s',  size: 2,   color: '#EBE88A' },
-        { x: '92%', y: '70%', delay: '2.0s',  size: 2,   color: '#fff'    },
-      ].map((s, i) => (
-        <div key={i} style={{ position: 'absolute', left: s.x, top: s.y, width: s.size, height: s.size, borderRadius: '50%', background: s.color, boxShadow: `0 0 ${s.size * 3}px ${s.color}`, animation: `su-spark ${2.2 + i * 0.28}s ease-in-out ${s.delay} infinite` }} />
+      {/* Per-slide category badge */}
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'absolute', top: 36, left: 36,
+            display: 'flex', alignItems: 'center', gap: 10,
+            background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            borderRadius: 100, padding: '8px 16px 8px 12px',
+            opacity: 0,
+            animation: `su-ev-slide ${dur}s ease-in-out ${i * perSlide}s infinite`,
+          }}
+        >
+          <span style={{ fontSize: 16 }}>{slide.emoji}</span>
+          <div>
+            <div style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>{slide.label}</div>
+            <div style={{ fontFamily: F, fontSize: 11, color: 'rgba(255,255,255,0.45)', marginTop: 1 }}>{slide.sub}</div>
+          </div>
+        </div>
       ))}
 
-      {/* Crowd silhouette */}
-      <svg viewBox="0 0 900 220" style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', animation: 'su-crowd 7s ease-in-out infinite' }} preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="450" cy="210" rx="420" ry="28" fill="rgba(235,232,138,0.05)"/>
-        <path d="
-          M0 220 L0 150 Q12 135 28 150 Q34 122 56 138 Q62 108 82 124
-          Q90 95 112 112 Q120 88 142 104 Q152 78 174 96
-          Q182 62 204 80 Q214 54 234 70 Q246 48 262 62
-          Q272 36 288 52 Q300 28 315 44 Q325 20 342 38
-          Q352 15 368 30 Q380 8 395 24 Q405 12 418 22
-          Q426 2 440 16 Q452 6 464 14 Q470 -2 485 12
-          Q498 4 510 12 Q516 -4 532 8 Q545 0 557 9
-          Q565 -5 578 6 Q590 -2 600 6 Q612 -6 626 5
-          Q640 -2 650 6 Q658 -8 672 4 Q685 -4 695 5
-          Q704 -6 716 3 Q728 -3 738 4 Q748 -9 760 2
-          Q773 -5 783 4 Q793 -6 806 3 Q818 -5 828 4
-          Q840 -2 852 5 Q862 -5 878 4 Q888 0 900 7 L900 220 Z
-        " fill="rgba(255,255,255,0.065)"/>
-        <path d="
-          M0 220 L0 172 Q18 160 38 170 Q50 148 70 160 Q82 138 102 152
-          Q118 130 138 144 Q155 122 175 136 Q190 114 210 128
-          Q228 106 248 122 Q266 104 286 118 Q304 98 325 114
-          Q344 94 364 110 Q383 90 402 104 Q422 86 440 100
-          Q460 80 478 96 Q498 76 518 90 Q538 72 558 86
-          Q578 68 596 82 Q616 65 634 80 Q654 63 670 78
-          Q690 61 708 76 Q728 59 746 74 Q766 57 784 72
-          Q804 55 822 70 Q842 54 858 68 Q878 53 900 64 L900 220 Z
-        " fill="rgba(255,255,255,0.035)"/>
-      </svg>
-
-      {/* Spotlight beams */}
-      <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.1, mixBlendMode: 'screen' }} xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="sbeam1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#EBE88A" stopOpacity="0.7"/>
-            <stop offset="100%" stopColor="#EBE88A" stopOpacity="0"/>
-          </linearGradient>
-          <linearGradient id="sbeam2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#7FE0D5" stopOpacity="0.5"/>
-            <stop offset="100%" stopColor="#7FE0D5" stopOpacity="0"/>
-          </linearGradient>
-          <linearGradient id="sbeam3" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#fff" stopOpacity="0.35"/>
-            <stop offset="100%" stopColor="#fff" stopOpacity="0"/>
-          </linearGradient>
-        </defs>
-        <polygon points="160,0 110,0 260,720" fill="url(#sbeam1)"/>
-        <polygon points="380,0 330,0 500,760" fill="url(#sbeam2)"/>
-        <polygon points="620,0 580,0 670,700" fill="url(#sbeam3)"/>
-        <polygon points="820,0 785,0 855,640" fill="url(#sbeam1)" opacity="0.5"/>
-      </svg>
-
-      {/* Tagline */}
-      <div style={{ position: 'absolute', bottom: '18%', left: '10%', right: '10%' }}>
-        <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '4px', textTransform: 'uppercase', color: 'rgba(235,232,138,0.55)', fontWeight: 600, marginBottom: 14 }}>Join 80,000+ event-goers</div>
-        <div style={{ fontFamily: F, fontSize: 48, fontWeight: 800, letterSpacing: '-2px', color: '#fff', lineHeight: 1, marginBottom: 8 }}>Be there<br/>for it all.</div>
-        <div style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.3)', fontWeight: 400, marginTop: 12 }}>Music, art, food, culture — all in one place.</div>
+      {/* Progress dots */}
+      <div style={{ position: 'absolute', top: 52, right: 36, display: 'flex', gap: 6 }}>
+        {SLIDES.map((_, i) => (
+          <div key={i} style={{ position: 'relative', width: 24, height: 2, borderRadius: 2, background: 'rgba(255,255,255,0.2)', overflow: 'hidden' }}>
+            <div style={{
+              position: 'absolute', inset: 0, borderRadius: 2,
+              background: '#EBE88A',
+              opacity: 0,
+              animation: `su-ev-slide ${dur}s ease-in-out ${i * perSlide}s infinite`,
+            }} />
+          </div>
+        ))}
       </div>
 
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 120, background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)', pointerEvents: 'none' }} />
+      {/* Static tagline */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '60px 44px 48px', background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 60%, transparent 100%)' }}>
+        <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '4px', textTransform: 'uppercase', color: 'rgba(235,232,138,0.65)', fontWeight: 600, marginBottom: 14 }}>Join 80,000+ event-goers</div>
+        <div style={{ fontFamily: F, fontSize: 46, fontWeight: 800, letterSpacing: '-2px', color: '#fff', lineHeight: 1.02 }}>Be there<br/>for it all.</div>
+        <div style={{ fontFamily: F, fontSize: 15, color: 'rgba(255,255,255,0.38)', fontWeight: 400, marginTop: 14 }}>Music, art, food, culture — all in one place.</div>
+      </div>
     </div>
   );
 }
