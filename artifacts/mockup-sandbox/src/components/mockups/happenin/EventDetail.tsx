@@ -111,7 +111,7 @@ function Hero() {
       </div>
 
       {/* Bottom-right: ticket card pinned inside hero */}
-      <div style={{ position: 'absolute', bottom: 52, right: 72, zIndex: 5, width: 420 }}>
+      <div style={{ position: 'absolute', bottom: 104, right: 72, zIndex: 5, width: 420 }}>
         <TicketCard />
       </div>
     </section>
@@ -247,6 +247,51 @@ function Footer() {
   );
 }
 
+function Footer() {
+  return (
+    <footer style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+      <div style={{ padding: '96px 72px 0', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 560px)', gap: 90, alignItems: 'start' }}>
+          <div style={{ fontFamily: F, color: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 36, paddingRight: 24 }}>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>ABOUT HAPPENIN</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                {['Home', 'Discover', 'Events', 'Saved', 'Profile'].map(l => <a key={l} href="#" style={{ color: '#fff', textDecoration: 'none' }}>{l}</a>)}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>LEGAL</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                {['Terms of Service', 'Privacy Policy'].map(l => <a key={l} href="#" style={{ color: '#fff', textDecoration: 'none' }}>{l}</a>)}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>SOCIAL</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                {['Instagram', 'X', 'Email', 'LinkedIn'].map(l => <a key={l} href="#" style={{ color: '#fff', textDecoration: 'none' }}>{l}</a>)}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16, width: 'fit-content' }}>
+            <h2 style={{ margin: 0, fontFamily: F, fontSize: 44, lineHeight: 0.94, fontWeight: 500, letterSpacing: '-1.8px', color: '#F2E9D8', maxWidth: 560 }}>Have a question?</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 10, width: 360 }}>
+              <input placeholder="Email address" style={{ width: '100%', background: '#070707', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14 }} />
+              <textarea placeholder="Comment" rows={4} style={{ width: '100%', background: '#070707', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14, resize: 'none' }} />
+              <button style={{ width: '100%', background: '#191919', border: 'none', borderRadius: 12, padding: '14px 16px', color: '#E7DCC8', fontFamily: F, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Ask</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{ position: 'relative', height: 470, overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, width: '100%', padding: '0 32px', transform: 'translateY(22px)' }}>
+          <div style={{ fontFamily: F, fontSize: 'min(30vw, 440px)', lineHeight: 0.86, fontWeight: 400, letterSpacing: '-8px', color: '#fff', whiteSpace: 'nowrap' }}>happenin</div>
+          <div style={{ fontFamily: F, fontSize: 'min(30vw, 440px)', lineHeight: 0.86, fontWeight: 400, color: '#7FE0D5' }}>*</div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 export function EventDetail() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -256,12 +301,8 @@ export function EventDetail() {
       <Hero />
 
       {/* Main content */}
-      <div style={{ maxWidth: 1360, margin: '0 auto', padding: '64px 72px', display: 'grid', gridTemplateColumns: '1fr', gap: 0 }}>
-
-        {/* Left column */}
+      <div style={{ maxWidth: 1360, margin: '0 auto', padding: '64px 72px', display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 72, alignItems: 'start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
-
-          {/* About */}
           <div>
             <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 12, fontFamily: F }}>About</div>
             <h2 style={{ fontFamily: F, fontSize: 32, fontWeight: 700, letterSpacing: '-1px', margin: '0 0 20px', color: '#fff' }}>About this event</h2>
@@ -271,8 +312,9 @@ export function EventDetail() {
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Details */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
           <div>
             <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 12, fontFamily: F }}>Details</div>
             <h2 style={{ fontFamily: F, fontSize: 32, fontWeight: 700, letterSpacing: '-1px', margin: '0 0 24px', color: '#fff' }}>When & Where</h2>
@@ -292,13 +334,12 @@ export function EventDetail() {
                 </div>
               ))}
             </div>
-
-            {/* Map placeholder */}
             <div style={{ marginTop: 16, borderRadius: 16, overflow: 'hidden', height: 220, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 10 }}>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(177,216,212,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
               <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.25)' }}>Map · {EVENT.address}</span>
             </div>
           </div>
+        </div>
 
           {/* Lineup */}
           <div>
