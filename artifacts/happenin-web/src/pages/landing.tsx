@@ -395,10 +395,22 @@ function CategoryBar({ selectedCategories, onToggleCategory }: { selectedCategor
 function EventCard({ event }: { event: EventItem }) {
   const [, navigate] = useLocation();
   return (
-    <div style={{ width: 360, flexShrink: 0, cursor: 'pointer' }} onClick={() => navigate('/event/1')}>
-      <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', background: '#111', aspectRatio: '4 / 5', boxShadow: '0 18px 60px rgba(0,0,0,0.35)' }}>
+    <div
+      style={{ width: 360, flexShrink: 0, cursor: 'pointer', transition: 'transform 180ms ease, filter 180ms ease' }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+        e.currentTarget.style.filter = 'saturate(1.08)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+        e.currentTarget.style.filter = 'saturate(1)';
+      }}
+      onClick={() => navigate('/event/1')}
+    >
+      <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', background: '#111', aspectRatio: '4 / 5', boxShadow: '0 18px 60px rgba(0,0,0,0.35)', transition: 'box-shadow 180ms ease' }}>
         <div style={{ position: 'absolute', inset: 0, background: event.image, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.82) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.22) 45%, rgba(0,0,0,0.88) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top left, rgba(127,224,213,0.16), transparent 38%)' }} />
         <div style={{ position: 'absolute', inset: 0, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.72)' }}>{event.category}</div>
@@ -420,7 +432,7 @@ function EventCard({ event }: { event: EventItem }) {
 function ViewMoreCard() {
   const [, navigate] = useLocation();
   return (
-    <div onClick={() => navigate('/discover')} style={{ width: 280, flexShrink: 0, borderRadius: 20, border: '1px dashed rgba(177,216,212,0.25)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, cursor: 'pointer', padding: '40px 24px', background: 'rgba(177,216,212,0.03)' }}>
+    <div onClick={() => navigate('/discover')} style={{ width: 280, flexShrink: 0, borderRadius: 20, border: '1px dashed rgba(177,216,212,0.25)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, cursor: 'pointer', padding: '40px 24px', background: 'rgba(177,216,212,0.03)', transition: 'transform 180ms ease, background 180ms ease, border-color 180ms ease' }}>
       <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(177,216,212,0.1)', border: '1px solid rgba(177,216,212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>→</div>
       <div style={{ textAlign: 'center' }}>
         <div style={{ fontFamily: F, fontSize: 15, fontWeight: 700, color: '#B1D8D4', marginBottom: 6 }}>VIEW MORE</div>
@@ -477,7 +489,22 @@ function OrganizerCTA() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28, marginBottom: 48 }}>
           {STEPS.map(step => (
-            <div key={step.num} style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 20, padding: '32px 28px' }}>
+            <div
+              key={step.num}
+              style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 20, padding: '32px 28px', transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.28)';
+                e.currentTarget.style.borderColor = 'rgba(127,224,213,0.28)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.025)';
+              }}
+            >
               <div style={{ fontFamily: F, fontSize: 40, fontWeight: 900, color: 'rgba(127,224,213,0.2)', letterSpacing: '-1px', marginBottom: 16 }}>{step.num}</div>
               <div style={{ fontFamily: F, fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 10 }}>{step.title}</div>
               <div style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.4)', lineHeight: 1.6 }}>{step.desc}</div>
