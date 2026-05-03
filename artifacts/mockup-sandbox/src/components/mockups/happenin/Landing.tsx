@@ -428,9 +428,10 @@ function Footer() {
         <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
           <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Sunflower-footer_1777778666678.png`} alt="Sunflower" style={{ width: 18, height: 18, objectFit: 'contain' }} />
           <h2 style={{ margin: 0, fontFamily: F, fontSize: 44, lineHeight: 0.94, fontWeight: 500, letterSpacing: '-1.8px', color: '#F2E9D8', maxWidth: 560 }}>Have a question</h2>
-          <div style={{ display: 'flex', gap: 0, alignItems: 'center', marginTop: 10, border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, overflow: 'hidden' }}>
-            <input placeholder="Email address" style={{ width: 290, background: '#070707', border: 'none', outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14 }} />
-            <button style={{ background: '#191919', border: 'none', padding: '14px 16px', color: '#E7DCC8', fontFamily: F, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Ask</button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 10, width: 290 }}>
+            <input placeholder="Email address" style={{ width: '100%', background: '#070707', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14 }} />
+            <textarea placeholder="Comment" rows={4} style={{ width: '100%', background: '#070707', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14, resize: 'none' }} />
+            <button style={{ width: '100%', background: '#191919', border: 'none', borderRadius: 12, padding: '14px 16px', color: '#E7DCC8', fontFamily: F, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Ask</button>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 10, fontFamily: F, fontSize: 11, color: 'rgba(255,255,255,0.34)' }}>
             <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Service</a>
