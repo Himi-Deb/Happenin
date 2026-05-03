@@ -457,6 +457,23 @@ function Footer() {
           </div>
         </div>
       </div>
+      <div style={{ position: 'relative', height: 210, overflow: 'hidden' }}>
+        <img
+          src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Happenin-Logo_1777779012108.png`}
+          alt="Happenin"
+          style={{
+            position: 'absolute',
+            left: '50%',
+            bottom: -48,
+            transform: 'translateX(-50%)',
+            width: 'min(94vw, 1800px)',
+            height: 'auto',
+            opacity: 0.82,
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        />
+      </div>
     </footer>
   );
 }
