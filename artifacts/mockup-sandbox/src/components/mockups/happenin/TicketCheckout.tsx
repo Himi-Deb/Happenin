@@ -287,6 +287,25 @@ export function TicketCheckout() {
 
   return (
     <div className="happenin-root" style={{ minHeight: '100vh', background: '#000' }}>
+      <style>{`
+        @keyframes coSlideInLeft {
+          from { opacity: 0; transform: translateX(-48px) rotate(-1.5deg); }
+          to   { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        @keyframes coFadeUp {
+          from { opacity: 0; transform: translateY(28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes coFadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        .co-ticket   { animation: coSlideInLeft 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+        .co-label    { animation: coFadeIn 0.4s ease both; animation-delay: 0.05s; }
+        .co-heading  { animation: coFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.2s; }
+        .co-fields   { animation: coFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.35s; }
+        .co-security { animation: coFadeIn 0.4s ease both; animation-delay: 0.55s; }
+      `}</style>
       <Navbar />
 
       {/* Background glow */}
@@ -301,11 +320,13 @@ export function TicketCheckout() {
 
           {/* ── LEFT: Live ticket preview ── */}
           <div>
-            <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600, marginBottom: 20 }}>
+            <div className="co-label" style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600, marginBottom: 20 }}>
               YOUR TICKET PREVIEW
               {fullName && <span style={{ color: '#7FE0D5', marginLeft: 10 }}>· Live</span>}
             </div>
-            <LiveTicket attendee={fullName} />
+            <div className="co-ticket">
+              <LiveTicket attendee={fullName} />
+            </div>
             {!fullName && (
               <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(177,216,212,0.4)' }} />
@@ -317,13 +338,13 @@ export function TicketCheckout() {
           {/* ── RIGHT: Registration form ── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             {/* Form heading */}
-            <div>
+            <div className="co-heading">
               <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.55)', fontWeight: 600, marginBottom: 10 }}>STEP 1 OF 1</div>
               <h1 style={{ fontFamily: F, fontSize: 48, fontWeight: 800, letterSpacing: '-2px', color: '#fff', lineHeight: 0.95, margin: 0 }}>Register<br /><span style={{ color: 'rgba(255,255,255,0.3)' }}>your spot</span></h1>
             </div>
 
             {/* Form fields */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div className="co-fields" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {/* Name row */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -396,7 +417,7 @@ export function TicketCheckout() {
             </div>
 
             {/* Security note */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingTop: 4 }}>
+            <div className="co-security" style={{ display: 'flex', alignItems: 'center', gap: 10, paddingTop: 4 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
               <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>Free ticket — no payment information required</span>
             </div>
