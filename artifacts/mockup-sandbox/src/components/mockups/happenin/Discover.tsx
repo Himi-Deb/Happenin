@@ -243,6 +243,60 @@ function Navbar() {
   );
 }
 
+function Footer() {
+  return (
+    <footer style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+      <div style={{ padding: '96px 72px 0', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 560px)', gap: 90, alignItems: 'start' }}>
+          <div style={{ fontFamily: F, color: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 36, paddingLeft: 0, paddingRight: 24 }}>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>ABOUT HAPPENIN</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Home</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Discover</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Events</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Saved</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Profile</a>
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>LEGAL</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Terms of Service</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Privacy Policy</a>
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>SOCIAL</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Instagram</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>X</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>Email</a>
+                <a href="#" style={{ color: '#fff', textDecoration: 'none' }}>LinkedIn</a>
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16, width: 'fit-content' }}>
+            <h2 style={{ margin: 0, fontFamily: F, fontSize: 44, lineHeight: 0.94, fontWeight: 500, letterSpacing: '-1.8px', color: '#F2E9D8', maxWidth: 560 }}>Have a question?</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 10, width: 360 }}>
+              <input placeholder="Email address" style={{ width: '100%', background: '#070707', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14 }} />
+              <textarea placeholder="Comment" rows={4} style={{ width: '100%', background: '#070707', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14, resize: 'none' }} />
+              <button style={{ width: '100%', background: '#191919', border: 'none', borderRadius: 12, padding: '14px 16px', color: '#E7DCC8', fontFamily: F, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Ask</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{ background: '#000', width: '100%', overflow: 'hidden', paddingTop: 48, paddingBottom: 48 }}>
+        <img
+          src={`${BASE}/happenin-wordmark-trimmed.png`}
+          alt="happenin*"
+          style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+        />
+      </div>
+    </footer>
+  );
+}
+
 export function Discover() {
   const [activecat, setActivecat] = useState('All');
   const [activeFilter, setActiveFilter] = useState('All');
@@ -522,6 +576,7 @@ export function Discover() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
