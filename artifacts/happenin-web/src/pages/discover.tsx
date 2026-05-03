@@ -2,6 +2,7 @@ import { useState } from 'react';
 import logoPng from '@assets/Happenin-Logo_1777806807849.png';
 import wordmarkPng from '@assets/happenin-wordmark-4x_1777805318717.png';
 import { useLocation } from 'wouter';
+import { getSavedUser } from '../lib/user-cache';
 
 const F = 'Urbanist, sans-serif';
 const BG = '#0e0c09';
@@ -13,7 +14,7 @@ const LOGO_URL = logoPng;
 
 function Navbar() {
   const [, navigate] = useLocation();
-  const savedUser = 'Himi';
+  const savedUser = getSavedUser() || 'LOGIN';
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
       <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.16)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28, cursor: 'pointer' }} onClick={() => navigate('/discover')}>

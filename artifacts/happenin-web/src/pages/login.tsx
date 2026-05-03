@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
+import { setSavedUser } from '../lib/user-cache';
 
 const F = 'Urbanist, sans-serif';
 const CLOSE = (
@@ -180,7 +181,7 @@ export default function Login() {
                 ),
               },
             ].map(s => (
-              <button key={s.label} className="lf-social-btn" onClick={() => navigate((window.history.state?.usr as { from?: string } | undefined)?.from || '/')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '13px 0', color: '#fff', fontFamily: F, fontSize: 14, fontWeight: 600, cursor: 'pointer', transition: 'background 0.15s' }}>
+              <button key={s.label} className="lf-social-btn" onClick={() => { setSavedUser('Himi'); navigate((window.history.state?.usr as { from?: string } | undefined)?.from || '/'); }} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '13px 0', color: '#fff', fontFamily: F, fontSize: 14, fontWeight: 600, cursor: 'pointer', transition: 'background 0.15s' }}>
                 {s.icon}
                 {s.label}
               </button>
@@ -233,7 +234,7 @@ export default function Login() {
 
           <button
             className="lf-btn-primary"
-            onClick={() => navigate((window.history.state?.usr as { from?: string } | undefined)?.from || '/')}
+            onClick={() => { setSavedUser('Himi'); navigate((window.history.state?.usr as { from?: string } | undefined)?.from || '/'); }}
             style={{ width: '100%', background: '#7FE0D5', border: 'none', borderRadius: 14, padding: '16px 0', color: '#0e2a2c', fontFamily: F, fontSize: 15, fontWeight: 800, cursor: 'pointer', letterSpacing: '0.2px', transition: 'background 0.15s', marginBottom: 24 }}
           >
             Sign in

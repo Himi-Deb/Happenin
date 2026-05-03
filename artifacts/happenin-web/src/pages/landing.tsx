@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'wouter';
 import logoPng from '@assets/Happenin-Logo_1777804986503.png';
 import wordmarkPng from '@assets/happenin-wordmark-4x_1777805318717.png';
+import { getSavedUser } from '../lib/user-cache';
 
 const F = 'Urbanist, sans-serif';
 
@@ -142,7 +143,7 @@ function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const searchRef = useRef<HTMLDivElement | null>(null);
-  const savedUser = 'Himi';
+  const savedUser = getSavedUser() || 'LOGIN';
 
   const searchableItems = [...FEATURED_EVENTS, ...TODAY_EVENTS, ...FRESH_EVENTS, ...CONCERT_EVENTS, ...SPORTS_EVENTS];
   const filteredResults = searchTerm.trim()
