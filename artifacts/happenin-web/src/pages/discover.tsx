@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logoPng from '@assets/Happenin-Logo_1777806807849.png';
 import { useLocation } from 'wouter';
 
 const F = 'Urbanist, sans-serif';
@@ -7,7 +8,7 @@ const CARD_BG = '#13110d';
 const TEAL = '#7FE0D5';
 const GOLD = '#EBE88A';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-const LOGO_URL = `${BASE}/happenin-logo-new.png`;
+const LOGO_URL = logoPng;
 
 const CATEGORIES = ['All', 'Music', 'Arts', 'Food', 'Sports', 'Business', 'Theatre', 'Gaming', 'Education', 'Wellness'];
 const SORT_OPTIONS = ['Date: Soonest', 'Most Popular', 'Newest', 'A–Z'];

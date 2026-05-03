@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logoPng from '@assets/Happenin-Logo_1777806807849.png';
 import { useLocation } from 'wouter';
 
 const F = 'Urbanist, sans-serif';
@@ -8,7 +9,7 @@ const INPUT_BG = '#0a0804';
 const TEAL = '#7FE0D5';
 const GOLD = '#EBE88A';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-const LOGO_URL = `${BASE}/happenin-logo-new.png`;
+const LOGO_URL = logoPng;
 
 const FAQS = [
   { q: 'Is this event really free?', a: 'Absolutely. happenin* is a free-events-only platform. No payment info is ever required.' },

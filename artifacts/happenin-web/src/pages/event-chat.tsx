@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import logoPng from '@assets/Happenin-Logo_1777806807849.png';
 
 const F = 'Urbanist, sans-serif';
 const BG = '#0e0c09';
@@ -7,7 +8,7 @@ const INPUT_BG = '#0a0804';
 const TEAL = '#7FE0D5';
 const GOLD = '#EBE88A';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-const LOGO_URL = `${BASE}/happenin-logo-new.png`;
+const LOGO_URL = logoPng;
 
 type AvatarId = 'alex' | 'casey' | 'jordan' | 'morgan' | 'river' | 'sky';
 
