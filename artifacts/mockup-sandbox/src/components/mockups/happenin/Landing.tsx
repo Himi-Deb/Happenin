@@ -435,10 +435,7 @@ function Footer() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '56px 72px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 64 }}>
           <div style={{ flex: '0 0 auto' }}>
-            <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#B1D8D4', margin: '0 0 14px' }}>Newsletter</p>
-            <h2 style={{ fontFamily: F, fontSize: 48, fontWeight: 800, letterSpacing: '-1.5px', lineHeight: 1.05, margin: 0, color: '#fff' }}>
-              Stay in<br />the loop.
-            </h2>
+            <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#B1D8D4', margin: 0 }}>Newsletter</p>
           </div>
           <div style={{ flex: 1, maxWidth: 520, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <p style={{ fontFamily: F, fontSize: 15, color: 'rgba(255,255,255,0.38)', lineHeight: 1.6, margin: 0 }}>
