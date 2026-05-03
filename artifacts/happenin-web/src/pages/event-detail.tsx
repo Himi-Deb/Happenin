@@ -109,8 +109,8 @@ export default function EventDetail() {
         <div style={{ position: 'relative', width: '100vw', height: '80vh', overflow: 'hidden', marginLeft: 'calc(50% - 50vw)' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center 25%' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,12,9,0.2) 0%, rgba(14,12,9,0.6) 55%, #0e0c09 100%)' }} />
-          <div onClick={() => navigate('/checkout')} style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 420px', alignItems: 'end', gap: 32, padding: '0 80px 48px', cursor: 'pointer' }}>
-            <div>
+          <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 420px', alignItems: 'end', gap: 32, padding: '0 80px 48px', pointerEvents: 'none' }}>
+            <div onClick={() => navigate('/checkout')} style={{ pointerEvents: 'auto', cursor: 'pointer' }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(127,224,213,0.12)', border: '1px solid rgba(127,224,213,0.22)', borderRadius: 9999, padding: '5px 14px', marginBottom: 16 }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: TEAL }} />
                 <span style={{ fontFamily: F, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', color: TEAL }}>Free Event · Music</span>
@@ -124,7 +124,7 @@ export default function EventDetail() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span style={{ fontSize: 16 }}>👥</span><span style={{ fontFamily: F, fontSize: 15, color: 'rgba(255,255,255,0.65)' }}>842 attending</span></div>
               </div>
             </div>
-            <div style={{ justifySelf: 'end', width: '100%', maxWidth: 420 }}>
+            <div style={{ justifySelf: 'end', width: '100%', maxWidth: 420, pointerEvents: 'auto' }}>
               <div style={{ fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'rgba(255,255,255,0.35)', marginBottom: 16, textAlign: 'right' }}>Claim Tickets</div>
               {TICKET_TYPES.map(t => <TicketCard key={t.name} ticket={t} />)}
             </div>
