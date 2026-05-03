@@ -431,32 +431,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* Row 2 — Stay in the loop */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '56px 72px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 64 }}>
-          <div style={{ flex: '0 0 auto' }}>
-            <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#B1D8D4', margin: 0 }}>Newsletter</p>
-          </div>
-          <div style={{ flex: 1, maxWidth: 520, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <p style={{ fontFamily: F, fontSize: 15, color: 'rgba(255,255,255,0.38)', lineHeight: 1.6, margin: 0 }}>
-              Get the latest events, features and updates delivered straight to your inbox. No spam, ever.
-            </p>
-            <div style={{ display: 'flex', gap: 0, border: '1px solid rgba(255,255,255,0.15)', borderRadius: 14, overflow: 'hidden', marginTop: 8 }}>
-              <input
-                placeholder="your@email.com"
-                style={{ flex: 1, background: 'rgba(255,255,255,0.04)', border: 'none', outline: 'none', padding: '16px 20px', fontFamily: F, fontSize: 15, color: '#fff' }}
-              />
-              <button style={{ background: '#EBE88A', border: 'none', padding: '16px 28px', cursor: 'pointer', fontFamily: F, fontSize: 13, fontWeight: 700, color: '#0e2a2c', textTransform: 'uppercase', letterSpacing: '0.8px', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 8 }}>
-                Subscribe
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e2a2c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Row 3 — Sitemap columns */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '48px 72px 56px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32 }}>
