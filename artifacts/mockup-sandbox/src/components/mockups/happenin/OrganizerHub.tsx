@@ -258,12 +258,13 @@ export function OrganizerHub() {
           boxShadow: 'inset 0 2px 18px rgba(0,0,0,0.55), inset 0 1px 3px rgba(0,0,0,0.4)',
           overflow: 'hidden',
           minWidth: 0,
+          position: 'relative',
         }}>
 
           {/* channel header inside chat card */}
           <div style={{ flexShrink: 0 }}>
             {/* colour accent top stripe */}
-            <div style={{ position: 'absolute', inset: 0, opacity: 0.6, pointerEvents: 'none' }}>
+            <div style={{ position: 'absolute', inset: 0, opacity: 0.6, pointerEvents: 'none', overflow: 'hidden', borderRadius: 24 }}>
               <ChatWallpaper />
             </div>
             <div style={{ height: 2, background: `linear-gradient(90deg, ${ch.color}80 0%, ${ch.color}00 60%)`, borderRadius: '20px 20px 0 0' }} />
