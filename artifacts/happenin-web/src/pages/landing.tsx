@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'wouter';
 import logoPng from '@assets/Happenin-Logo_1777804986503.png';
 import wordmarkPng from '@assets/happenin-wordmark-4x_1777805318717.png';
-import thumbnailPng from '@assets/Thumbnail_1777805199299.png';
 
 const F = 'Urbanist, sans-serif';
 
@@ -67,8 +66,6 @@ const FEATURED_EVENTS = makeEvents([
   { title: 'Python & AI Bootcamp', date: 'Mon, 30 Jun 2025', time: '10:00 AM', location: 'Code Space, Toronto', category: 'Education', price: 'Free', tag: '', attendees: 145, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80)' },
   { title: 'Craft Beer Festival', date: 'Sat, 19 Jul 2025', time: '2:00 PM', location: 'Battersea, London', category: 'Food', price: 'Free', tag: '', attendees: 870, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80)' },
 ]);
-
-const SEARCH_EVENTS = FEATURED_EVENTS.slice(0, 6);
 
 const TODAY_EVENTS = makeEvents([
   { title: 'Morning Yoga Flow', time: '8:00 AM', location: 'Hyde Park, London', category: 'Sports', price: 'Free', attendees: 80, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80)' },
@@ -150,41 +147,6 @@ function Navbar() {
         </div>
       </div>
     </div>
-  );
-}
-
-function SearchPanel() {
-  const [, navigate] = useLocation();
-  const [query, setQuery] = useState('');
-  const results = SEARCH_EVENTS.filter((event) => `${event.title} ${event.location} ${event.category}`.toLowerCase().includes(query.toLowerCase()));
-
-  return (
-    <section style={{ padding: '0 72px 72px', background: '#0e0c09' }}>
-      <div style={{ maxWidth: 1120, margin: '0 auto', background: '#13110d', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 28, padding: 28 }}>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 20 }}>
-          <img src={thumbnailPng} alt="" style={{ width: 34, height: 34, borderRadius: 10, flexShrink: 0 }} />
-          <div>
-            <div style={{ fontFamily: F, fontSize: 14, color: '#7FE0D5', textTransform: 'uppercase', letterSpacing: '0.16em' }}>Search events</div>
-            <div style={{ fontFamily: F, fontSize: 18, color: '#fff' }}>Pick an event from the list</div>
-          </div>
-        </div>
-        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search music, art, city, venue..." style={{ width: '100%', background: '#0a0804', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '16px 18px', color: '#fff', outline: 'none', fontFamily: F, fontSize: 15, marginBottom: 18 }} />
-        <div style={{ display: 'grid', gap: 12 }}>
-          {results.map((event) => (
-            <button key={event.id} onClick={() => navigate('/event/1')} style={{ textAlign: 'left', width: '100%', background: '#0a0804', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '16px 18px', color: '#fff', cursor: 'pointer' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center' }}>
-                <div>
-                  <div style={{ fontFamily: F, fontSize: 18, fontWeight: 600 }}>{event.title}</div>
-                  <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.62)', marginTop: 4 }}>{event.location} · {event.category}</div>
-                </div>
-                <div style={{ fontFamily: F, fontSize: 12, color: '#EBE88A', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{event.price}</div>
-              </div>
-            </button>
-          ))}
-          {results.length === 0 && <div style={{ fontFamily: F, color: 'rgba(255,255,255,0.55)', padding: '8px 2px' }}>No events found.</div>}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -439,7 +401,6 @@ export default function Landing() {
       <Navbar />
       <HeroCarousel />
       <CategoryBar />
-      <SearchPanel />
       <section style={{ padding: '48px 0 72px', paddingLeft: 72 }}>
         <SectionHeader label="Happening Now" title="Featured Events" link="VIEW ALL" />
         <HScrollRow events={FEATURED_EVENTS} showViewMore />
