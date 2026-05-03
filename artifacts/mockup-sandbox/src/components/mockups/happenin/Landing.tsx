@@ -192,7 +192,7 @@ function HeroCarousel() {
   return (
     <section style={{ position: 'relative', width: '100%', aspectRatio: '1920 / 1280', overflow: 'hidden', background: '#000' }}>
       {CAROUSEL_SLIDES.map((s, i) => (
-        <div key={s.id} style={{ position: 'absolute', inset: 0, background: s.bg, opacity: i === current ? 1 : 0, transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)', pointerEvents: 'none' }}>
+        <div key={s.id} style={{ position: 'absolute', inset: 0, backgroundImage: s.bg, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', opacity: i === current ? 1 : 0, transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)', pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.04) 0%, transparent 60%)' }} />
         </div>
       ))}
