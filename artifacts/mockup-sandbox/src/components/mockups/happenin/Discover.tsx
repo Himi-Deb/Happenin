@@ -74,7 +74,6 @@ function EventCard({ ev, large = false }: { ev: Ev; large?: boolean }) {
   const [hovered, setHovered] = useState(false);
   const tag = TAG_COLORS[ev.tag];
   const isFree = ev.price === 'Free';
-  const photoH = large ? 380 : 260;
 
   return (
     <div
@@ -82,45 +81,50 @@ function EventCard({ ev, large = false }: { ev: Ev; large?: boolean }) {
       onMouseLeave={() => setHovered(false)}
       onClick={() => window.location.href = `${BASE}/preview/happenin/EventDetail`}
       style={{
-        background: '#111213', borderRadius: 20, overflow: 'hidden', cursor: 'pointer',
-        border: `1px solid ${hovered ? 'rgba(127,224,213,0.35)' : 'rgba(255,255,255,0.06)'}`,
-        transition: 'border-color 0.18s, transform 0.18s, box-shadow 0.18s',
-        transform: hovered ? 'translateY(-4px)' : 'none',
-        boxShadow: hovered ? '0 12px 40px rgba(127,224,213,0.1)' : 'none',
-        display: 'flex', flexDirection: 'column', height: '100%',
+        position: 'relative', borderRadius: 24, overflow: 'hidden',
+        background: '#111', aspectRatio: large ? '4/3' : '4/5',
+        boxShadow: hovered ? '0 24px 64px rgba(0,0,0,0.55)' : '0 18px 60px rgba(0,0,0,0.35)',
+        cursor: 'pointer',
+        transition: 'transform 0.22s ease, box-shadow 0.22s ease',
+        transform: hovered ? 'translateY(-6px)' : 'none',
       }}
     >
-      <div style={{ position: 'relative', height: photoH, flexShrink: 0, background: '#1a1a1a', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: ev.image, backgroundSize: 'cover', backgroundPosition: 'center', transition: 'transform 0.4s ease', transform: hovered ? 'scale(1.04)' : 'scale(1)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)' }} />
-        {ev.tag && tag && (
-          <div style={{ position: 'absolute', top: 16, left: 16, background: tag.bg, color: tag.color, fontFamily: F, fontSize: 11, fontWeight: 700, letterSpacing: '0.5px', borderRadius: 100, padding: '5px 12px' }}>{ev.tag}</div>
-        )}
-        <div style={{ position: 'absolute', top: 16, right: 16, background: isFree ? 'rgba(127,224,213,0.18)' : 'rgba(235,232,138,0.15)', border: `1px solid ${isFree ? 'rgba(127,224,213,0.4)' : 'rgba(235,232,138,0.4)'}`, backdropFilter: 'blur(8px)', color: isFree ? '#7FE0D5' : '#EBE88A', fontFamily: F, fontSize: 13, fontWeight: 700, borderRadius: 100, padding: '5px 13px' }}>{ev.price}</div>
-        <div style={{ position: 'absolute', bottom: 14, left: 16, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.8)', fontFamily: F, fontSize: 11, fontWeight: 600, borderRadius: 100, padding: '4px 11px' }}>{ev.category}</div>
-      </div>
-      <div style={{ padding: large ? '22px 24px 24px' : '18px 20px 20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-        <div style={{ fontFamily: F, fontSize: large ? 19 : 16, fontWeight: 700, color: '#fff', lineHeight: 1.3, marginBottom: 10 }}>{ev.title}</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.6)" strokeWidth="2" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{ev.date} · {ev.time}</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.6)" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{ev.location}, {ev.city}</span>
+      {/* Photo */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: ev.image, backgroundSize: 'cover', backgroundPosition: 'center',
+        transition: 'transform 0.45s ease',
+        transform: hovered ? 'scale(1.05)' : 'scale(1)',
+      }} />
+      {/* Gradient overlay */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.86) 100%)' }} />
+
+      {/* Content layer */}
+      <div style={{ position: 'absolute', inset: 0, padding: 22, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+
+        {/* Top row: category + price */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)' }}>{ev.category}</div>
+          <div style={{ fontFamily: F, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700, color: isFree ? '#7FE0D5' : '#fff', background: isFree ? 'rgba(127,224,213,0.18)' : 'rgba(0,0,0,0.3)', border: `1px solid ${isFree ? 'rgba(127,224,213,0.35)' : 'rgba(255,255,255,0.12)'}`, borderRadius: 9999, padding: '6px 13px', backdropFilter: 'blur(8px)' }}>
+            {ev.price}
           </div>
         </div>
-        <div style={{ marginTop: 'auto', paddingTop: 14, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ display: 'flex' }}>
-              {[0,1,2].map(j => <div key={j} style={{ width: 22, height: 22, borderRadius: '50%', background: ['#7FE0D5','#EBE88A','#fff'][j], border: '2px solid #111213', marginLeft: j > 0 ? -7 : 0, opacity: 0.7 + j * 0.1 }} />)}
+
+        {/* Bottom: tag + title + meta */}
+        <div>
+          {ev.tag && tag && (
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: tag.bg, color: tag.color, fontFamily: F, fontSize: 10, fontWeight: 700, letterSpacing: '0.6px', textTransform: 'uppercase', borderRadius: 100, padding: '4px 10px', marginBottom: 10 }}>
+              {ev.tag}
             </div>
-            <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.35)', fontWeight: 500 }}>{fmtAttendees(ev.attendees)} going</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: isFree ? '#7FE0D5' : '#EBE88A', fontFamily: F, fontSize: 13, fontWeight: 700 }}>
-            {isFree ? 'Free' : ev.price}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          )}
+          <div style={{ fontFamily: F, fontSize: large ? 28 : 22, lineHeight: 1.0, fontWeight: 600, letterSpacing: '-0.6px', color: '#fff', marginBottom: 8 }}>{ev.title}</div>
+          <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.75)', marginBottom: 3 }}>{ev.date} · {ev.time}</div>
+          <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>{ev.location}, {ev.city}</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 12 }}>
+            <div style={{ display: 'flex' }}>
+              {[0,1,2].map(j => <div key={j} style={{ width: 20, height: 20, borderRadius: '50%', background: ['#7FE0D5','#EBE88A','rgba(255,255,255,0.6)'][j], border: '2px solid rgba(0,0,0,0.4)', marginLeft: j > 0 ? -6 : 0 }} />)}
+            </div>
+            <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{fmtAttendees(ev.attendees)} going</span>
           </div>
         </div>
       </div>
