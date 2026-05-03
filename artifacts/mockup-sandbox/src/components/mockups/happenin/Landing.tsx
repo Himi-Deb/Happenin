@@ -435,10 +435,10 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, transform: 'translateY(-10px)' }}>
-          <div style={{ fontFamily: F, fontSize: 128, lineHeight: 0.9, fontWeight: 500, letterSpacing: '-4px', color: '#fff' }}>happenin</div>
-          <div style={{ fontFamily: F, fontSize: 128, lineHeight: 0.9, fontWeight: 500, color: '#7FE0D5' }}>*</div>
+      <div style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, width: '100%', padding: '0 56px 0 56px', transform: 'translateY(18px)' }}>
+          <div style={{ fontFamily: F, fontSize: 'min(16vw, 240px)', lineHeight: 0.9, fontWeight: 400, letterSpacing: '-6px', color: '#fff', whiteSpace: 'nowrap' }}>happenin</div>
+          <div style={{ fontFamily: F, fontSize: 'min(16vw, 240px)', lineHeight: 0.9, fontWeight: 400, color: '#7FE0D5' }}>*</div>
         </div>
       </div>
     </footer>
