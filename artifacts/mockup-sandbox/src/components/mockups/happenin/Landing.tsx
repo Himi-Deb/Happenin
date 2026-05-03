@@ -218,12 +218,12 @@ function HeroCarousel() {
             </div>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 20, flexShrink: 0 }}>
-          <div style={{ display: 'flex', gap: 10 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, flexShrink: 0, width: 250 }}>
+          <div style={{ display: 'flex', gap: 10, justifyContent: 'center', width: '100%' }}>
             <button onClick={prev} style={{ width: 120, height: 120, borderRadius: '50%', background: 'transparent', border: 'none', color: '#fff', fontSize: 45, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>←</button>
             <button onClick={next} style={{ width: 120, height: 120, borderRadius: '50%', background: 'transparent', border: 'none', color: '#fff', fontSize: 45, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>→</button>
           </div>
-          <div style={{ display: 'flex', gap: 6 }}>
+          <div style={{ display: 'flex', gap: 6, justifyContent: 'center', width: '100%' }}>
             {CAROUSEL_SLIDES.map((_, i) => (
               <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? 24 : 6, height: 6, borderRadius: 9999, background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s ease' }} />
             ))}
