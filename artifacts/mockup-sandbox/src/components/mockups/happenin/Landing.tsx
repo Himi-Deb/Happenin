@@ -431,24 +431,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* Row 3 — Sitemap columns */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '48px 72px 56px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32 }}>
-          {FOOTER_LINKS.map(col => (
-            <div key={col.heading} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#B1D8D4', margin: 0 }}>{col.heading}</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {col.links.map(link => (
-                  <a key={link} href="#" style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.35)', textDecoration: 'none', lineHeight: 1 }}>
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Row 4 — Copyright */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '20px 72px' }}>
         <p style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.2)', margin: 0 }}>© 2025 Happenin. All rights reserved.</p>
