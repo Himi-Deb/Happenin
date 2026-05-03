@@ -293,17 +293,9 @@ export function Discover() {
           <h1 style={{ fontFamily: F, fontSize: 82, fontWeight: 800, letterSpacing: '-3.5px', color: '#fff', lineHeight: 0.93, margin: '0 0 26px' }}>
             Discover<br/><span style={{ color: '#7FE0D5' }}>what's<br/>happening.</span>
           </h1>
-          <p style={{ fontFamily: F, fontSize: 18, color: 'rgba(255,255,255,0.38)', fontWeight: 400, margin: '0 0 40px', lineHeight: 1.65, maxWidth: 460 }}>
+          <p style={{ fontFamily: F, fontSize: 18, color: 'rgba(255,255,255,0.38)', fontWeight: 400, margin: 0, lineHeight: 1.65, maxWidth: 460 }}>
             Free tickets, real events, real people. Browse thousands of experiences happening this week and beyond.
           </p>
-          <div style={{ display: 'flex', gap: 12 }}>
-            {[['2,400+', 'events this month'], ['180+', 'cities worldwide'], ['Always', 'free tickets']].map(([val, label]) => (
-              <div key={label} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '14px 22px' }}>
-                <div style={{ fontFamily: F, fontSize: 20, fontWeight: 800, color: '#7FE0D5', letterSpacing: '-0.5px' }}>{val}</div>
-                <div style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 3 }}>{label}</div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Right: staggered photo collage */}
