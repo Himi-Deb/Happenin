@@ -297,7 +297,22 @@ export function TicketCheckout() {
       <div style={{ position: 'relative', zIndex: 1, paddingTop: 128, padding: '128px 80px 0' }}>
         <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
 
-          {/* ── LEFT: Registration form ── */}
+          {/* ── LEFT: Live ticket preview ── */}
+          <div style={{ position: 'sticky', top: 32 }}>
+            <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600, marginBottom: 20 }}>
+              YOUR TICKET PREVIEW
+              {fullName && <span style={{ color: '#7FE0D5', marginLeft: 10 }}>· Live</span>}
+            </div>
+            <LiveTicket attendee={fullName} />
+            {!fullName && (
+              <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(177,216,212,0.4)' }} />
+                <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.3)' }}>Enter your name to see it on the ticket</span>
+              </div>
+            )}
+          </div>
+
+          {/* ── RIGHT: Registration form ── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             {/* Event mini-header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '18px 22px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 18 }}>
@@ -395,21 +410,6 @@ export function TicketCheckout() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
               <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>Free ticket — no payment information required</span>
             </div>
-          </div>
-
-          {/* ── RIGHT: Live ticket preview ── */}
-          <div style={{ position: 'sticky', top: 32 }}>
-            <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600, marginBottom: 20 }}>
-              YOUR TICKET PREVIEW
-              {fullName && <span style={{ color: '#7FE0D5', marginLeft: 10 }}>· Live</span>}
-            </div>
-            <LiveTicket attendee={fullName} />
-            {!fullName && (
-              <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(177,216,212,0.4)' }} />
-                <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.3)' }}>Enter your name to see it on the ticket</span>
-              </div>
-            )}
           </div>
 
         </div>
