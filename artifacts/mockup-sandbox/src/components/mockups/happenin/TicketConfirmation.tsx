@@ -143,6 +143,31 @@ export function TicketConfirmation() {
 
   return (
     <div className="happenin-root" style={{ minHeight: '100vh', background: '#000' }}>
+      <style>{`
+        @keyframes tcSlideInLeft {
+          from { opacity: 0; transform: translateX(-48px) rotate(-1.5deg); }
+          to   { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        @keyframes tcFadeUp {
+          from { opacity: 0; transform: translateY(28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes tcPop {
+          0%   { opacity: 0; transform: scale(0.6); }
+          60%  { transform: scale(1.12); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes tcFadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        .tc-ticket  { animation: tcSlideInLeft 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+        .tc-actions { animation: tcFadeIn 0.5s ease both; animation-delay: 0.55s; }
+        .tc-check   { animation: tcPop 0.6s cubic-bezier(0.34,1.56,0.64,1) both; animation-delay: 0.15s; }
+        .tc-heading { animation: tcFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.3s; }
+        .tc-card-1  { animation: tcFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.45s; }
+        .tc-card-2  { animation: tcFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.58s; }
+      `}</style>
       <Navbar />
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
         <div style={{ position: 'absolute', top: '-8%', left: '-10%', width: 820, height: 760, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(72,46,25,0.55) 0%, rgba(72,46,25,0.22) 34%, transparent 72%)' }} />
@@ -151,8 +176,8 @@ export function TicketConfirmation() {
       <div style={{ position: 'relative', zIndex: 1, paddingTop: 180, padding: '180px 80px 0' }}>
         <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
           <div style={{ position: 'sticky', top: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <TicketCard />
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <div className="tc-ticket"><TicketCard /></div>
+            <div className="tc-actions" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               <button style={{ display: 'flex', alignItems: 'center', gap: 9, background: '#F4F1EA', border: 'none', borderRadius: 14, padding: '14px 28px', color: '#0e1a1b', fontFamily: F, fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
@@ -174,19 +199,19 @@ export function TicketConfirmation() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 8 }}>
-              <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(127,224,213,0.1)', border: '1.5px solid rgba(127,224,213,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="tc-check" style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(127,224,213,0.1)', border: '1.5px solid rgba(127,224,213,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7FE0D5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <div>
+              <div className="tc-heading">
                 <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#7FE0D5', fontWeight: 600, marginBottom: 10 }}>Booking Confirmed</div>
                 <h1 style={{ fontFamily: F, fontSize: 60, fontWeight: 800, letterSpacing: '-2.5px', color: '#fff', lineHeight: 0.95, margin: '0 0 14px' }}>You're in!</h1>
                 <p style={{ fontFamily: F, fontSize: 17, color: 'rgba(255,255,255,0.4)', fontWeight: 400, maxWidth: 440, lineHeight: 1.6 }}>Your free ticket for <span style={{ color: '#fff', fontWeight: 600 }}>Neon Pulse Music Festival</span> is confirmed. See you on the rooftop.</p>
               </div>
             </div>
 
-            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22, padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}>
+            <div className="tc-card-1" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22, padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}>
               <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600 }}>GET THERE</div>
               <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr', gap: 16, alignItems: 'start' }}>
                 <div style={{ width: 56, height: 56, borderRadius: 16, background: 'rgba(127,224,213,0.1)', border: '1px solid rgba(127,224,213,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -205,7 +230,7 @@ export function TicketConfirmation() {
               </button>
             </div>
 
-            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22, padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}>
+            <div className="tc-card-2" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22, padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}>
               <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600 }}>CHAT</div>
               <div>
                 <div style={{ fontFamily: F, fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 6 }}>Meet other attendees</div>
