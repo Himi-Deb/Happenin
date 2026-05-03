@@ -296,11 +296,11 @@ export function TicketCheckout() {
       </div>
 
       {/* ── Main two-column section ── */}
-      <div style={{ position: 'relative', zIndex: 1, paddingTop: 180, padding: '180px 80px 0' }}>
-        <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100vh', display: 'flex', alignItems: 'center', padding: '80px 120px 0', boxSizing: 'border-box' }}>
+        <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 100, alignItems: 'center' }}>
 
           {/* ── LEFT: Live ticket preview ── */}
-          <div style={{ position: 'sticky', top: 32 }}>
+          <div>
             <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600, marginBottom: 20 }}>
               YOUR TICKET PREVIEW
               {fullName && <span style={{ color: '#7FE0D5', marginLeft: 10 }}>· Live</span>}
