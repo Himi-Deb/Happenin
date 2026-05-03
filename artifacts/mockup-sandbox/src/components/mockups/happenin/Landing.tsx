@@ -219,10 +219,9 @@ function HeroCarousel() {
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 20, flexShrink: 0 }}>
-          <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.35)', letterSpacing: '1px' }}>{String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</div>
           <div style={{ display: 'flex', gap: 10 }}>
-            <button onClick={prev} style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>←</button>
-            <button onClick={next} style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>→</button>
+            <button onClick={prev} style={{ width: 120, height: 120, borderRadius: '50%', background: 'transparent', border: 'none', color: '#fff', fontSize: 45, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>←</button>
+            <button onClick={next} style={{ width: 120, height: 120, borderRadius: '50%', background: 'transparent', border: 'none', color: '#fff', fontSize: 45, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>→</button>
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
             {CAROUSEL_SLIDES.map((_, i) => (
