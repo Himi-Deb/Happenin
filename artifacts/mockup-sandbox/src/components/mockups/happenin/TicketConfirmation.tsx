@@ -197,7 +197,7 @@ export function TicketConfirmation() {
         <div style={{ position: 'absolute', top: '-8%', left: '-10%', width: 820, height: 760, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(72,46,25,0.55) 0%, rgba(72,46,25,0.22) 34%, transparent 72%)' }} />
         <div style={{ position: 'absolute', top: '8%', left: '26%', width: 700, height: 600, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,42,44,0.35) 0%, transparent 70%)' }} />
       </div>
-      <div style={{ position: 'relative', zIndex: 1, width: '100%', minHeight: '100vh', display: 'flex', justifyContent: 'center', padding: '120px 120px 100px', boxSizing: 'border-box' }}>
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', minHeight: '100vh', display: 'flex', justifyContent: 'center', padding: '25vh 120px 100px', boxSizing: 'border-box' }}>
         <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 100, alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div className="tc-ticket"><TicketCard /></div>
