@@ -435,22 +435,11 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#000' }}>
-        <img
-          src={new URL('@assets/happenin-wordmark-4x_1777779810283.jpg', import.meta.url).href}
-          alt="Happenin"
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 'min(92vw, 2100px)',
-            height: 'auto',
-            pointerEvents: 'none',
-            userSelect: 'none',
-            opacity: 1,
-          }}
-        />
+      <div style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, transform: 'translateY(-10px)' }}>
+          <div style={{ fontFamily: F, fontSize: 128, lineHeight: 0.9, fontWeight: 500, letterSpacing: '-4px', color: '#fff' }}>happenin</div>
+          <div style={{ fontFamily: F, fontSize: 128, lineHeight: 0.9, fontWeight: 500, color: '#7FE0D5' }}>*</div>
+        </div>
       </div>
     </footer>
   );
