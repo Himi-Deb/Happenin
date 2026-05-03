@@ -326,37 +326,6 @@ function CategoryBar({ selectedCategories, onToggleCategory }: { selectedCategor
   );
 }
 
-function ListingSection() {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const toggleCategory = (category: string) => {
-    setSelectedCategories((current) =>
-      current.includes(category) ? current.filter((item) => item !== category) : [...current, category]
-    );
-  };
-  const sourceEvents = [...FEATURED_EVENTS, ...TODAY_EVENTS, ...FRESH_EVENTS, ...CONCERT_EVENTS, ...SPORTS_EVENTS];
-  const uniqueEvents = sourceEvents.filter((event, index, arr) => arr.findIndex((item) => item.title === event.title) === index);
-  const filteredEvents = uniqueEvents.filter((event) => selectedCategories.length === 0 || selectedCategories.includes(event.category));
-  const filteredFeatured = FEATURED_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
-  const filteredToday = TODAY_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
-  const filteredFresh = FRESH_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
-  const filteredConcerts = CONCERT_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
-  const filteredSports = SPORTS_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
-
-  return (
-    <>
-      <CategoryBar selectedCategories={selectedCategories} onToggleCategory={toggleCategory} />
-      <section style={{ padding: '48px 0 72px', paddingLeft: 72 }}>
-        <SectionHeader label="Happening Now" title="Featured Events" link="VIEW ALL" />
-        <HScrollRow events={filteredFeatured} showViewMore />
-      </section>
-      <EventSection label="Today Only" title="Happening Today" link="VIEW TODAY" events={filteredToday} showViewMore />
-      <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={filteredFresh} showViewMore />
-      <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={filteredConcerts} showViewMore />
-      <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={filteredSports} showViewMore />
-    </>
-  );
-}
-
 function EventCard({ event }: { event: EventItem }) {
   const [, navigate] = useLocation();
   return (
