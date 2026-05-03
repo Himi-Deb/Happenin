@@ -290,10 +290,6 @@ export function Discover() {
 
         {/* Left: text + stats */}
         <div style={{ position: 'relative', zIndex: 1, flex: '0 0 54%', maxWidth: '54%', paddingRight: 60 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(127,224,213,0.08)', border: '1px solid rgba(127,224,213,0.18)', borderRadius: 9999, padding: '6px 18px', marginBottom: 28 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#7FE0D5', display: 'inline-block', flexShrink: 0 }} />
-            <span style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: '#7FE0D5', textTransform: 'uppercase', letterSpacing: '2.5px' }}>London, UK · Events near you</span>
-          </div>
           <h1 style={{ fontFamily: F, fontSize: 82, fontWeight: 800, letterSpacing: '-3.5px', color: '#fff', lineHeight: 0.93, margin: '0 0 26px' }}>
             Discover<br/><span style={{ color: '#7FE0D5' }}>what's<br/>happening.</span>
           </h1>
