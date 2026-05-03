@@ -255,7 +255,7 @@ export function OrganizerHub() {
           borderRadius: 24,
           border: '1px solid rgba(255,255,255,0.05)',
           /* sunken / inset effect */
-          boxShadow: 'inset 0 2px 18px rgba(0,0,0,0.55), inset 0 1px 3px rgba(0,0,0,0.4)',
+          boxShadow: '0 10px 28px rgba(0,0,0,0.28), inset 0 2px 18px rgba(0,0,0,0.55), inset 0 1px 3px rgba(0,0,0,0.4)',
           overflow: 'hidden',
           minWidth: 0,
           position: 'relative',
@@ -301,7 +301,7 @@ export function OrganizerHub() {
               <div key={m.id} onMouseEnter={() => setHovered(m.id)} onMouseLeave={() => setHovered(null)}
                 style={{ display: 'flex', gap: 14, padding: '10px 32px', background: hovered === m.id ? 'rgba(255,255,255,0.018)' : 'transparent', transition: 'background 0.12s' }}>
                 <div style={{ width: 40, height: 40, borderRadius: '50%', background: m.ac || RC[m.role]?.bg || RC.attendee.bg, border: `1.5px solid ${m.role === 'organiser' ? `${RC.organiser.text}28` : 'rgba(255,255,255,0.1)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                  <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/event-chat-avatar.png`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <AvatarFace id={m.role === 'organiser' ? 'casey' : 'jordan'} size={40}/>
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
