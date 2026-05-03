@@ -261,7 +261,39 @@ function LandingPage() {
       <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={events.filter((event) => CONCERT_EVENTS.some((concert) => concert.title === event.title))} showViewMore />
       <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={events.filter((event) => SPORTS_EVENTS.some((sport) => sport.title === event.title))} showViewMore />
       <FeedbackSection selectedCategories={selectedCategories} />
+      <Footer />
     </>
+  );
+}
+
+function Footer() {
+  return (
+    <footer style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+      <div style={{ padding: '96px 72px 40px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 560px)', gap: 90, alignItems: 'start' }}>
+          <div style={{ fontFamily: F, color: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 36, paddingRight: 24 }}>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>ABOUT HAPPENIN</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                {['Home', 'Discover', 'Events', 'Saved', 'Profile'].map((l) => <a key={l} href="#" style={{ color: '#fff', textDecoration: 'none' }}>{l}</a>)}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>LEGAL</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>Terms of Service</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>Privacy Policy</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>SOCIAL</div>
+              <div style={{ display: 'grid', gap: 12, fontSize: 20, lineHeight: 1, fontWeight: 400 }}>
+                {['Instagram', 'X', 'Email', 'LinkedIn'].map((l) => <a key={l} href="#" style={{ color: '#fff', textDecoration: 'none' }}>{l}</a>)}
+              </div>
+            </div>
+          </div>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontFamily: F }}>© 2025 happenin*</div>
+        </div>
+      </div>
+    </footer>
   );
 }
 

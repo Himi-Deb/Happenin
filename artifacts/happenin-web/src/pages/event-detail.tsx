@@ -105,7 +105,7 @@ export default function EventDetail() {
 
       {/* Hero */}
       <div style={{ paddingTop: 93, position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'relative', width: '100%', height: 480, overflow: 'hidden' }}>
+        <div style={{ position: 'relative', width: '100vw', height: '80vh', overflow: 'hidden', marginLeft: 'calc(50% - 50vw)' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center 25%' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(14,12,9,0.2) 0%, rgba(14,12,9,0.6) 55%, #0e0c09 100%)' }} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 80px 48px' }}>
@@ -289,6 +289,31 @@ export default function EventDetail() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer style={{ background: BG, borderTop: '1px solid rgba(255,255,255,0.07)', marginTop: 80, padding: '64px 80px 40px' }}>
+      <div style={{ maxWidth: 1360, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 48 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 36 }}>
+          {[
+            { heading: 'ABOUT HAPPENIN', links: ['Home', 'Discover', 'Events', 'Saved', 'Profile'] },
+            { heading: 'LEGAL', links: ['Terms of Service', 'Privacy Policy'] },
+            { heading: 'SOCIAL', links: ['Instagram', 'X', 'Email', 'LinkedIn'] },
+          ].map((col) => (
+            <div key={col.heading}>
+              <div style={{ fontSize: 12, letterSpacing: '1.5px', textTransform: 'uppercase', color: TEAL, marginBottom: 16, fontFamily: F, fontWeight: 700 }}>{col.heading}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {col.links.map((l) => <a key={l} href="#" style={{ fontSize: 16, color: '#fff', textDecoration: 'none', fontFamily: F }}>{l}</a>)}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontFamily: F }}>© 2025 happenin*</div>
+      </div>
+    </footer>
   );
 }
