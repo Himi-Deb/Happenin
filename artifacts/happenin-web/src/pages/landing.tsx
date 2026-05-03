@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'wouter';
 import logoPng from '@assets/Happenin-Logo_1777804986503.png';
+import wordmarkPng from '@assets/happenin-wordmark-4x_1777805142253.jpg';
 
 const F = 'Urbanist, sans-serif';
 
@@ -388,12 +389,7 @@ function Footer() {
         </div>
       </div>
       <div style={{ background: '#000', width: '100%', overflow: 'hidden', paddingTop: 48, paddingBottom: 48 }}>
-        <img
-          src={logoPng}
-          alt="happenin*"
-          loading="eager"
-          style={{ width: '100%', height: 120, display: 'block', objectFit: 'contain' }}
-        />
+        <img src={wordmarkPng} alt="happenin*" loading="eager" style={{ width: '100%', display: 'block' }} />
       </div>
     </footer>
   );
