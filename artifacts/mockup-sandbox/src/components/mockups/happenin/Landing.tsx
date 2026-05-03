@@ -483,6 +483,55 @@ function Footer() {
         <p style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.2)', margin: 0 }}>© 2025 Happenin. All rights reserved.</p>
       </div>
 
+      <div style={{ padding: '88px 72px 64px', textAlign: 'center' }}>
+        <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Sunflower-footer_1777778211954.png`} alt="Sunflower" style={{ width: 18, height: 18, objectFit: 'contain' }} />
+          <h2 style={{ margin: 0, fontFamily: F, fontSize: 44, lineHeight: 0.94, fontWeight: 500, letterSpacing: '-1.8px', color: '#F2E9D8', maxWidth: 560 }}>
+            A quiet revolution against the chaos of email.
+          </h2>
+          <div style={{ display: 'flex', gap: 0, alignItems: 'center', marginTop: 10, border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, overflow: 'hidden' }}>
+            <input placeholder="Email address" style={{ width: 290, background: '#070707', border: 'none', outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14 }} />
+            <button style={{ background: '#191919', border: 'none', padding: '14px 16px', color: '#E7DCC8', fontFamily: F, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Join Waitlist</button>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 10, fontFamily: F, fontSize: 11, color: 'rgba(255,255,255,0.34)' }}>
+            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Service</a>
+            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</a>
+            <a href="#" aria-label="Instagram" style={{ color: 'inherit', textDecoration: 'none', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+            <a href="#" aria-label="X" style={{ color: 'inherit', textDecoration: 'none', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Email" style={{ color: 'inherit', textDecoration: 'none', display: 'flex' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)">
+                <path d="M20 4.5C21.1023 4.5 22 5.39772 22 6.5V18.5C22 19.6023 21.1023 20.5 20 20.5H4C2.89772 20.5 2 19.6023 2 18.5V6.5C2 5.39772 2.89772 4.5 4 4.5H20ZM12.5215 13.3535C12.2415 13.5246 11.8984 13.5453 11.6025 13.417L11.4785 13.3535L4 8.7832V18.5H20V8.7832L12.5215 13.3535ZM12 11.3271L19.9004 6.5H4.09961L12 11.3271Z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ padding: '56px 72px 64px', textAlign: 'center' }}>
+        <div style={{ display: 'inline-grid', gridTemplateColumns: 'repeat(4, max-content)', columnGap: 56, rowGap: 16, textAlign: 'left' }}>
+          {FOOTER_LINKS.map((col) => (
+            <div key={col.heading} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#B1D8D4', margin: 0 }}>{col.heading}</p>
+              {col.links.map((link) => (
+                <a key={link} href="#" style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.35)', textDecoration: 'none', lineHeight: 1 }}>
+                  {link}
+                </a>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
     </footer>
   );
 }
