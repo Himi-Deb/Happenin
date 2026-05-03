@@ -314,18 +314,6 @@ export function TicketCheckout() {
 
           {/* ── RIGHT: Registration form ── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            {/* Event mini-header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '18px 22px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 18 }}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, overflow: 'hidden', flexShrink: 0, background: '#0e2a2c' }}>
-                <div style={{ width: '100%', height: '100%', backgroundImage: 'url(https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=120&q=70)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.8 }} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '2px', textTransform: 'uppercase', color: '#7FE0D5', fontWeight: 600, marginBottom: 4 }}>NEON PULSE MUSIC FESTIVAL</div>
-                <div style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.5)' }}>Sat 14 Jun 2025 · Rooftop Arena, London</div>
-              </div>
-              <div style={{ background: 'rgba(235,232,138,0.12)', border: '1px solid rgba(235,232,138,0.3)', borderRadius: 9999, padding: '5px 14px', fontFamily: F, fontSize: 12, fontWeight: 700, color: '#EBE88A', letterSpacing: '1px' }}>FREE</div>
-            </div>
-
             {/* Form heading */}
             <div>
               <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.55)', fontWeight: 600, marginBottom: 10 }}>STEP 1 OF 1</div>
