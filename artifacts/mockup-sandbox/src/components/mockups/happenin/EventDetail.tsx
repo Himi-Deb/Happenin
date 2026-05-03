@@ -257,6 +257,8 @@ export function EventDetail() {
 
       {/* Main content */}
       <div style={{ maxWidth: 1360, margin: '0 auto', padding: '64px 72px', display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 72, alignItems: 'start' }}>
+
+        {/* Left column: About + Lineup */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
           <div>
             <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 12, fontFamily: F }}>About</div>
@@ -267,8 +269,32 @@ export function EventDetail() {
               ))}
             </div>
           </div>
+
+          {/* Lineup */}
+          <div>
+            <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 12, fontFamily: F }}>Schedule</div>
+            <h2 style={{ fontFamily: F, fontSize: 32, fontWeight: 700, letterSpacing: '-1px', margin: '0 0 24px', color: '#fff' }}>Lineup & Schedule</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              {EVENT.lineup.map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 0, position: 'relative' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 40, flexShrink: 0 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: item.type === 'headline' ? '#EBE88A' : item.type === 'info' ? 'rgba(255,255,255,0.18)' : '#B1D8D4', flexShrink: 0, zIndex: 1 }} />
+                    {i < EVENT.lineup.length - 1 && <div style={{ width: 1, height: 40, background: 'rgba(255,255,255,0.08)' }} />}
+                  </div>
+                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: i < EVENT.lineup.length - 1 ? 20 : 0, paddingLeft: 12 }}>
+                    <div>
+                      <div style={{ fontFamily: F, fontSize: item.type === 'headline' ? 20 : 16, fontWeight: item.type === 'headline' ? 700 : 400, color: item.type === 'info' ? 'rgba(255,255,255,0.35)' : '#fff', letterSpacing: item.type === 'headline' ? '-0.3px' : 0 }}>{item.act}</div>
+                      {item.type === 'headline' && <div style={{ fontFamily: F, fontSize: 11, color: '#EBE88A', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600, marginTop: 2 }}>Headliner</div>}
+                    </div>
+                    <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.35)', flexShrink: 0, marginLeft: 24 }}>{item.time}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
+        {/* Right column: Details + Organiser */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
           <div>
             <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 12, fontFamily: F }}>Details</div>
@@ -292,31 +318,6 @@ export function EventDetail() {
             <div style={{ marginTop: 16, borderRadius: 16, overflow: 'hidden', height: 220, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 10 }}>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(177,216,212,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
               <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.25)' }}>Map · {EVENT.address}</span>
-            </div>
-          </div>
-        </div>
-
-          {/* Lineup */}
-          <div>
-            <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 12, fontFamily: F }}>Schedule</div>
-            <h2 style={{ fontFamily: F, fontSize: 32, fontWeight: 700, letterSpacing: '-1px', margin: '0 0 24px', color: '#fff' }}>Lineup & Schedule</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-              {EVENT.lineup.map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 0, position: 'relative' }}>
-                  {/* Timeline line */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 40, flexShrink: 0 }}>
-                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: item.type === 'headline' ? '#EBE88A' : item.type === 'info' ? 'rgba(255,255,255,0.18)' : '#B1D8D4', flexShrink: 0, zIndex: 1 }} />
-                    {i < EVENT.lineup.length - 1 && <div style={{ width: 1, height: 40, background: 'rgba(255,255,255,0.08)' }} />}
-                  </div>
-                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: i < EVENT.lineup.length - 1 ? 20 : 0, paddingLeft: 12 }}>
-                    <div>
-                      <div style={{ fontFamily: F, fontSize: item.type === 'headline' ? 20 : 16, fontWeight: item.type === 'headline' ? 700 : 400, color: item.type === 'info' ? 'rgba(255,255,255,0.35)' : '#fff', letterSpacing: item.type === 'headline' ? '-0.3px' : 0 }}>{item.act}</div>
-                      {item.type === 'headline' && <div style={{ fontFamily: F, fontSize: 11, color: '#EBE88A', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600, marginTop: 2 }}>Headliner</div>}
-                    </div>
-                    <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.35)', flexShrink: 0, marginLeft: 24 }}>{item.time}</div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
