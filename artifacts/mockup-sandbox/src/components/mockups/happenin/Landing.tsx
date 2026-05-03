@@ -485,7 +485,7 @@ function Footer() {
 
       <div style={{ padding: '88px 72px 64px', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-          <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Sunflower-footer_1777778211954.png`} alt="Sunflower" style={{ width: 18, height: 18, objectFit: 'contain' }} />
+          <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Happenin-Logo_1777778404566.png`} alt="Happenin" style={{ width: 52, height: 18, objectFit: 'contain' }} />
           <h2 style={{ margin: 0, fontFamily: F, fontSize: 44, lineHeight: 0.94, fontWeight: 500, letterSpacing: '-1.8px', color: '#F2E9D8', maxWidth: 560 }}>
             A quiet revolution against the chaos of email.
           </h2>
