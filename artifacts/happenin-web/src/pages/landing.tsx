@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'wouter';
+import logoPng from '@assets/Happenin-Logo_1777804986503.png';
 
 const F = 'Urbanist, sans-serif';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-const LOGO_URL = `${BASE}/happenin-logo-new.png`;
+const LOGO_URL = logoPng;
 
 const CATEGORIES = [
   { icon: '🎵', label: 'Music' },
@@ -388,13 +389,10 @@ function Footer() {
       </div>
       <div style={{ background: '#000', width: '100%', overflow: 'hidden', paddingTop: 48, paddingBottom: 48 }}>
         <img
-          src={`${BASE}/happenin-wordmark-trimmed.png`}
+          src={logoPng}
           alt="happenin*"
           loading="eager"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = `${BASE}/happenin-logo-new.png`;
-          }}
-          style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+          style={{ width: '100%', height: 120, display: 'block', objectFit: 'contain' }}
         />
       </div>
     </footer>
