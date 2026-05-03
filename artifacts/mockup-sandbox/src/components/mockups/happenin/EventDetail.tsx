@@ -318,26 +318,91 @@ export function EventDetail() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 16, borderRadius: 16, overflow: 'hidden', height: 220, background: 'linear-gradient(135deg, rgba(12,22,23,0.96), rgba(6,11,12,0.98))', border: '1px solid rgba(255,255,255,0.07)', position: 'relative' }}>
-              <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(127,224,213,0.16) 1px, transparent 1px)', backgroundSize: '18px 18px', opacity: 0.55 }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 100%)' }} />
-              <svg viewBox="0 0 720 320" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} fill="none">
-                <path d="M96 242C152 214 176 182 216 156C260 128 306 124 346 138C388 152 422 180 466 176C518 171 548 134 602 118" stroke="rgba(177,216,212,0.55)" strokeWidth="6" strokeLinecap="round" />
-                <path d="M70 94C122 102 164 92 204 74C246 55 280 50 324 62C370 74 402 104 448 110C500 117 550 100 632 72" stroke="rgba(127,224,213,0.24)" strokeWidth="4" strokeLinecap="round" />
-                <path d="M126 284C172 272 208 246 248 228C292 209 338 206 382 220C430 235 470 262 524 260C570 258 616 234 656 200" stroke="rgba(235,232,138,0.18)" strokeWidth="4" strokeLinecap="round" />
-                <circle cx="362" cy="160" r="14" fill="#7FE0D5" opacity="0.95" />
-                <circle cx="362" cy="160" r="30" stroke="rgba(127,224,213,0.28)" strokeWidth="2" />
-                <circle cx="362" cy="160" r="52" stroke="rgba(127,224,213,0.16)" strokeWidth="2" />
-                <path d="M362 128C366 138 374 146 384 150C374 154 366 162 362 172C358 162 350 154 340 150C350 146 358 138 362 128Z" fill="#EBE88A" opacity="0.9" />
-              </svg>
-              <div style={{ position: 'absolute', left: 20, top: 20, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 9999, padding: '7px 12px', fontFamily: F, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#B1D8D4' }}>Map · {EVENT.address}</div>
-              <div style={{ position: 'absolute', left: 20, bottom: 18, display: 'flex', alignItems: 'center', gap: 10, color: '#fff', fontFamily: F }}>
-                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(127,224,213,0.15)', border: '1px solid rgba(127,224,213,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7FE0D5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z" /><circle cx="12" cy="10" r="2.5" /></svg>
-                </div>
+            <div
+              onClick={() => {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                window.open(isIOS
+                  ? 'maps://maps.apple.com/?q=South+Bank,London'
+                  : 'https://www.google.com/maps/search/?api=1&query=South+Bank,London',
+                  '_blank');
+              }}
+              style={{ marginTop: 16, cursor: 'pointer', background: '#0e0e0e', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, overflow: 'hidden', display: 'flex', flexDirection: 'column', transition: 'border-color 0.2s' }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(127,224,213,0.3)')}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
+            >
+              <style>{`
+                @keyframes edPinPulse {
+                  0%,100% { r: 10; opacity: 0.35; }
+                  50%     { r: 18; opacity: 0; }
+                }
+                .ed-map-pulse { animation: edPinPulse 2.2s ease-in-out infinite; }
+              `}</style>
+              <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+                <svg viewBox="0 0 600 200" style={{ width: '100%', display: 'block' }} xmlns="http://www.w3.org/2000/svg">
+                  <rect width="600" height="200" fill="#0e0e0e" />
+                  {/* City blocks */}
+                  <rect x="0"   y="0"   width="110" height="60"  fill="rgba(255,255,255,0.035)" />
+                  <rect x="120" y="0"   width="140" height="60"  fill="rgba(255,255,255,0.03)"  />
+                  <rect x="270" y="0"   width="90"  height="60"  fill="rgba(255,255,255,0.04)"  />
+                  <rect x="370" y="0"   width="130" height="60"  fill="rgba(255,255,255,0.025)" />
+                  <rect x="510" y="0"   width="90"  height="60"  fill="rgba(255,255,255,0.035)" />
+                  <rect x="0"   y="70"  width="80"  height="50"  fill="rgba(255,255,255,0.03)"  />
+                  <rect x="90"  y="70"  width="120" height="50"  fill="rgba(255,255,255,0.04)"  />
+                  <rect x="220" y="70"  width="60"  height="50"  fill="rgba(255,255,255,0.03)"  />
+                  <rect x="340" y="70"  width="100" height="50"  fill="rgba(255,255,255,0.04)"  />
+                  <rect x="450" y="70"  width="150" height="50"  fill="rgba(255,255,255,0.025)" />
+                  <rect x="0"   y="130" width="100" height="36"  fill="rgba(255,255,255,0.025)" />
+                  <rect x="110" y="130" width="100" height="36"  fill="rgba(255,255,255,0.03)"  />
+                  <rect x="330" y="130" width="80"  height="36"  fill="rgba(255,255,255,0.025)" />
+                  <rect x="420" y="130" width="100" height="36"  fill="rgba(255,255,255,0.03)"  />
+                  <rect x="530" y="130" width="70"  height="36"  fill="rgba(255,255,255,0.025)" />
+                  {/* Thames */}
+                  <path d="M0 168 Q60 159 130 165 Q200 173 280 166 Q360 158 430 163 Q500 169 600 161 L600 200 L0 200 Z" fill="rgba(18,30,35,0.95)" />
+                  <path d="M0 171 Q60 162 130 168 Q200 176 280 169 Q360 161 430 166 Q500 172 600 164" fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+                  {/* Minor roads */}
+                  <line x1="0" y1="32"  x2="600" y2="32"  stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  <line x1="0" y1="100" x2="600" y2="100" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  <line x1="0" y1="142" x2="600" y2="142" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  <line x1="80"  y1="0" x2="80"  y2="168" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  <line x1="210" y1="0" x2="210" y2="168" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  <line x1="440" y1="0" x2="440" y2="168" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  <line x1="540" y1="0" x2="540" y2="168" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  {/* Major roads */}
+                  <line x1="0" y1="63"  x2="600" y2="63"  stroke="rgba(255,255,255,0.45)" strokeWidth="2.5" />
+                  <line x1="0" y1="128" x2="600" y2="128" stroke="rgba(255,255,255,0.55)" strokeWidth="3" />
+                  <line x1="115" y1="0" x2="115" y2="168" stroke="rgba(255,255,255,0.4)"  strokeWidth="2" />
+                  <line x1="290" y1="0" x2="290" y2="168" stroke="rgba(255,255,255,0.55)" strokeWidth="3" />
+                  <line x1="370" y1="0" x2="370" y2="168" stroke="rgba(255,255,255,0.4)"  strokeWidth="2" />
+                  {/* Waterloo Bridge */}
+                  <rect x="268" y="163" width="44" height="8" fill="rgba(255,255,255,0.5)" rx="2" />
+                  {/* Labels */}
+                  <text x="152" y="122" fontFamily="monospace" fontSize="7" fill="rgba(255,255,255,0.18)" letterSpacing="1">BELVEDERE RD</text>
+                  <text x="220" y="180" fontFamily="monospace" fontSize="6.5" fill="rgba(255,255,255,0.2)" letterSpacing="1">WATERLOO BRIDGE</text>
+                  {/* Pulse ring */}
+                  <circle className="ed-map-pulse" cx="290" cy="95" r="10" fill="none" stroke="#7FE0D5" strokeWidth="1.5" opacity="0.35" />
+                  {/* Pin shadow */}
+                  <ellipse cx="290" cy="111" rx="7" ry="3" fill="rgba(0,0,0,0.5)" />
+                  {/* Pin */}
+                  <path d="M290 78 C280 78 272 86 272 96 C272 108 290 118 290 118 C290 118 308 108 308 96 C308 86 300 78 290 78 Z" fill="#7FE0D5" />
+                  <circle cx="290" cy="95" r="5" fill="#0e2a2c" />
+                  {/* Label callout */}
+                  <rect x="308" y="82" width="108" height="26" rx="6" fill="rgba(14,14,14,0.88)" />
+                  <text x="316" y="95" fontFamily="sans-serif" fontSize="9.5" fontWeight="700" fill="#fff" letterSpacing="0.3">Rooftop Arena</text>
+                  <text x="316" y="106" fontFamily="sans-serif" fontSize="7.5" fill="rgba(255,255,255,0.45)">South Bank, London</text>
+                </svg>
+                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(14,14,14,0.7) 100%)', pointerEvents: 'none' }} />
+              </div>
+              <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 600 }}>Rooftop Arena</div>
-                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>South Bank · London</div>
+                  <div style={{ fontFamily: F, fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600, marginBottom: 4 }}>GET THERE</div>
+                  <div style={{ fontFamily: F, fontSize: 15, fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>Rooftop Arena</div>
+                  <div style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.4)', marginTop: 2 }}>South Bank, London</div>
+                </div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: '#EBE88A', borderRadius: 11, padding: '9px 16px', color: '#0e2a2c', fontFamily: F, fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.6px', flexShrink: 0 }}>
+                  Open in Maps
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+                  </svg>
                 </div>
               </div>
             </div>
