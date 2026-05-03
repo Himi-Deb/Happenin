@@ -228,7 +228,7 @@ function Footer() {
   return (
     <footer style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
       <div style={{ padding: '96px 72px 0', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(0, 1.2fr) minmax(360px, 0.8fr)', gap: 90, alignItems: 'start' }}>
+        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(360px, 1fr)', gap: 72, alignItems: 'start' }}>
           <div style={{ fontFamily: F, color: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 36, paddingRight: 24, minWidth: 0 }}>
             <div>
               <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>ABOUT HAPPENIN</div>
