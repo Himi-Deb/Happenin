@@ -2,387 +2,401 @@ import { useState } from 'react';
 
 const F = 'Urbanist, sans-serif';
 const LOGO_URL = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/happenin-logo-new.png`;
-const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-/* ── Channel definitions ── */
 type ChannelId = 'announcements' | 'crew' | 'general';
-interface Channel { id: ChannelId; name: string; desc: string; badge: number; locked: boolean; internal: boolean; }
 
-const CHANNELS: Channel[] = [
-  { id: 'announcements', name: 'Announcements', desc: 'Official updates — attendees can read but not post', badge: 2, locked: true, internal: false },
-  { id: 'crew',         name: 'Organiser Crew', desc: 'Internal team only — not visible to attendees',   badge: 4, locked: true, internal: true },
-  { id: 'general',      name: 'General Chat',   desc: 'Open to all ticket holders and the organiser team', badge: 0, locked: false, internal: false },
+const CHANNELS = [
+  { id: 'announcements' as ChannelId, name: 'Announcements', desc: 'Official updates from the organiser team', badge: 2, readOnly: true, internal: false, color: '#7FE0D5' },
+  { id: 'crew'         as ChannelId, name: 'Organiser Crew', desc: 'Internal coordination — not visible to attendees', badge: 4, readOnly: false, internal: true, color: '#EBE88A' },
+  { id: 'general'      as ChannelId, name: 'General Chat',   desc: 'Open to all ticket holders', badge: 0, readOnly: false, internal: false, color: '#B1D8D4' },
 ];
 
-/* ── Sample messages per channel ── */
 const MSGS: Record<ChannelId, any[]> = {
   announcements: [
-    { id: 1, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '3h ago',    text: 'Welcome to the official Neon Pulse Music Festival channel! We\'ll post all updates here — set times, stage changes, venue info. See you tonight 🎶' },
-    { id: 2, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '2h ago',    text: '📍 Venue reminder — 32 Upper Ground, South Bank. Nearest tube: Waterloo (5 min walk) or Blackfriars (7 min). Rideshare drop-off is on Upper Ground.' },
-    { id: 3, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '1h ago',    hasImg: true, imgCaption: 'Stage map & set times', text: '🗺️ Here\'s the official stage map and set times for tonight. Save this for reference!' },
-    { id: 4, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '45m ago',   text: '🎵 Set times confirmed:\n\n  · Warm Up DJ — 6:30 PM\n  · Hybrid Minds — 8:00 PM\n  · Headliner — 10:00 PM\n\nDoors open at 5:30 PM. Main stage from 6:30.' },
-    { id: 5, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '20m ago',   text: '📸 Camera policy — phone cameras welcome! No professional cameras with detachable lenses. Bag check available on the ground floor, £2/item.' },
+    { id: 1, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '3h ago', readers: 842, text: 'Welcome to the official Neon Pulse channel! All updates — set times, stage changes, venue info — will be posted here. See you tonight 🎶' },
+    { id: 2, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '2h ago', readers: 791, text: '📍 Venue reminder — 32 Upper Ground, South Bank. Nearest tube: Waterloo (5 min walk) or Blackfriars (7 min). Rideshare drop-off on Upper Ground.' },
+    { id: 3, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '1h ago', readers: 634, hasImg: true, imgCaption: 'Stage map & set times — save this!', text: '🗺️ Official stage map and set times for tonight. Tap to expand.' },
+    { id: 4, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '45m ago', readers: 510, text: '🎵 Set times confirmed:\n\nWarm Up DJ  —  6:30 PM\nHybrid Minds  —  8:00 PM\nHeadliner  —  10:00 PM\n\nDoors open at 5:30 PM.' },
+    { id: 5, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '20m ago', readers: 312, text: '📸 Camera policy — phone cameras welcome! No professional cameras with detachable lenses. Bag check ground floor, £2/item.' },
   ],
   crew: [
-    { id: 1, role: 'organiser', name: 'Maya Chen',    initials: 'MC', time: '4h ago',  text: 'Evening everyone! Full attendance confirmed at 1,200. Extra bar staff are briefed and ready. Let\'s make tonight seamless 💪' },
-    { id: 2, role: 'staff',     name: 'Jake Wilson',  initials: 'JW', time: '3h ago',  text: 'Security briefing is at 4 PM sharp in the green room — all front of house and gate 2 staff please attend. Lanyards required.' },
-    { id: 3, role: 'admin',     name: 'Alex Park',    initials: 'AP', time: '2h 30m ago', text: 'Stage manager confirmed all equipment is on site and tested ✅  Sound check at 3:30 PM.' },
-    { id: 4, role: 'staff',     name: 'Sara Liu',     initials: 'SL', time: '2h ago',  text: 'Cloakroom team — please check in by 4:30 PM. We\'re expecting peak demand in the first hour.' },
-    { id: 5, role: 'organiser', name: 'Maya Chen',    initials: 'MC', time: '1h 20m ago', text: 'Quick reminder — artist rider requests have been fulfilled. Green room is stocked. VIP wristbands are at the main entrance box office.' },
-    { id: 6, role: 'admin',     name: 'Alex Park',    initials: 'AP', time: '30m ago', text: 'Live stream setup is confirmed and tested. Streaming to the big screen in overflow area from 8 PM.' },
+    { id: 1, role: 'organiser', name: 'Maya Chen',   ini: 'MC', time: '4h ago',     text: 'Full attendance at 1,200 tonight. Extra bar staff briefed. Let\'s make this seamless 💪' },
+    { id: 2, role: 'staff',     name: 'Jake Wilson', ini: 'JW', time: '3h ago',     text: 'Security briefing at 4 PM sharp in the green room — all front of house and gate 2 staff, lanyards required.' },
+    { id: 3, role: 'admin',     name: 'Alex Park',   ini: 'AP', time: '2h 30m ago', text: 'Stage manager confirmed all equipment on site and tested ✅  Sound check 3:30 PM.' },
+    { id: 4, role: 'staff',     name: 'Sara Liu',    ini: 'SL', time: '2h ago',     text: 'Cloakroom team — check in by 4:30 PM. Peak demand expected first hour.' },
+    { id: 5, role: 'organiser', name: 'Maya Chen',   ini: 'MC', time: '1h 20m ago', text: 'Artist rider fulfilled, green room stocked. VIP wristbands at main entrance box office.' },
+    { id: 6, role: 'admin',     name: 'Alex Park',   ini: 'AP', time: '30m ago',    text: 'Live stream setup confirmed. Streaming to overflow screen from 8 PM ✅' },
   ],
   general: [
-    { id: 1, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '2h ago',  text: 'Welcome everyone! 🎶 Doors open at 5:30 PM — this one is going to be special. See you on the South Bank tonight!' },
-    { id: 2, role: 'attendee',  name: '@wave_rider',  initials: 'WR', color: '#0d2e32', time: '1h 50m ago', text: 'So hyped for Hybrid Minds!! Is there any parking nearby or best to tube it?' },
-    { id: 3, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '1h 45m ago', text: 'Best to take the tube — Waterloo is just a 5 min walk. Very limited parking available nearby.' },
-    { id: 4, role: 'attendee',  name: '@deep_groove', initials: 'DG', color: '#1e1040', time: '1h 30m ago', text: 'First time at this venue — is there a cloakroom? Bringing a bag 🎒' },
-    { id: 5, role: 'organiser', name: 'NeonWave Events', initials: 'NW', time: '1h 25m ago', text: 'Yes! Cloakroom on the ground floor, £2 per item. Opens from 5:00 PM. 🙌' },
-    { id: 6, role: 'attendee',  name: '@neon_soul',   initials: 'NS', color: '#2a2208', time: '1h 10m ago', text: 'Anyone else on early bird tickets? Would love to meet up before it gets packed 👋' },
-    { id: 7, role: 'attendee',  name: '@bass_echo',   initials: 'BE', color: '#0a2a18', time: '45m ago',    text: "DJ Mara's set at Fabric last month was 🔥 tonight is going to be next level" },
-    { id: 8, role: 'attendee',  name: '@city_lights', initials: 'CL', color: '#2e1508', time: '20m ago',    text: 'Just checked in — the vibes outside already 🙌 See you all in there!' },
+    { id: 1, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '2h ago',     text: 'Welcome everyone! 🎶 Doors open at 5:30 PM — see you on the South Bank tonight!' },
+    { id: 2, role: 'attendee',  name: '@wave_rider',     ini: 'WR', time: '1h 50m ago', text: 'Is there parking nearby or best to tube it?', aColor: '#0d2e32' },
+    { id: 3, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '1h 45m ago', text: 'Tube is best — Waterloo is a 5 min walk. Very limited parking available nearby.' },
+    { id: 4, role: 'attendee',  name: '@deep_groove',    ini: 'DG', time: '1h 30m ago', text: 'First time at this venue — is there a cloakroom? 🎒', aColor: '#1e1040' },
+    { id: 5, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '1h 25m ago', text: 'Yes! Ground floor, £2 per item. Opens from 5:00 PM 🙌' },
+    { id: 6, role: 'attendee',  name: '@neon_soul',      ini: 'NS', time: '1h 10m ago', text: 'Anyone else on early bird? Would love to meet before it gets packed 👋', aColor: '#2a2208' },
+    { id: 7, role: 'attendee',  name: '@bass_echo',      ini: 'BE', time: '45m ago',    text: 'DJ Mara\'s set at Fabric last month was 🔥 tonight will be next level', aColor: '#0a2a18' },
+    { id: 8, role: 'attendee',  name: '@city_lights',    ini: 'CL', time: '20m ago',    text: 'Just checked in — vibes outside already 🙌', aColor: '#2e1508' },
   ],
 };
 
-/* ── Member list per channel ── */
 const MEMBERS: Record<ChannelId, any[]> = {
   announcements: [
-    { name: 'Maya Chen',    role: 'organiser', initials: 'MC', online: true },
-    { name: 'Jake Wilson',  role: 'staff',     initials: 'JW', online: true },
-    { name: 'Alex Park',    role: 'admin',     initials: 'AP', online: true },
-    { name: 'Sara Liu',     role: 'staff',     initials: 'SL', online: false },
-    { name: '842 attendees', role: 'attendee', initials: '—',  online: false, isCount: true },
+    { name: 'Maya Chen',   role: 'organiser', ini: 'MC', online: true },
+    { name: 'Jake Wilson', role: 'staff',     ini: 'JW', online: true },
+    { name: 'Alex Park',   role: 'admin',     ini: 'AP', online: true },
+    { name: 'Sara Liu',    role: 'staff',     ini: 'SL', online: false },
+    { name: '842 readers', role: 'count',     ini: '…',  online: false },
   ],
   crew: [
-    { name: 'Maya Chen',    role: 'organiser', initials: 'MC', online: true },
-    { name: 'Jake Wilson',  role: 'staff',     initials: 'JW', online: true },
-    { name: 'Alex Park',    role: 'admin',     initials: 'AP', online: true },
-    { name: 'Sara Liu',     role: 'staff',     initials: 'SL', online: false },
-    { name: 'Tom Reid',     role: 'staff',     initials: 'TR', online: true },
-    { name: 'Priya Nair',   role: 'staff',     initials: 'PN', online: false },
+    { name: 'Maya Chen',   role: 'organiser', ini: 'MC', online: true },
+    { name: 'Jake Wilson', role: 'staff',     ini: 'JW', online: true },
+    { name: 'Alex Park',   role: 'admin',     ini: 'AP', online: true },
+    { name: 'Sara Liu',    role: 'staff',     ini: 'SL', online: false },
+    { name: 'Tom Reid',    role: 'staff',     ini: 'TR', online: true },
+    { name: 'Priya Nair',  role: 'staff',     ini: 'PN', online: false },
   ],
   general: [
-    { name: 'Maya Chen',    role: 'organiser', initials: 'MC', online: true },
-    { name: 'Jake Wilson',  role: 'staff',     initials: 'JW', online: true },
-    { name: '@wave_rider',  role: 'attendee',  initials: 'WR', online: true,  color: '#0d2e32' },
-    { name: '@deep_groove', role: 'attendee',  initials: 'DG', online: true,  color: '#1e1040' },
-    { name: '@neon_soul',   role: 'attendee',  initials: 'NS', online: true,  color: '#2a2208' },
-    { name: '@bass_echo',   role: 'attendee',  initials: 'BE', online: false, color: '#0a2a18' },
-    { name: '@city_lights', role: 'attendee',  initials: 'CL', online: true,  color: '#2e1508' },
-    { name: '+ 240 more',   role: 'attendee',  initials: '…',  online: false, isCount: true },
+    { name: 'Maya Chen',    role: 'organiser', ini: 'MC', online: true },
+    { name: 'Jake Wilson',  role: 'staff',     ini: 'JW', online: true },
+    { name: '@wave_rider',  role: 'attendee',  ini: 'WR', online: true,  aColor: '#0d2e32' },
+    { name: '@deep_groove', role: 'attendee',  ini: 'DG', online: true,  aColor: '#1e1040' },
+    { name: '@neon_soul',   role: 'attendee',  ini: 'NS', online: true,  aColor: '#2a2208' },
+    { name: '@bass_echo',   role: 'attendee',  ini: 'BE', online: false, aColor: '#0a2a18' },
+    { name: '@city_lights', role: 'attendee',  ini: 'CL', online: true,  aColor: '#2e1508' },
+    { name: '+ 240 more',   role: 'count',     ini: '…',  online: false },
   ],
 };
 
-const ROLE_COLORS: Record<string, { bg: string; text: string; label: string }> = {
-  organiser: { bg: 'rgba(127,224,213,0.12)', text: '#7FE0D5', label: 'Organiser' },
-  staff:     { bg: 'rgba(235,232,138,0.12)', text: '#EBE88A', label: 'Staff' },
-  admin:     { bg: 'rgba(177,216,212,0.12)', text: '#B1D8D4', label: 'Admin' },
-  attendee:  { bg: 'rgba(255,255,255,0.06)', text: 'rgba(255,255,255,0.4)', label: 'Attendee' },
+/* Role colour map */
+const RC: Record<string, { avatar: string; badge: string; label: string }> = {
+  organiser: { avatar: '#0e2a2c', badge: '#7FE0D5', label: 'Organiser' },
+  staff:     { avatar: '#1e1a08', badge: '#EBE88A', label: 'Staff' },
+  admin:     { avatar: '#0a1828', badge: '#B1D8D4', label: 'Admin' },
+  attendee:  { avatar: '#1a1a1a', badge: 'rgba(255,255,255,0.25)', label: '' },
+  count:     { avatar: '#111', badge: '', label: '' },
 };
 
-/* ── Sub-components ── */
-function ChannelIcon({ id, size = 16, color = 'rgba(255,255,255,0.4)' }: { id: ChannelId; size?: number; color?: string }) {
-  if (id === 'announcements') return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 11l19-9-9 19-2-8-8-2z"/>
-    </svg>
-  );
-  if (id === 'crew') return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-    </svg>
-  );
+function AvatarCircle({ ini, role, size = 38, aColor }: { ini: string; role: string; size?: number; aColor?: string }) {
+  const rc = RC[role] || RC.attendee;
+  const bg = aColor || rc.avatar;
+  const textColor = role === 'organiser' ? '#7FE0D5' : role === 'staff' ? '#EBE88A' : role === 'admin' ? '#B1D8D4' : 'rgba(255,255,255,0.6)';
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-  );
-}
-
-function Avatar({ initials, role, size = 36, color }: { initials: string; role: string; size?: number; color?: string }) {
-  const rc = ROLE_COLORS[role] || ROLE_COLORS.attendee;
-  const bg = color || (role === 'organiser' ? '#0e2a2c' : role === 'staff' ? '#1e1a08' : role === 'admin' ? '#0a1828' : '#1a1a1a');
-  return (
-    <div style={{ width: size, height: size, borderRadius: '50%', background: bg, border: `1.5px solid ${rc.text}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-      <span style={{ fontFamily: F, fontSize: size * 0.35, fontWeight: 700, color: rc.text }}>{initials}</span>
+    <div style={{ width: size, height: size, borderRadius: '50%', background: bg, border: `1.5px solid ${rc.badge}28`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+      <span style={{ fontFamily: F, fontSize: size * 0.34, fontWeight: 800, color: textColor, letterSpacing: '-0.3px' }}>{ini}</span>
     </div>
   );
 }
 
-function RoleBadge({ role }: { role: string }) {
-  const rc = ROLE_COLORS[role];
-  if (!rc || role === 'attendee') return null;
-  return (
-    <span style={{ fontFamily: F, fontSize: 9, fontWeight: 700, letterSpacing: '0.8px', color: rc.text, background: rc.bg, border: `1px solid ${rc.text}25`, borderRadius: 4, padding: '2px 6px', textTransform: 'uppercase' }}>{rc.label}</span>
-  );
+/* Channel icons */
+function ChIcon({ id, size = 15, color = 'currentColor' }: { id: ChannelId; size?: number; color?: string }) {
+  if (id === 'announcements') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 19-7z"/></svg>;
+  if (id === 'crew') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>;
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>;
 }
 
-function MessageRow({ msg, canModerate, hoveredId, setHoveredId }: { msg: any; canModerate: boolean; hoveredId: number | null; setHoveredId: (id: number | null) => void }) {
-  const isHov = hoveredId === msg.id;
-  const rc = ROLE_COLORS[msg.role] || ROLE_COLORS.attendee;
-  return (
-    <div
-      onMouseEnter={() => setHoveredId(msg.id)}
-      onMouseLeave={() => setHoveredId(null)}
-      style={{ display: 'flex', gap: 14, padding: '10px 28px', position: 'relative', background: isHov ? 'rgba(255,255,255,0.018)' : 'transparent', transition: 'background 0.12s' }}
-    >
-      <Avatar initials={msg.initials} role={msg.role} color={msg.color} size={38}/>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5 }}>
-          <span style={{ fontFamily: F, fontSize: 14, fontWeight: 700, color: msg.role === 'attendee' ? 'rgba(255,255,255,0.75)' : rc.text }}>{msg.name}</span>
-          <RoleBadge role={msg.role}/>
-          <span style={{ fontFamily: F, fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>{msg.time}</span>
-        </div>
-        <div style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.65)', lineHeight: 1.65, whiteSpace: 'pre-line' }}>{msg.text}</div>
-        {msg.hasImg && (
-          <div style={{ marginTop: 10, borderRadius: 12, overflow: 'hidden', display: 'inline-block', maxWidth: 380 }}>
-            <div style={{ background: 'linear-gradient(135deg, #0e2a2c 0%, #1a4a4e 50%, #0a1e20 100%)', width: 380, height: 200, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, border: '1px solid rgba(127,224,213,0.15)', borderRadius: 12 }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.5)" strokeWidth="1.5" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(127,224,213,0.55)', fontWeight: 500 }}>{msg.imgCaption}</span>
-            </div>
-          </div>
-        )}
-      </div>
-      {/* Moderation toolbar on hover */}
-      {canModerate && isHov && (
-        <div style={{ position: 'absolute', top: 8, right: 20, display: 'flex', gap: 2, background: '#111416', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '4px 6px' }}>
-          {[
-            { title: 'Pin',    icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> },
-            { title: 'Delete', icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>, danger: true },
-            { title: 'Warn',   icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> },
-          ].map(a => (
-            <button key={a.title} title={a.title} style={{ background: 'none', border: 'none', padding: '4px 6px', borderRadius: 6, color: a.danger ? 'rgba(255,90,90,0.7)' : 'rgba(255,255,255,0.45)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {a.icon}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+function RolePill({ role }: { role: string }) {
+  if (!role || role === 'attendee' || role === 'count') return null;
+  const rc = RC[role];
+  return <span style={{ fontFamily: F, fontSize: 9.5, fontWeight: 700, letterSpacing: '0.7px', color: rc.badge, background: `${rc.badge}18`, border: `1px solid ${rc.badge}30`, borderRadius: 5, padding: '2px 7px', textTransform: 'uppercase', flexShrink: 0 }}>{rc.label}</span>;
 }
 
 export function OrganizerHub() {
-  const [activeChannel, setActiveChannel] = useState<ChannelId>('announcements');
+  const [active, setActive] = useState<ChannelId>('announcements');
   const [input, setInput] = useState('');
-  const [hoveredMsg, setHoveredMsg] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
   const [slowMode, setSlowMode] = useState(false);
   const [muteChat, setMuteChat] = useState(false);
-  const ch = CHANNELS.find(c => c.id === activeChannel)!;
-  const msgs = MSGS[activeChannel];
-  const members = MEMBERS[activeChannel];
+
+  const ch = CHANNELS.find(c => c.id === active)!;
+  const msgs = MSGS[active];
+  const members = MEMBERS[active];
 
   return (
-    <div style={{ height: '100vh', background: '#080a0b', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: F }}>
+    <div style={{ width: '100vw', height: '100vh', background: '#07090a', display: 'grid', gridTemplateColumns: '72px 268px 1fr 268px', overflow: 'hidden', fontFamily: F }}>
       <style>{`
-        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
-        .ch-item:hover { background: rgba(255,255,255,0.04) !important; }
-        .mod-btn:hover { background: rgba(255,255,255,0.07) !important; color: #fff !important; }
-        .msg-feed::-webkit-scrollbar { width: 4px; }
-        .msg-feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 4px; }
-        .members-list::-webkit-scrollbar { width: 3px; }
-        .members-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 3px; }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.45;transform:scale(0.75)} }
+        .ch-row:hover { background: rgba(127,224,213,0.05) !important; }
+        .mod-btn:hover { background: rgba(255,255,255,0.06) !important; color: rgba(255,255,255,0.7) !important; }
+        .msg-row:hover .mod-toolbar { opacity: 1 !important; }
+        .feed::-webkit-scrollbar { width: 3px; }
+        .feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 3px; }
+        .members-scroll::-webkit-scrollbar { width: 3px; }
+        .members-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 3px; }
       `}</style>
 
-      {/* ── Navbar ── */}
-      <div style={{ position: 'relative', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 48px', borderBottom: '1px solid rgba(255,255,255,0.06)', background: '#080a0b', flexShrink: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
-          <div style={{ background: 'rgba(177,216,212,0.1)', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52, padding: '0 22px' }}>
-            <img src={LOGO_URL} alt="happenin" style={{ height: 28, width: 'auto', objectFit: 'contain' }} />
-          </div>
-          {/* Breadcrumb */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', fontWeight: 500 }}>Neon Pulse Music Festival</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-            <span style={{ fontSize: 14, color: '#fff', fontWeight: 600 }}>Event Hub</span>
+      {/* ── Col 1: Icon strip ── */}
+      <div style={{ background: '#050607', borderRight: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 20, paddingBottom: 20, gap: 6 }}>
+        {/* Logo */}
+        <div style={{ width: 46, height: 46, borderRadius: 14, background: 'rgba(127,224,213,0.1)', border: '1px solid rgba(127,224,213,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8, flexShrink: 0 }}>
+          <img src={LOGO_URL} alt="h" style={{ width: 28, height: 28, objectFit: 'contain' }} />
+        </div>
+
+        {/* Divider */}
+        <div style={{ width: 28, height: 1, background: 'rgba(255,255,255,0.07)', margin: '4px 0 8px' }} />
+
+        {/* Channel icon buttons */}
+        {CHANNELS.map(c => {
+          const isActive = c.id === active;
+          return (
+            <div key={c.id} onClick={() => setActive(c.id)} title={c.name}
+              style={{ position: 'relative', width: 46, height: 46, borderRadius: 14, background: isActive ? `${c.color}18` : 'transparent', border: `1px solid ${isActive ? `${c.color}40` : 'transparent'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.18s', flexShrink: 0 }}>
+              <ChIcon id={c.id} size={18} color={isActive ? c.color : 'rgba(255,255,255,0.3)'}/>
+              {c.badge > 0 && (
+                <div style={{ position: 'absolute', top: 6, right: 6, width: 14, height: 14, borderRadius: '50%', background: '#7FE0D5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: 8, fontWeight: 800, color: '#0e2a2c' }}>{c.badge}</span>
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {/* Spacer */}
+        <div style={{ flex: 1 }} />
+        <div style={{ width: 28, height: 1, background: 'rgba(255,255,255,0.07)', marginBottom: 8 }} />
+
+        {/* Settings + avatar */}
+        <div style={{ width: 46, height: 46, borderRadius: 14, background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'rgba(255,255,255,0.25)' }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <AvatarCircle ini="MC" role="organiser" size={38}/>
+      </div>
+
+      {/* ── Col 2: Channel sidebar ── */}
+      <div style={{ background: '#090b0c', borderRight: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Event header */}
+        <div style={{ padding: '22px 18px 18px', borderBottom: '1px solid rgba(255,255,255,0.05)', flexShrink: 0 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.45)', marginBottom: 8 }}>Event Hub</div>
+          <div style={{ fontSize: 15, fontWeight: 800, color: '#fff', lineHeight: 1.25, letterSpacing: '-0.4px', marginBottom: 4 }}>Neon Pulse<br/>Music Festival</div>
+          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 12 }}>Sat 14 Jun · South Bank, London</div>
+          {/* Live pill */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(127,224,213,0.07)', border: '1px solid rgba(127,224,213,0.15)', borderRadius: 8, padding: '5px 12px' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#7FE0D5', animation: 'pulse-dot 2s ease-in-out infinite' }} />
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#7FE0D5' }}>247 online now</span>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {/* Organiser pill */}
-          <div style={{ background: 'rgba(127,224,213,0.08)', border: '1px solid rgba(127,224,213,0.2)', borderRadius: 9999, padding: '8px 18px', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#7FE0D5', animation: 'pulse-dot 2s ease-in-out infinite' }} />
-            <span style={{ fontSize: 13, fontWeight: 600, color: '#7FE0D5' }}>Live · 247 online</span>
+
+        {/* Channel list */}
+        <div style={{ flex: 1, padding: '14px 10px', overflowY: 'auto' }} className="members-scroll">
+          <div style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', padding: '0 8px', marginBottom: 8 }}>Channels</div>
+          {CHANNELS.map(c => {
+            const isActive = c.id === active;
+            return (
+              <div key={c.id} className="ch-row" onClick={() => setActive(c.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 10px', borderRadius: 10, cursor: 'pointer', background: isActive ? `${c.color}0e` : 'transparent', borderLeft: `2.5px solid ${isActive ? c.color : 'transparent'}`, marginBottom: 3, transition: 'all 0.15s' }}>
+                <ChIcon id={c.id} size={14} color={isActive ? c.color : 'rgba(255,255,255,0.3)'}/>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 14, fontWeight: isActive ? 700 : 500, color: isActive ? '#fff' : 'rgba(255,255,255,0.5)', letterSpacing: '-0.2px' }}>{c.name}</div>
+                  {c.internal && <div style={{ fontSize: 9.5, fontWeight: 700, color: '#EBE88A80', letterSpacing: '0.8px', textTransform: 'uppercase', marginTop: 1 }}>Internal</div>}
+                </div>
+                {c.badge > 0 && (
+                  <div style={{ background: c.color, borderRadius: 9999, minWidth: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 5px' }}>
+                    <span style={{ fontSize: 9.5, fontWeight: 800, color: '#0e2a2c' }}>{c.badge}</span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* Add channel */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '9px 10px', marginTop: 8, borderRadius: 10, cursor: 'pointer', border: '1px dashed rgba(255,255,255,0.08)', opacity: 0.5 }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.35)', fontWeight: 500 }}>Add Channel</span>
           </div>
-          <Avatar initials="MC" role="organiser" size={40}/>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>Maya Chen</div>
+        </div>
+
+        {/* User card */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '14px 14px', flexShrink: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <AvatarCircle ini="MC" role="organiser" size={34}/>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', letterSpacing: '-0.2px' }}>Maya Chen</div>
             <div style={{ fontSize: 11, color: '#7FE0D5', fontWeight: 600 }}>Organiser</div>
+          </div>
+          <div style={{ display: 'flex', gap: 2 }}>
+            {[
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            ].map((icon, i) => (
+              <div key={i} style={{ width: 28, height: 28, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.25)', cursor: 'pointer' }}>{icon}</div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* ── 3-column layout ── */}
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '272px 1fr 276px', overflow: 'hidden' }}>
+      {/* ── Col 3: Main chat ── */}
+      <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#07090a' }}>
 
-        {/* ── Left sidebar ── */}
-        <div style={{ borderRight: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', background: 'rgba(0,0,0,0.18)', overflow: 'hidden' }}>
-          {/* Event card */}
-          <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-            <div style={{ background: 'linear-gradient(135deg,#0e2a2c,#1a4a4e)', borderRadius: 14, padding: '16px 18px', border: '1px solid rgba(127,224,213,0.12)' }}>
-              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.5)', marginBottom: 6 }}>Event</div>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#fff', lineHeight: 1.3, marginBottom: 4 }}>Neon Pulse<br/>Music Festival</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>Sat 14 Jun · South Bank, London</div>
+        {/* Channel header — bold, teal-accented */}
+        <div style={{ padding: '0 0 0 0', borderBottom: '1px solid rgba(255,255,255,0.05)', flexShrink: 0 }}>
+          {/* Teal gradient bar at top */}
+          <div style={{ height: 3, background: `linear-gradient(90deg, ${ch.color} 0%, ${ch.color}00 60%)` }} />
+          <div style={{ padding: '18px 32px 16px', display: 'flex', alignItems: 'center', gap: 16 }}>
+            <div style={{ width: 42, height: 42, borderRadius: 12, background: `${ch.color}14`, border: `1px solid ${ch.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <ChIcon id={ch.id} size={18} color={ch.color}/>
             </div>
-          </div>
-
-          {/* Channel list */}
-          <div style={{ padding: '18px 14px 10px', flex: 1, overflowY: 'auto' }}>
-            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 10, paddingLeft: 6 }}>Channels</div>
-            {CHANNELS.map(c => {
-              const isActive = c.id === activeChannel;
-              return (
-                <div key={c.id} className="ch-item" onClick={() => setActiveChannel(c.id)}
-                  style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '10px 10px', borderRadius: 10, cursor: 'pointer', background: isActive ? 'rgba(127,224,213,0.08)' : 'transparent', borderLeft: `3px solid ${isActive ? '#7FE0D5' : 'transparent'}`, marginBottom: 4, transition: 'all 0.15s' }}>
-                  <ChannelIcon id={c.id} color={isActive ? '#7FE0D5' : 'rgba(255,255,255,0.35)'}/>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 14, fontWeight: isActive ? 700 : 500, color: isActive ? '#fff' : 'rgba(255,255,255,0.55)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.name}</div>
-                    {c.internal && <div style={{ fontSize: 10, color: 'rgba(235,232,138,0.5)', fontWeight: 600, letterSpacing: '0.5px' }}>INTERNAL</div>}
-                  </div>
-                  {c.badge > 0 && (
-                    <div style={{ background: '#7FE0D5', borderRadius: 9999, minWidth: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 5px' }}>
-                      <span style={{ fontSize: 10, fontWeight: 800, color: '#0e2a2c' }}>{c.badge}</span>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-            {/* Add Channel */}
-            <div style={{ marginTop: 16, padding: '0 4px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', borderRadius: 10, border: '1px dashed rgba(255,255,255,0.1)', cursor: 'pointer', opacity: 0.5 }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>Add Channel</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Main chat area ── */}
-        <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-
-          {/* Channel header */}
-          <div style={{ padding: '16px 28px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 14, flexShrink: 0 }}>
-            <ChannelIcon id={ch.id} size={18} color="#7FE0D5"/>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>{ch.name}</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginTop: 1 }}>{ch.desc}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 3 }}>
+                <span style={{ fontSize: 18, fontWeight: 800, color: '#fff', letterSpacing: '-0.5px' }}>{ch.name}</span>
+                {ch.internal && <span style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: '1px', color: '#EBE88A', background: 'rgba(235,232,138,0.1)', border: '1px solid rgba(235,232,138,0.2)', borderRadius: 5, padding: '2px 8px', textTransform: 'uppercase' }}>Internal</span>}
+                {ch.readOnly && <span style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: '1px', color: '#7FE0D5', background: 'rgba(127,224,213,0.08)', border: '1px solid rgba(127,224,213,0.18)', borderRadius: 5, padding: '2px 8px', textTransform: 'uppercase' }}>Read-only for attendees</span>}
+              </div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.1px' }}>{ch.desc}</div>
             </div>
-            {/* Channel badges */}
-            {ch.locked && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(235,232,138,0.08)', border: '1px solid rgba(235,232,138,0.2)', borderRadius: 8, padding: '5px 12px' }}>
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#EBE88A" strokeWidth="2.5" strokeLinecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                <span style={{ fontSize: 11, fontWeight: 600, color: '#EBE88A' }}>{ch.id === 'crew' ? 'Internal only' : 'Organiser posts only'}</span>
-              </div>
-            )}
-            {ch.id === 'general' && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(127,224,213,0.06)', border: '1px solid rgba(127,224,213,0.15)', borderRadius: 8, padding: '5px 12px' }}>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#7FE0D5' }} />
-                <span style={{ fontSize: 11, fontWeight: 600, color: '#7FE0D5' }}>247 active</span>
-              </div>
-            )}
-            {/* Settings icon */}
-            <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center' }}>
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            </button>
-          </div>
-
-          {/* Messages */}
-          <div className="msg-feed" style={{ flex: 1, overflowY: 'auto', paddingTop: 12, paddingBottom: 8 }}>
-            {/* Welcome rule banner */}
-            <div style={{ margin: '0 28px 16px', background: 'rgba(127,224,213,0.04)', border: '1px solid rgba(127,224,213,0.1)', borderRadius: 12, padding: '12px 18px', display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7FE0D5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span style={{ fontSize: 13, color: 'rgba(177,216,212,0.55)', lineHeight: 1.6 }}>
-                {ch.id === 'announcements' && 'This is the Announcements channel. Only the organiser team can post here. All ticket holders can read.'}
-                {ch.id === 'crew' && 'This is an internal channel for your event team only. Attendees cannot see or join this channel.'}
-                {ch.id === 'general' && 'Welcome to General Chat. All ticket holders and the organiser team can read and post here.'}
-              </span>
-            </div>
-            {msgs.map(m => <MessageRow key={m.id} msg={m} canModerate hoveredId={hoveredMsg} setHoveredId={setHoveredMsg}/>)}
-          </div>
-
-          {/* Input bar */}
-          <div style={{ padding: '14px 24px 18px', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
-            {ch.id === 'announcements' && (
-              <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(235,232,138,0.6)" strokeWidth="2.5" strokeLinecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                <span style={{ fontSize: 11, fontWeight: 600, color: 'rgba(235,232,138,0.5)', letterSpacing: '0.3px' }}>Posting as Organiser — attendees cannot reply in this channel</span>
-              </div>
-            )}
-            <div style={{ display: 'flex', gap: 10, alignItems: 'center', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 16, padding: '10px 14px' }}>
-              {/* Image attach */}
-              <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.3)', padding: 4, display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              </button>
-              <div style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.08)', flexShrink: 0 }} />
-              <input value={input} onChange={e => setInput(e.target.value)} placeholder={`Post to #${ch.name}…`} style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: '#fff', fontFamily: F, fontSize: 14 }} />
-              <button style={{ background: input.trim() ? '#EBE88A' : 'rgba(255,255,255,0.05)', border: 'none', borderRadius: 10, padding: '8px 20px', color: input.trim() ? '#0e2a2c' : 'rgba(255,255,255,0.2)', fontFamily: F, fontSize: 13, fontWeight: 700, cursor: input.trim() ? 'pointer' : 'default', flexShrink: 0, transition: 'all 0.15s' }}>Send</button>
+            {/* Header actions */}
+            <div style={{ display: 'flex', gap: 6 }}>
+              {[
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>,
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>,
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>,
+              ].map((ico, i) => (
+                <div key={i} style={{ width: 34, height: 34, borderRadius: 9, background: 'rgba(255,255,255,0.035)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'rgba(255,255,255,0.35)' }}>{ico}</div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* ── Right panel ── */}
-        <div style={{ borderLeft: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', background: 'rgba(0,0,0,0.12)', overflow: 'hidden' }}>
+        {/* Message feed */}
+        <div className="feed" style={{ flex: 1, overflowY: 'auto', padding: '16px 0 8px' }}>
 
-          {/* Members */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 16px' }} className="members-list">
-            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 14, paddingLeft: 4 }}>
-              {ch.id === 'crew' ? 'Crew Members' : ch.id === 'announcements' ? 'Team' : 'Online Now'}
-            </div>
-            {members.map((m, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 4px', opacity: m.isCount ? 0.45 : 1 }}>
-                {!m.isCount
-                  ? <div style={{ position: 'relative' }}>
-                      <Avatar initials={m.initials} role={m.role} color={m.color} size={32}/>
-                      <div style={{ position: 'absolute', bottom: -1, right: -1, width: 9, height: 9, borderRadius: '50%', background: m.online ? '#4ade80' : 'rgba(255,255,255,0.18)', border: '2px solid #080a0b' }} />
-                    </div>
-                  : <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>…</span>
-                    </div>
-                }
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: m.isCount ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.name}</div>
-                  {!m.isCount && <div style={{ fontSize: 10, color: ROLE_COLORS[m.role]?.text || 'rgba(255,255,255,0.3)', fontWeight: 600, marginTop: 1 }}>{ROLE_COLORS[m.role]?.label}</div>}
+          {/* Channel rules banner */}
+          <div style={{ margin: '0 28px 20px', background: `${ch.color}08`, border: `1px solid ${ch.color}18`, borderRadius: 12, padding: '12px 18px', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ch.color} strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span style={{ fontSize: 13, color: `${ch.color}99`, lineHeight: 1.6 }}>
+              {ch.id === 'announcements' && 'Announcements channel — organiser posts only. All 842 ticket holders can read.'}
+              {ch.id === 'crew' && 'Internal crew channel. Attendees cannot see or join this channel.'}
+              {ch.id === 'general' && 'General Chat — open to all ticket holders and the organiser team.'}
+            </span>
+          </div>
+
+          {msgs.map(m => (
+            <div key={m.id} className="msg-row" onMouseEnter={() => setHovered(m.id)} onMouseLeave={() => setHovered(null)}
+              style={{ position: 'relative', display: 'flex', gap: 14, padding: '10px 28px', background: hovered === m.id ? 'rgba(255,255,255,0.017)' : 'transparent', transition: 'background 0.12s' }}>
+              <AvatarCircle ini={m.ini} role={m.role} aColor={m.aColor} size={40}/>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5, flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 700, color: m.role === 'organiser' ? '#7FE0D5' : m.role === 'staff' ? '#EBE88A' : m.role === 'admin' ? '#B1D8D4' : 'rgba(255,255,255,0.8)', letterSpacing: '-0.2px' }}>{m.name}</span>
+                  <RolePill role={m.role}/>
+                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>{m.time}</span>
                 </div>
-              </div>
-            ))}
-          </div>
+                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, whiteSpace: 'pre-line', letterSpacing: '-0.1px' }}>{m.text}</div>
 
-          {/* Moderation tools */}
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '16px 16px 20px', flexShrink: 0 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 14, paddingLeft: 4 }}>Moderation</div>
+                {/* Image attachment */}
+                {m.hasImg && (
+                  <div style={{ marginTop: 10, background: 'linear-gradient(135deg, #0d2830 0%, #0e3a3e 50%, #091e22 100%)', border: `1px solid ${ch.color}18`, borderRadius: 14, width: 340, height: 180, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10, cursor: 'pointer', overflow: 'hidden', position: 'relative' }}>
+                    {/* Decorative grid */}
+                    <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(0deg,rgba(127,224,213,0.04) 0px,rgba(127,224,213,0.04) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(127,224,213,0.04) 0px,rgba(127,224,213,0.04) 1px,transparent 1px,transparent 40px)' }} />
+                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 12, background: `${ch.color}18`, border: `1px solid ${ch.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={ch.color} strokeWidth="1.8" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                      </div>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: `${ch.color}99` }}>{m.imgCaption}</span>
+                    </div>
+                  </div>
+                )}
 
-            {/* Slow mode toggle */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', borderRadius: 10, marginBottom: 6, background: 'rgba(255,255,255,0.025)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', fontWeight: 500 }}>Slow mode (30s)</span>
+                {/* Readers count for announcements */}
+                {m.readers && (
+                  <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.18)', fontWeight: 500 }}>{m.readers.toLocaleString()} read</span>
+                  </div>
+                )}
               </div>
-              <div onClick={() => setSlowMode(!slowMode)}
-                style={{ width: 36, height: 20, borderRadius: 10, background: slowMode ? '#7FE0D5' : 'rgba(255,255,255,0.1)', cursor: 'pointer', position: 'relative', transition: 'background 0.2s' }}>
-                <div style={{ position: 'absolute', top: 3, left: slowMode ? 18 : 3, width: 14, height: 14, borderRadius: '50%', background: '#fff', transition: 'left 0.2s' }} />
+
+              {/* Hover moderation toolbar */}
+              <div className="mod-toolbar" style={{ opacity: 0, transition: 'opacity 0.12s', position: 'absolute', top: 8, right: 24, display: 'flex', gap: 3, background: '#111416', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '4px 5px', boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
+                {[
+                  { title: 'Pin', path: 'M12 2v20M5 9l7-7 7 7' },
+                  { title: 'Reply', path: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' },
+                ].map(a => (
+                  <button key={a.title} title={a.title} style={{ background: 'none', border: 'none', padding: '5px 7px', borderRadius: 7, color: 'rgba(255,255,255,0.4)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={a.path}/></svg>
+                  </button>
+                ))}
+                <div style={{ width: 1, background: 'rgba(255,255,255,0.07)', margin: '3px 1px' }} />
+                <button title="Delete" style={{ background: 'none', border: 'none', padding: '5px 7px', borderRadius: 7, color: 'rgba(255,80,80,0.55)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                </button>
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* Mute channel toggle */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', borderRadius: 10, marginBottom: 10, background: 'rgba(255,255,255,0.025)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/>{muteChat && <line x1="23" y1="9" x2="17" y2="15"/>}{muteChat && <line x1="17" y1="9" x2="23" y2="15"/>}</svg>
-                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', fontWeight: 500 }}>Mute channel</span>
-              </div>
-              <div onClick={() => setMuteChat(!muteChat)}
-                style={{ width: 36, height: 20, borderRadius: 10, background: muteChat ? '#EBE88A' : 'rgba(255,255,255,0.1)', cursor: 'pointer', position: 'relative', transition: 'background 0.2s' }}>
-                <div style={{ position: 'absolute', top: 3, left: muteChat ? 18 : 3, width: 14, height: 14, borderRadius: '50%', background: '#fff', transition: 'left 0.2s' }} />
+        {/* Input bar */}
+        <div style={{ padding: '12px 24px 20px', flexShrink: 0 }}>
+          {ch.readOnly && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(235,232,138,0.5)" strokeWidth="2.5" strokeLinecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span style={{ fontSize: 11.5, fontWeight: 600, color: 'rgba(235,232,138,0.4)' }}>Posting as Organiser — attendees cannot reply in this channel</span>
+            </div>
+          )}
+          <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end', background: 'rgba(255,255,255,0.035)', border: `1px solid ${input.trim() ? `${ch.color}30` : 'rgba(255,255,255,0.08)'}`, borderRadius: 16, padding: '10px 12px 10px 16px', transition: 'border-color 0.2s' }}>
+            {/* Attach */}
+            <button style={{ background: 'none', border: 'none', padding: '6px', color: 'rgba(255,255,255,0.25)', cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', marginBottom: 1 }}>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </button>
+            <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.07)', flexShrink: 0, alignSelf: 'center' }} />
+            <input value={input} onChange={e => setInput(e.target.value)} placeholder={`Post to #${ch.name}…`} style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: '#fff', fontFamily: F, fontSize: 14, padding: '4px 0', lineHeight: 1.5 }} />
+            {/* Send */}
+            <button style={{ background: input.trim() ? ch.color : 'rgba(255,255,255,0.05)', border: 'none', borderRadius: 11, padding: '9px 20px', color: input.trim() ? '#0e2a2c' : 'rgba(255,255,255,0.18)', fontFamily: F, fontSize: 13, fontWeight: 700, cursor: input.trim() ? 'pointer' : 'default', flexShrink: 0, transition: 'all 0.18s', letterSpacing: '0.2px' }}>Send</button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Col 4: Members + Moderation ── */}
+      <div style={{ background: '#090b0c', borderLeft: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+
+        {/* Members */}
+        <div style={{ flex: 1, padding: '20px 14px', overflowY: 'auto' }} className="members-scroll">
+          <div style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', marginBottom: 14, paddingLeft: 4 }}>
+            {ch.id === 'crew' ? 'Crew' : ch.id === 'announcements' ? 'Team' : 'Online'}
+          </div>
+          {members.map((m, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 4px', opacity: m.role === 'count' ? 0.4 : 1 }}>
+              {m.role !== 'count'
+                ? <div style={{ position: 'relative', flexShrink: 0 }}>
+                    <AvatarCircle ini={m.ini} role={m.role} aColor={m.aColor} size={30}/>
+                    <div style={{ position: 'absolute', bottom: -1, right: -1, width: 8, height: 8, borderRadius: '50%', background: m.online ? '#4ade80' : 'rgba(255,255,255,0.15)', border: '2px solid #09090b' }} />
+                  </div>
+                : <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>…</span>
+                  </div>
+              }
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 12.5, fontWeight: 600, color: m.role === 'count' ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.65)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.name}</div>
+                {m.role !== 'count' && <div style={{ fontSize: 10.5, color: RC[m.role]?.badge || 'rgba(255,255,255,0.2)', fontWeight: 600, marginTop: 1 }}>{RC[m.role]?.label}</div>}
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* Action buttons */}
-            {[
-              { label: 'Export chat log',     icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> },
-              { label: 'Clear all messages',  icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>, danger: true },
-            ].map(a => (
-              <button key={a.label} className="mod-btn" style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 9, background: 'rgba(255,255,255,0.025)', border: 'none', borderRadius: 10, padding: '9px 10px', color: a.danger ? 'rgba(255,90,90,0.55)' : 'rgba(255,255,255,0.45)', fontFamily: F, fontSize: 12, fontWeight: 500, cursor: 'pointer', marginBottom: 5, textAlign: 'left', transition: 'all 0.15s' }}>
-                {a.icon}{a.label}
-              </button>
-            ))}
-          </div>
+        {/* Moderation panel */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '16px 14px 20px', flexShrink: 0 }}>
+          <div style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', marginBottom: 14, paddingLeft: 4 }}>Moderation</div>
+
+          {[
+            { label: 'Slow mode (30s)', val: slowMode, set: setSlowMode, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, onColor: '#7FE0D5' },
+            { label: 'Mute channel',    val: muteChat, set: setMuteChat, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>, onColor: '#EBE88A' },
+          ].map(t => (
+            <div key={t.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', borderRadius: 10, marginBottom: 6, background: 'rgba(255,255,255,0.02)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                {t.icon}
+                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>{t.label}</span>
+              </div>
+              <div onClick={() => t.set(!t.val)} style={{ width: 34, height: 19, borderRadius: 10, background: t.val ? t.onColor : 'rgba(255,255,255,0.1)', cursor: 'pointer', position: 'relative', transition: 'background 0.2s', flexShrink: 0 }}>
+                <div style={{ position: 'absolute', top: 2.5, left: t.val ? 17 : 2.5, width: 14, height: 14, borderRadius: '50%', background: '#fff', transition: 'left 0.2s', boxShadow: '0 1px 4px rgba(0,0,0,0.4)' }} />
+              </div>
+            </div>
+          ))}
+
+          {/* Action buttons */}
+          {[
+            { label: 'Export chat log', icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>, danger: false },
+            { label: 'Clear all messages', icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>, danger: true },
+          ].map(a => (
+            <button key={a.label} className="mod-btn" style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 9, background: 'rgba(255,255,255,0.02)', border: 'none', borderRadius: 10, padding: '9px 10px', color: a.danger ? 'rgba(255,80,80,0.5)' : 'rgba(255,255,255,0.38)', fontFamily: F, fontSize: 12, fontWeight: 500, cursor: 'pointer', marginBottom: 5, textAlign: 'left', transition: 'all 0.15s' }}>
+              {a.icon}{a.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>
