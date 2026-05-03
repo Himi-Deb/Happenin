@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { useLocation } from 'wouter';
 
 const F = 'Urbanist, sans-serif';
+const CLOSE = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 6 6 18" />
+    <path d="M6 6 18 18" />
+  </svg>
+);
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const SLIDES = [
@@ -135,6 +141,9 @@ export default function Login() {
       <AtmospherePanel />
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '60px 80px', position: 'relative', overflowY: 'auto' }}>
+        <button type="button" aria-label="Close login" style={{ position: 'absolute', top: 28, right: 28, width: 42, height: 42, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
+          {CLOSE}
+        </button>
         <div style={{ position: 'absolute', top: 36, left: 60, cursor: 'pointer' }} onClick={() => navigate('/')}>
           <span style={{ fontFamily: F, fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: '-0.5px' }}>happenin<span style={{ color: '#7FE0D5' }}>*</span></span>
         </div>
@@ -171,7 +180,7 @@ export default function Login() {
                 ),
               },
             ].map(s => (
-              <button key={s.label} className="lf-social-btn" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '13px 0', color: '#fff', fontFamily: F, fontSize: 14, fontWeight: 600, cursor: 'pointer', transition: 'background 0.15s' }}>
+              <button key={s.label} className="lf-social-btn" onClick={() => navigate('/confirmation')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '13px 0', color: '#fff', fontFamily: F, fontSize: 14, fontWeight: 600, cursor: 'pointer', transition: 'background 0.15s' }}>
                 {s.icon}
                 {s.label}
               </button>

@@ -154,21 +154,6 @@ export default function TicketConfirmation() {
         <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '45%', height: '60%', background: 'radial-gradient(ellipse at 75% 75%, rgba(235,232,138,0.03) 0%, transparent 65%)', borderRadius: '50%' }} />
       </div>
 
-      {/* Navbar */}
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
-        <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.13)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28 }}>
-          <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
-            <img src={LOGO_URL} alt="happenin" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
-          </div>
-          <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400 }}>Ticket Confirmed</span>
-        </div>
-        <div style={{ pointerEvents: 'all' }}>
-          <div style={{ background: GOLD, borderRadius: 9999, display: 'flex', alignItems: 'center', height: 52, padding: '0 20px', cursor: 'pointer' }}>
-            <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c' }}>Maya Chen</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main content */}
       <div style={{ position: 'relative', zIndex: 1, padding: '0 80px', paddingTop: 93 }}>
         <div style={{ maxWidth: 1360, margin: '0 auto', paddingTop: 64 }}>

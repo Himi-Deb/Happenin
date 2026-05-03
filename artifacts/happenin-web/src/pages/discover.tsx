@@ -11,6 +11,28 @@ const GOLD = '#EBE88A';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 const LOGO_URL = logoPng;
 
+function Navbar() {
+  const [, navigate] = useLocation();
+  return (
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
+      <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.16)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28, cursor: 'pointer' }} onClick={() => navigate('/discover')}>
+        <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
+          <img src={LOGO_URL} alt="Happenin - Be In" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
+        </div>
+        <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Discover</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
+        <button style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, padding: 4 }}>
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <div onClick={() => navigate('/login')} style={{ background: GOLD, borderRadius: 9999, display: 'flex', alignItems: 'center', height: 52, padding: '0 32px', cursor: 'pointer' }}>
+          <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c', textTransform: 'uppercase', letterSpacing: '1px' }}>LOGIN</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const CATEGORIES = ['All', 'Music', 'Arts', 'Food', 'Sports', 'Business', 'Theatre', 'Gaming', 'Education', 'Wellness'];
 const SORT_OPTIONS = ['Date: Soonest', 'Most Popular', 'Newest', 'A–Z'];
 const WHEN_OPTIONS = ['Any time', 'Today', 'This Weekend', 'This Week', 'This Month'];

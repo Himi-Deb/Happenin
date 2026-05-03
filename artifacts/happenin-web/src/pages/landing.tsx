@@ -573,7 +573,6 @@ export default function Landing() {
     <div style={{ background: '#0e0c09', minHeight: '100vh', color: '#fff' }}>
       <LandingPage />
       <OrganizerCTA />
-      <Footer />
     </div>
   );
 }
