@@ -20,6 +20,17 @@ const EVENT = {
   attendee: 'Alex Morgan',
 };
 
+function Barcode() {
+  const pattern = [3,1,2,1,1,3,2,1,1,2,1,3,1,1,2,3,1,2,1,1,3,1,1,2,1,2,3,1,2,1,1,3,2,1,2,1,1,2,3,1,1,2,1,3,1,2,1,1,2,3,1,1,2,1,2,1,3,2,1,1,3,1,2,1,1,2,3,1,1,2,1,3,2,1,1,2,1,1,3,2];
+  return (
+    <div style={{ display: 'flex', alignItems: 'stretch', height: 56, gap: 0, width: '100%' }}>
+      {pattern.map((w, i) => (
+        <div key={i} style={{ flex: w, background: i % 2 === 0 ? '#0e2a2c' : 'transparent', height: '100%', borderRadius: 1 }} />
+      ))}
+    </div>
+  );
+}
+
 function Navbar() {
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
@@ -52,117 +63,99 @@ function Barcode() {
 function TicketCard() {
   return (
     <div style={{
-      width: 680,
+      width: '100%',
       background: '#F4F1EA',
-      borderRadius: 28,
+      borderRadius: 24,
       overflow: 'hidden',
-      boxShadow: '0 48px 96px rgba(0,0,0,0.55), 0 12px 32px rgba(0,0,0,0.3)',
+      boxShadow: '0 40px 80px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.25)',
       fontFamily: F,
     }}>
-
-      {/* ── Top accent bar ── */}
-      <div style={{ background: '#0e2a2c', padding: '20px 36px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ fontFamily: F, fontSize: 12, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.7)', fontWeight: 600 }}>HAPPENIN*</div>
+      <div style={{ background: '#0e2a2c', padding: '18px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontFamily: F, fontSize: 11, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.7)', fontWeight: 600 }}>{EVENT.title}</span>
           <div style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(177,216,212,0.3)' }} />
-          <div style={{ fontFamily: F, fontSize: 12, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.7)', fontWeight: 600 }}>ADMITS ONE</div>
+          <span style={{ fontFamily: F, fontSize: 11, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.7)', fontWeight: 600 }}>ADMITS ONE</span>
         </div>
-        <div style={{ background: '#EBE88A', borderRadius: 9999, padding: '5px 18px', fontFamily: F, fontSize: 12, fontWeight: 800, color: '#0e2a2c', letterSpacing: '1.5px', textTransform: 'uppercase' }}>FREE</div>
+        <div style={{ background: '#EBE88A', borderRadius: 9999, padding: '4px 14px', fontFamily: F, fontSize: 11, fontWeight: 800, color: '#0e2a2c', letterSpacing: '1.5px', textTransform: 'uppercase' }}>FREE</div>
       </div>
 
-      {/* ── Attendee ── */}
-      <div style={{ padding: '32px 36px 24px' }}>
-        <div style={{ fontSize: 11, letterSpacing: '2px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600, marginBottom: 8 }}>Attendee</div>
-        <div style={{ fontSize: 42, fontWeight: 800, color: '#0e1a1b', letterSpacing: '-1.5px', lineHeight: 1 }}>{EVENT.attendee}</div>
+      <div style={{ padding: '24px 28px 18px' }}>
+        <div style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600, marginBottom: 6 }}>Attendee</div>
+        <div style={{ fontSize: 34, fontWeight: 800, color: '#0e1a1b', letterSpacing: '-1px', lineHeight: 1 }}>{EVENT.attendee}</div>
       </div>
 
-      {/* ── Divider ── */}
-      <div style={{ margin: '0 36px', height: 1, background: 'rgba(14,26,27,0.08)' }} />
+      <div style={{ margin: '0 28px', height: 1, background: 'rgba(14,26,27,0.08)' }} />
 
-      {/* ── Time journey row ── */}
-      <div style={{ padding: '28px 36px' }}>
+      <div style={{ padding: '20px 28px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
-          {/* Doors */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <div style={{ fontSize: 36, fontWeight: 800, color: '#0e1a1b', letterSpacing: '-1.5px', lineHeight: 1 }}>{EVENT.time}</div>
-            <div style={{ fontSize: 12, color: '#9a9080', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 600 }}>Doors Open</div>
+            <div style={{ fontSize: 28, fontWeight: 800, color: '#0e1a1b', letterSpacing: '-1px', lineHeight: 1 }}>{EVENT.time}</div>
+            <div style={{ fontSize: 10, color: '#9a9080', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 600 }}>Doors Open</div>
           </div>
 
-          {/* Line + duration */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, padding: '0 28px' }}>
-            <div style={{ fontSize: 12, color: '#9a9080', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 600 }}>{EVENT.duration}</div>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5, padding: '0 20px' }}>
+            <div style={{ fontSize: 10, color: '#9a9080', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 600 }}>{EVENT.duration}</div>
             <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#0e2a2c', flexShrink: 0 }} />
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#0e2a2c', flexShrink: 0 }} />
               <div style={{ flex: 1, height: 2, background: 'linear-gradient(90deg, #0e2a2c, rgba(14,42,44,0.3))' }} />
-              {/* Music note icon */}
-              <div style={{ flexShrink: 0, width: 32, height: 32, borderRadius: '50%', background: '#0e2a2c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B1D8D4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <div style={{ flexShrink: 0, width: 26, height: 26, borderRadius: '50%', background: '#0e2a2c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#B1D8D4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18V5l12-2v13" />
                   <circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
                 </svg>
               </div>
               <div style={{ flex: 1, height: 2, background: 'linear-gradient(90deg, rgba(14,42,44,0.3), #0e2a2c)' }} />
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#0e2a2c', flexShrink: 0 }} />
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#0e2a2c', flexShrink: 0 }} />
             </div>
-            <div style={{ fontSize: 11, color: 'rgba(14,26,27,0.3)', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: 500, textAlign: 'center' }}>{EVENT.date}</div>
+            <div style={{ fontSize: 10, color: 'rgba(14,26,27,0.3)', textTransform: 'uppercase', fontWeight: 500, textAlign: 'center' }}>{EVENT.date}</div>
           </div>
 
-          {/* End time */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-end' }}>
-            <div style={{ fontSize: 36, fontWeight: 800, color: '#0e1a1b', letterSpacing: '-1.5px', lineHeight: 1 }}>{EVENT.endTime}</div>
-            <div style={{ fontSize: 12, color: '#9a9080', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 600 }}>Close</div>
+            <div style={{ fontSize: 28, fontWeight: 800, color: '#0e1a1b', letterSpacing: '-1px', lineHeight: 1 }}>{EVENT.endTime}</div>
+            <div style={{ fontSize: 10, color: '#9a9080', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 600 }}>Close</div>
           </div>
         </div>
 
-        {/* Venue row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 14 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#0e1a1b' }}>{EVENT.venue}</div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#0e1a1b' }}>{EVENT.city}</div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0e1a1b' }}>{EVENT.venue}</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0e1a1b' }}>{EVENT.city}</div>
         </div>
       </div>
 
-      {/* ── Divider ── */}
-      <div style={{ margin: '0 36px', height: 1, background: 'rgba(14,26,27,0.08)' }} />
+      <div style={{ margin: '0 28px', height: 1, background: 'rgba(14,26,27,0.08)' }} />
 
-      {/* ── Booking reference + details ── */}
-      <div style={{ padding: '24px 36px' }}>
-        <div style={{ fontSize: 11, letterSpacing: '2px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600, marginBottom: 8 }}>Booking Reference</div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: '#0e1a1b', letterSpacing: '2px', fontFamily: 'monospace, monospace' }}>{EVENT.ticketRef}</div>
+      <div style={{ padding: '16px 28px' }}>
+        <div style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600, marginBottom: 6, fontFamily: F }}>Booking Reference</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#0e1a1b', letterSpacing: '2px', fontFamily: 'monospace, monospace' }}>{EVENT.ticketRef}</div>
       </div>
 
-      {/* ── Details grid ── */}
-      <div style={{ margin: '0 36px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 0, borderTop: '1px solid rgba(14,26,27,0.08)', borderBottom: '1px solid rgba(14,26,27,0.08)' }}>
+      <div style={{ margin: '0 28px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', borderTop: '1px solid rgba(14,26,27,0.08)', borderBottom: '1px solid rgba(14,26,27,0.08)' }}>
         {[
           { label: 'Gate', value: EVENT.gate },
           { label: 'Section', value: EVENT.section },
           { label: 'Tier', value: EVENT.tier },
           { label: 'Ticket', value: '× 1' },
         ].map((item, i) => (
-          <div key={i} style={{ padding: '18px 0', paddingLeft: i > 0 ? 20 : 0, borderLeft: i > 0 ? '1px solid rgba(14,26,27,0.08)' : 'none' }}>
-            <div style={{ fontSize: 11, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600, marginBottom: 5 }}>{item.label}</div>
-            <div style={{ fontSize: 18, fontWeight: 800, color: '#0e1a1b' }}>{item.value}</div>
+          <div key={i} style={{ padding: '14px 0', paddingLeft: i > 0 ? 16 : 0, borderLeft: i > 0 ? '1px solid rgba(14,26,27,0.08)' : 'none' }}>
+            <div style={{ fontSize: 9, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600, marginBottom: 4, fontFamily: F }}>{item.label}</div>
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#0e1a1b', fontFamily: F }}>{item.value}</div>
           </div>
         ))}
       </div>
 
-      {/* ── Perforated tear separator ── */}
       <div style={{ position: 'relative', height: 0, margin: '0 -1px' }}>
-        {/* Left notch */}
-        <div style={{ position: 'absolute', top: '50%', left: -14, transform: 'translateY(-50%)', width: 28, height: 28, borderRadius: '50%', background: '#000', zIndex: 10 }} />
-        {/* Right notch */}
-        <div style={{ position: 'absolute', top: '50%', right: -14, transform: 'translateY(-50%)', width: 28, height: 28, borderRadius: '50%', background: '#000', zIndex: 10 }} />
-        {/* Dashed line */}
-        <div style={{ margin: '0 14px', borderTop: '2px dashed rgba(14,26,27,0.15)' }} />
+        <div style={{ position: 'absolute', top: '50%', left: -12, transform: 'translateY(-50%)', width: 24, height: 24, borderRadius: '50%', background: '#000', zIndex: 10 }} />
+        <div style={{ position: 'absolute', top: '50%', right: -12, transform: 'translateY(-50%)', width: 24, height: 24, borderRadius: '50%', background: '#000', zIndex: 10 }} />
+        <div style={{ margin: '0 12px', borderTop: '2px dashed rgba(14,26,27,0.15)' }} />
       </div>
 
-      {/* ── Barcode section ── */}
-      <div style={{ padding: '28px 36px 32px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ padding: '22px 28px 24px', display: 'flex', flexDirection: 'column', gap: 10 }}>
         <Barcode />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontFamily: 'monospace, monospace', fontSize: 12, color: '#9a9080', letterSpacing: '2px' }}>{EVENT.ticketRef}</div>
+          <div style={{ fontFamily: 'monospace', fontSize: 10, color: '#9a9080', letterSpacing: '1.5px' }}>{EVENT.ticketRef}</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#B1D8D4' }} />
-            <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600 }}>VALID FOR ONE-TIME ENTRY</div>
+            <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#B1D8D4' }} />
+            <div style={{ fontFamily: F, fontSize: 9, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#9a9080', fontWeight: 600 }}>VALID FOR ONE-TIME ENTRY</div>
           </div>
         </div>
       </div>
