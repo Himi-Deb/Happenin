@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 const F = 'Urbanist, sans-serif';
+const G = 'Grotesk, sans-serif';
 const LOGO_URL = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/happenin-logo-new.png`;
 
 /* ── palette ─────────────────────────────────────────────────────
@@ -128,11 +129,11 @@ export function OrganizerHub() {
       <Navbar />
 
       {/* ── event sub-header ── */}
-      <div style={{ marginTop: 125, flexShrink: 0, borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 72 }}>
+      <div style={{ marginTop: 125, flexShrink: 0, borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 92 }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.45)', marginBottom: 3 }}>Event</div>
-          <div style={{ fontSize: 19, fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', lineHeight: 1 }}>Neon Pulse Music Festival</div>
-          <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.28)', fontWeight: 500, marginTop: 5 }}>Sat 14 Jun 2025 · 5:30 PM</div>
+          <div style={{ fontFamily: G, fontSize: 11, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.45)', marginBottom: 6 }}>Event</div>
+          <div style={{ fontFamily: G, fontSize: 28, fontWeight: 700, color: '#fff', letterSpacing: '-1px', lineHeight: 1 }}>Neon Pulse Music Festival</div>
+          <div style={{ fontFamily: G, fontSize: 14, color: 'rgba(255,255,255,0.28)', fontWeight: 500, marginTop: 8 }}>Sat 14 Jun 2025 · 5:30 PM</div>
         </div>
       </div>
 
