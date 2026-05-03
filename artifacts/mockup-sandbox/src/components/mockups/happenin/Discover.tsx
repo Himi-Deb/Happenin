@@ -336,14 +336,14 @@ export function Discover() {
       <Navbar />
 
       {/* ── Hero ── */}
-      <div style={{ position: 'relative', paddingTop: 130, paddingBottom: 80, paddingLeft: 80, paddingRight: 80, overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: 560 }}>
+      <div style={{ position: 'relative', paddingTop: 130, paddingBottom: 80, paddingLeft: 80, paddingRight: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: 560 }}>
         {/* Background glows */}
         <div style={{ position: 'absolute', top: '-20%', left: '-5%', width: 1000, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(14,42,44,0.7) 0%, transparent 60%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: '-10%', right: '-8%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(50,40,8,0.4) 0%, transparent 65%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: 0, right: '28%', width: 600, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(127,224,213,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-        {/* Left: text + stats */}
-        <div style={{ position: 'relative', zIndex: 1, flex: '0 0 54%', maxWidth: '54%', paddingRight: 60 }}>
+        {/* Left: text */}
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 880, paddingRight: 60 }}>
           <h1 style={{ fontFamily: F, fontSize: 82, fontWeight: 800, letterSpacing: '-3.5px', color: '#fff', lineHeight: 0.93, margin: '0 0 26px' }}>
             Discover<br/><span style={{ color: '#7FE0D5' }}>what's<br/>happening.</span>
           </h1>
@@ -352,8 +352,8 @@ export function Discover() {
           </p>
         </div>
 
-        {/* Right: staggered photo collage */}
-        <div style={{ position: 'relative', flex: '0 0 46%', maxWidth: '46%', height: 500, zIndex: 1 }}>
+        {/* Right: staggered photo collage — pinned top-right */}
+        <div style={{ position: 'absolute', right: 0, top: 0, width: 860, height: 560, zIndex: 1 }}>
 
           {/* Card 1 — tall left, music */}
           <div style={{ position: 'absolute', left: 0, top: 30, width: 290, height: 370, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(-3deg)', boxShadow: '0 24px 64px rgba(0,0,0,0.55)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 2 }}>
