@@ -116,6 +116,27 @@ function ChatWallpaper() {
   );
 }
 
+function AvatarFace({ id, size = 40 }: { id: string; size?: number }) {
+  const sk = '#F5E6D3';
+  const dk = '#1a1a1a';
+  const W = size, H = size;
+  const Face = () => (
+    <>
+      <ellipse cx="50" cy="62" rx="23" ry="27" fill={sk} stroke={dk} strokeWidth="2.2"/>
+      <ellipse cx="27" cy="62" rx="4.5" ry="6.5" fill={sk} stroke={dk} strokeWidth="1.8"/>
+      <ellipse cx="73" cy="62" rx="4.5" ry="6.5" fill={sk} stroke={dk} strokeWidth="1.8"/>
+    </>
+  );
+  const Eyes = ({ cx1 = 41, cx2 = 59, cy = 59 }) => (
+    <><circle cx={cx1} cy={cy} r="2.8" fill={dk}/><circle cx={cx2} cy={cy} r="2.8" fill={dk}/></>
+  );
+  const Smile = ({ y1 = 74, y2 = 81 }) => (
+    <path d={`M43 ${y1} Q50 ${y2} 57 ${y1}`} fill="none" stroke={dk} strokeWidth="2.5" strokeLinecap="round"/>
+  );
+  if (id === 'casey') return <svg width={W} height={H} viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#7FE0D5"/><ellipse cx="50" cy="38" rx="24" ry="20" fill={dk}/><Face/><Eyes/><Smile/><circle cx="41" cy="59" r="8" fill="none" stroke={dk} strokeWidth="2.5"/><circle cx="59" cy="59" r="8" fill="none" stroke={dk} strokeWidth="2.5"/><line x1="49" y1="59" x2="51" y2="59" stroke={dk} strokeWidth="2.2"/><line x1="22" y1="59" x2="33" y2="59" stroke={dk} strokeWidth="1.8"/><line x1="67" y1="59" x2="78" y2="59" stroke={dk} strokeWidth="1.8"/></svg>;
+  return <svg width={W} height={H} viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#B1D8D4"/><path d="M27 52 Q27 26 50 24 Q73 26 73 52 Q65 44 50 43 Q35 44 27 52Z" fill={dk}/><rect x="12" y="44" width="22" height="8" rx="4" fill={dk}/><circle cx="50" cy="25" r="3.5" fill="#EBE88A"/><Face/><Eyes/><Smile/></svg>;
+}
+
 /* ── Navbar ── */
 function Navbar() {
   return (
