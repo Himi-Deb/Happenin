@@ -225,7 +225,7 @@ function HeroCarousel() {
           </div>
           <div style={{ display: 'flex', gap: 10, justifyContent: 'center', width: '100%' }}>
             {CAROUSEL_SLIDES.map((_, i) => (
-              <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? 40 : 12, height: 12, borderRadius: 9999, background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s ease' }} />
+              <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? 48 : 14, height: 14, borderRadius: 9999, background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s ease' }} />
             ))}
           </div>
         </div>
