@@ -36,11 +36,11 @@ const CHANNELS = [
 
 const MSGS: Record<ChannelId, any[]> = {
   announcements: [
-    { id: 1, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '3h ago', readers: 842, text: 'Welcome to the official Neon Pulse channel! All updates — set times, stage changes, venue info — will be posted here. See you tonight 🎶' },
-    { id: 2, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '2h ago', readers: 791, text: '📍 Venue reminder — 32 Upper Ground, South Bank. Nearest tube: Waterloo (5 min walk) or Blackfriars (7 min). Rideshare drop-off on Upper Ground.' },
-    { id: 3, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '1h ago', readers: 634, hasImg: true, imgCaption: 'Stage map & set times — save this!', text: '🗺️ Official stage map and full set times for tonight.' },
-    { id: 4, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '45m ago', readers: 510, text: '🎵 Set times confirmed:\n\nWarm Up DJ  ·  6:30 PM\nHybrid Minds  ·  8:00 PM\nHeadliner  ·  10:00 PM\n\nDoors open at 5:30 PM.' },
-    { id: 5, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '20m ago', readers: 312, text: '📸 Camera policy — phone cameras welcome! No professional cameras with detachable lenses. Bag check ground floor, £2/item.' },
+    { id: 1, role: 'creator', name: 'Event Creator', ini: 'EC', time: '3h ago', readers: 842, text: 'Welcome to the official Neon Pulse channel! All updates — set times, stage changes, venue info — will be posted here. See you tonight 🎶' },
+    { id: 2, role: 'staff', name: 'Staff', ini: 'ST', time: '2h ago', readers: 791, text: '📍 Venue reminder — 32 Upper Ground, South Bank. Nearest tube: Waterloo (5 min walk) or Blackfriars (7 min). Rideshare drop-off on Upper Ground.' },
+    { id: 3, role: 'creator', name: 'Event Creator', ini: 'EC', time: '1h ago', readers: 634, hasImg: true, imgCaption: 'Stage map & set times — save this!', text: '🗺️ Official stage map and full set times for tonight.' },
+    { id: 4, role: 'staff', name: 'Staff', ini: 'ST', time: '45m ago', readers: 510, text: '🎵 Set times confirmed:\n\nWarm Up DJ  ·  6:30 PM\nHybrid Minds  ·  8:00 PM\nHeadliner  ·  10:00 PM\n\nDoors open at 5:30 PM.' },
+    { id: 5, role: 'creator', name: 'Event Creator', ini: 'EC', time: '20m ago', readers: 312, text: '📸 Camera policy — phone cameras welcome! No professional cameras with detachable lenses. Bag check ground floor, £2/item.' },
   ],
   general: [
     { id: 1, role: 'organiser', name: 'NeonWave Events', ini: 'NW', time: '2h ago', text: 'Welcome everyone! 🎶 Doors open at 5:30 PM — see you on the South Bank tonight!' },
