@@ -125,18 +125,17 @@ export function OrganizerHub() {
         .feed::-webkit-scrollbar { width: 4px; }
         .feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
       `}</style>
-
       <Navbar />
-
       {/* ── event sub-header ── */}
       <div style={{ marginTop: 125, flexShrink: 0, borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 92 }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontFamily: G, fontSize: 11, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.45)', marginBottom: 6 }}>Event</div>
+          <div
+            style={{ fontFamily: G, fontSize: 11, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.45)', marginBottom: 6 }}
+            className="text-[24px]">Event</div>
           <div style={{ fontFamily: G, fontSize: 28, fontWeight: 700, color: '#fff', letterSpacing: '-1px', lineHeight: 1 }}>Neon Pulse Music Festival</div>
           <div style={{ fontFamily: G, fontSize: 14, color: 'rgba(255,255,255,0.28)', fontWeight: 500, marginTop: 8 }}>Sat 14 Jun 2025 · 5:30 PM</div>
         </div>
       </div>
-
       {/* ── body: collapsible sidebar + sunken chat ── */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden', padding: '16px 20px 20px', gap: 16 }}>
 
@@ -172,7 +171,7 @@ export function OrganizerHub() {
               const isActive = c.id === active;
               return open ? (
                 /* EXPANDED row */
-                <div key={c.id} className="ch-row" onClick={() => setActive(c.id)}
+                (<div key={c.id} className="ch-row" onClick={() => setActive(c.id)}
                   style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 14, background: isActive ? `${c.color}10` : 'transparent', border: `1px solid ${isActive ? `${c.color}30` : 'transparent'}`, cursor: 'pointer', transition: 'all 0.15s', position: 'relative' }}>
                   {/* active indicator bar */}
                   {isActive && <div style={{ position: 'absolute', left: 0, top: '22%', bottom: '22%', width: 3, borderRadius: '0 3px 3px 0', background: c.color }} />}
@@ -187,14 +186,14 @@ export function OrganizerHub() {
                     </div>
                     <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.25)', marginTop: 3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.desc}</div>
                   </div>
-                </div>
+                </div>)
               ) : (
                 /* COLLAPSED icon-only */
-                <div key={c.id} className="ch-icon" onClick={() => setActive(c.id)} title={c.name}
+                (<div key={c.id} className="ch-icon" onClick={() => setActive(c.id)} title={c.name}
                   style={{ width: 44, height: 44, borderRadius: 13, background: isActive ? `${c.color}18` : 'rgba(255,255,255,0.04)', border: `1px solid ${isActive ? `${c.color}30` : 'rgba(255,255,255,0.07)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.15s', position: 'relative', flexShrink: 0 }}>
                   <ChIcon id={c.id} size={17} color={isActive ? c.color : 'rgba(255,255,255,0.3)'}/>
                   {c.badge > 0 && <div style={{ position: 'absolute', top: 5, right: 5, width: 8, height: 8, borderRadius: '50%', background: c.color, border: `2px solid ${SIDEBAR_BG}` }} />}
-                </div>
+                </div>)
               );
             })}
 
