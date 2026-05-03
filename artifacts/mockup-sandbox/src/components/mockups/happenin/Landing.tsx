@@ -399,8 +399,8 @@ const SOCIAL_ICONS = [
 function Footer() {
   return (
     <footer style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-      <div style={{ padding: '72px 72px 24px', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 560px)', gap: 72, alignItems: 'start' }}>
+      <div style={{ padding: '96px 72px 8px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 560px)', gap: 90, alignItems: 'start' }}>
         <div style={{ fontFamily: F, color: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 36, paddingLeft: 0, paddingRight: 24 }}>
           <div>
             <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>ABOUT HAPPENIN</div>
