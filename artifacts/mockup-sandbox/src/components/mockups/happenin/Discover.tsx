@@ -47,9 +47,16 @@ const ALL_EVENTS: Ev[] = [
   { id: 16, title: 'Classical Piano Recital',        date: 'Wed, 16 Jul', time: '7:30 PM',  location: 'Wigmore Hall',        city: 'London',     category: 'Music',     price: '£30',   tag: '',         attendees: 250,   dateOrder: 10, image: 'url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=900&q=80)' },
   { id: 17, title: 'Night Market: Asia Edition',     date: 'Sat, 19 Jul', time: '5:00 PM',  location: 'Spitalfields',        city: 'London',     category: 'Food',      price: 'Free',  tag: 'New',      attendees: 950,   dateOrder: 10, image: 'url(https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80)' },
   { id: 18, title: 'Salsa & Bachata Social',         date: 'Fri, 18 Jul', time: '8:00 PM',  location: 'Dance Fusion',        city: 'Bristol',    category: 'Theatre',   price: '£8',    tag: 'New',      attendees: 145,   dateOrder: 10, image: 'url(https://images.unsplash.com/photo-1518834107812-67b0b7c58434?auto=format&fit=crop&w=900&q=80)' },
+  { id: 19, title: 'Open Mic Comedy Night',          date: 'Thu, 17 Jul', time: '9:00 PM',  location: 'The Laugh Factory',   city: 'London',     category: 'Theatre',   price: 'Free',  tag: 'New',      attendees: 220,   dateOrder: 10, image: 'url(https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=900&q=80)' },
+  { id: 20, title: 'Mindful Morning Run',            date: 'Sun, 13 Jul', time: '7:00 AM',  location: 'Hyde Park',           city: 'London',     category: 'Sports',    price: 'Free',  tag: '',         attendees: 310,   dateOrder: 9,  image: 'url(https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=900&q=80)' },
+  { id: 21, title: 'Blockchain Horizon Conference',  date: 'Fri, 1 Aug',  time: '9:00 AM',  location: 'The Shard',           city: 'London',     category: 'Business',  price: '£75',   tag: '',         attendees: 720,   dateOrder: 14, image: 'url(https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=900&q=80)' },
+  { id: 22, title: 'Graffiti & Street Art Tour',     date: 'Sat, 5 Jul',  time: '2:00 PM',  location: 'Shoreditch',          city: 'London',     category: 'Art',       price: 'Free',  tag: 'Trending', attendees: 185,   dateOrder: 6,  image: 'url(https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?auto=format&fit=crop&w=900&q=80)' },
+  { id: 23, title: 'Electronic Music Showcase',      date: 'Sat, 12 Jul', time: '10:00 PM', location: 'Fabric Club',         city: 'London',     category: 'Music',     price: '£15',   tag: 'Hot',      attendees: 1400,  dateOrder: 9,  image: 'url(https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?auto=format&fit=crop&w=900&q=80)' },
+  { id: 24, title: 'Vegan Food & Wellness Fair',     date: 'Sun, 20 Jul', time: '11:00 AM', location: 'Southbank Centre',    city: 'London',     category: 'Wellness',  price: 'Free',  tag: '',         attendees: 430,   dateOrder: 10, image: 'url(https://images.unsplash.com/photo-1543362906-acfc16c67564?auto=format&fit=crop&w=900&q=80)' },
 ];
 
 const FEATURED_POOL = ALL_EVENTS.slice(0, 6);
+const PAGE_SIZE = 20;
 
 const TAG_COLORS: Record<string, { bg: string; color: string }> = {
   Featured: { bg: '#7FE0D5', color: '#0e2a2c' },
@@ -241,6 +248,9 @@ export function Discover() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [sortBy, setSortBy] = useState('Date');
   const [sortOpen, setSortOpen] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const resetPage = () => setPage(1);
 
   const baseFiltered = ALL_EVENTS.filter(ev => {
     const catMatch = activecat === 'All' || ev.category === activecat;
@@ -258,7 +268,9 @@ export function Discover() {
     return a.dateOrder - b.dateOrder;
   });
 
-  const gridEvents = sorted;
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const gridEvents = sorted.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   return (
     <div className="happenin-root" style={{ background: '#080a0b', minHeight: '100vh', color: '#fff' }}>
@@ -363,7 +375,7 @@ export function Discover() {
             {CATS.map(cat => {
               const active = cat.label === activecat;
               return (
-                <button key={cat.label} onClick={() => setActivecat(cat.label)} style={{
+                <button key={cat.label} onClick={() => { setActivecat(cat.label); resetPage(); }} style={{
                   background: active ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)',
                   border: `1px solid ${active ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`,
                   borderRadius: 12, padding: '10px 20px',
@@ -427,7 +439,7 @@ export function Discover() {
               {FILTERS.map(f => {
                 const active = f === activeFilter;
                 return (
-                  <button key={f} className={active ? '' : 'dc-filt'} onClick={() => setActiveFilter(f)}
+                  <button key={f} className={active ? '' : 'dc-filt'} onClick={() => { setActiveFilter(f); resetPage(); }}
                     style={{ display: 'flex', alignItems: 'center', gap: 6, background: active ? 'rgba(127,224,213,0.15)' : 'rgba(255,255,255,0.06)', border: `1px solid ${active ? 'rgba(127,224,213,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius: 100, padding: '9px 18px', color: active ? '#7FE0D5' : 'rgba(255,255,255,0.6)', fontFamily: F, fontSize: 13, fontWeight: active ? 700 : 500, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.15s' }}>
                     {f === 'Free' && <span style={{ fontSize: 12 }}>✦</span>}
                     {f}
@@ -450,7 +462,7 @@ export function Discover() {
               {sortOpen && (
                 <div style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: '#181a1c', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, overflow: 'hidden', zIndex: 200, minWidth: 220, boxShadow: '0 16px 40px rgba(0,0,0,0.6)' }}>
                   {SORTS.map(s => (
-                    <button key={s} className="dc-sort-item" onClick={() => { setSortBy(s); setSortOpen(false); }}
+                    <button key={s} className="dc-sort-item" onClick={() => { setSortBy(s); setSortOpen(false); resetPage(); }}
                       style={{ display: 'block', width: '100%', textAlign: 'left', background: s === sortBy ? 'rgba(127,224,213,0.1)' : 'transparent', border: 'none', padding: '13px 20px', color: s === sortBy ? '#7FE0D5' : 'rgba(255,255,255,0.7)', fontFamily: F, fontSize: 14, fontWeight: s === sortBy ? 700 : 500, cursor: 'pointer', transition: 'all 0.12s' }}>
                       {s === sortBy && <span style={{ marginRight: 8 }}>✓</span>}{s}
                     </button>
@@ -461,24 +473,64 @@ export function Discover() {
           </div>
         </div>
 
-        {/* ── 3-col event grid ── */}
+        {/* ── 4-col event grid ── */}
         {gridEvents.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28, marginBottom: 64 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, marginBottom: 64 }}>
             {gridEvents.map(ev => <EventCard key={ev.id} ev={ev} />)}
           </div>
         ) : (
           <div style={{ textAlign: 'center', padding: '120px 0' }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>🔍</div>
             <div style={{ fontFamily: F, fontSize: 22, fontWeight: 700, color: '#fff', marginBottom: 8 }}>No events found</div>
-            <div style={{ fontFamily: F, fontSize: 15, color: 'rgba(255,255,255,0.35)' }}>Try a different filter or search term</div>
+            <div style={{ fontFamily: F, fontSize: 15, color: 'rgba(255,255,255,0.35)' }}>Try a different category or filter</div>
           </div>
         )}
 
-        {gridEvents.length > 0 && (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <button style={{ background: 'transparent', border: '1px solid rgba(127,224,213,0.3)', borderRadius: 14, padding: '16px 56px', color: '#7FE0D5', fontFamily: F, fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
-              Load more events
+        {/* ── Pagination ── */}
+        {totalPages > 1 && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            {/* Prev */}
+            <button
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              disabled={safePage === 1}
+              style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: safePage === 1 ? 'default' : 'pointer', opacity: safePage === 1 ? 0.3 : 1, transition: 'all 0.15s' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
+
+            {/* Page numbers */}
+            {Array.from({ length: totalPages }).map((_, i) => {
+              const p = i + 1;
+              const isActive = p === safePage;
+              const show = p === 1 || p === totalPages || Math.abs(p - safePage) <= 1;
+              const showEllipsisBefore = p === safePage - 2 && safePage - 2 > 1;
+              const showEllipsisAfter  = p === safePage + 2 && safePage + 2 < totalPages;
+              if (!show && !showEllipsisBefore && !showEllipsisAfter) return null;
+              if (showEllipsisBefore || showEllipsisAfter) return (
+                <span key={`e${p}`} style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.3)', padding: '0 4px' }}>…</span>
+              );
+              return (
+                <button key={p} onClick={() => setPage(p)}
+                  style={{ width: 44, height: 44, borderRadius: 12, background: isActive ? '#7FE0D5' : 'rgba(255,255,255,0.05)', border: `1px solid ${isActive ? '#7FE0D5' : 'rgba(255,255,255,0.1)'}`, color: isActive ? '#0e2a2c' : 'rgba(255,255,255,0.7)', fontFamily: F, fontSize: 15, fontWeight: isActive ? 800 : 500, cursor: 'pointer', transition: 'all 0.15s' }}
+                >
+                  {p}
+                </button>
+              );
+            })}
+
+            {/* Next */}
+            <button
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              disabled={safePage === totalPages}
+              style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: safePage === totalPages ? 'default' : 'pointer', opacity: safePage === totalPages ? 0.3 : 1, transition: 'all 0.15s' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+
+            {/* Page info */}
+            <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.3)', marginLeft: 8 }}>
+              Page {safePage} of {totalPages} · {sorted.length} events
+            </span>
           </div>
         )}
       </div>
