@@ -111,7 +111,7 @@ function Hero() {
       </div>
 
       {/* Bottom-right: ticket card pinned inside hero */}
-      <div style={{ position: 'absolute', bottom: 104, right: 72, zIndex: 5, width: 420 }}>
+      <div style={{ position: 'absolute', bottom: 180, right: 72, zIndex: 5, width: 420 }}>
         <TicketCard />
       </div>
     </section>
