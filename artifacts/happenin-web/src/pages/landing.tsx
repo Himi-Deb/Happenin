@@ -127,7 +127,7 @@ function HappeninLogo({ height = 32 }: { height?: number }) {
   return (
     <img
       src={LOGO_URL}
-      alt="Happenin"
+      alt="Happenin - Be In"
       loading="eager"
       onError={(e) => {
         (e.currentTarget as HTMLImageElement).src = `${BASE}/happenin-wordmark-trimmed.png`;
@@ -303,7 +303,7 @@ function Footer() {
         </div>
       </div>
       <div style={{ background: '#000', width: '100%', overflow: 'hidden', paddingTop: 48, paddingBottom: 48 }}>
-        <img src={wordmarkPng} alt="happenin*" loading="eager" style={{ width: '100%', display: 'block' }} />
+        <img src={wordmarkPng} alt="Happenin - Be In" loading="eager" style={{ width: '100%', display: 'block' }} />
       </div>
     </footer>
   );
