@@ -133,8 +133,32 @@ function TicketCard() {
   );
 }
 
+const ICS = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//happenin//EN
+BEGIN:VEVENT
+DTSTART:20250614T170000Z
+DTEND:20250614T220000Z
+SUMMARY:Neon Pulse Music Festival
+LOCATION:Rooftop Arena\\, South Bank\\, London
+DESCRIPTION:Your free ticket is confirmed. Booking ref: HP-2025-004821
+END:VEVENT
+END:VCALENDAR`;
+
+const GCAL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Neon+Pulse+Music+Festival&dates=20250614T180000/20250614T230000&details=Your+free+ticket+is+confirmed.+Booking+ref%3A+HP-2025-004821&location=Rooftop+Arena%2C+South+Bank%2C+London`;
+const OUTLOOK = `https://outlook.live.com/calendar/0/action/compose?subject=Neon+Pulse+Music+Festival&startdt=2025-06-14T18%3A00%3A00&enddt=2025-06-14T23%3A00%3A00&body=Your+free+ticket+is+confirmed.+Booking+ref%3A+HP-2025-004821&location=Rooftop+Arena%2C+South+Bank%2C+London`;
+
+function downloadIcs() {
+  const blob = new Blob([ICS], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'neon-pulse.ics'; a.click();
+  URL.revokeObjectURL(url);
+}
+
 export function TicketConfirmation() {
   const [copied, setCopied] = useState(false);
+  const [calOpen, setCalOpen] = useState(false);
 
   function handleCopy() {
     setCopied(true);
@@ -194,6 +218,103 @@ export function TicketConfirmation() {
                 {copied ? <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg> : <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg>}
                 {copied ? 'Link Copied!' : 'Share Event'}
               </button>
+
+              {/* Save to Calendar */}
+              <div style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setCalOpen(o => !o)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 9, background: calOpen ? 'rgba(127,224,213,0.14)' : 'rgba(255,255,255,0.06)', border: `1px solid ${calOpen ? 'rgba(127,224,213,0.35)' : 'rgba(255,255,255,0.1)'}`, borderRadius: 14, padding: '14px 28px', color: calOpen ? '#7FE0D5' : '#fff', fontFamily: F, fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.18s' }}>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    <line x1="8" y1="14" x2="8" y2="14" strokeWidth="3" strokeLinecap="round"/>
+                    <line x1="12" y1="14" x2="12" y2="14" strokeWidth="3" strokeLinecap="round"/>
+                    <line x1="16" y1="14" x2="16" y2="14" strokeWidth="3" strokeLinecap="round"/>
+                    <line x1="8" y1="18" x2="8" y2="18" strokeWidth="3" strokeLinecap="round"/>
+                    <line x1="12" y1="18" x2="12" y2="18" strokeWidth="3" strokeLinecap="round"/>
+                  </svg>
+                  Save to Calendar
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: calOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.18s' }}>
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+
+                {calOpen && (
+                  <div style={{ position: 'absolute', top: 'calc(100% + 10px)', left: 0, zIndex: 50, background: '#141414', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 18, padding: 8, minWidth: 260, boxShadow: '0 24px 48px rgba(0,0,0,0.6)', animation: 'tcFadeUp 0.2s cubic-bezier(0.22,1,0.36,1) both' }}>
+                    {/* Header */}
+                    <div style={{ padding: '8px 12px 10px', borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: 6 }}>
+                      <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>Add to Calendar</div>
+                      <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.55)', marginTop: 3 }}>Sat 14 Jun · 6:00 PM – 11:00 PM</div>
+                    </div>
+                    {/* Options */}
+                    {[
+                      {
+                        label: 'Google Calendar',
+                        sub: 'Opens in browser',
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2" fill="#fff" stroke="none"/>
+                            <path d="M15.5 9H12V7.5L9.5 10 12 12.5V11H15.5C15.776 11 16 10.776 16 10.5V9.5C16 9.224 15.776 9 15.5 9Z" fill="#4285F4"/>
+                            <path d="M3 10.5V13.5L5.5 16L8 13.5V10.5L5.5 8L3 10.5Z" fill="#34A853"/>
+                            <path d="M12 16V12.5H8V16H12Z" fill="#FBBC04"/>
+                            <path d="M12 7.5V11H16V7.5H12Z" fill="#4285F4"/>
+                            <path d="M3 6.5V10.5L5.5 8L8 10.5V6.5H3Z" fill="#EA4335"/>
+                          </svg>
+                        ),
+                        action: () => { window.open(GCAL, '_blank'); setCalOpen(false); },
+                      },
+                      {
+                        label: 'Apple Calendar',
+                        sub: 'Downloads .ics file',
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <rect width="24" height="24" rx="5" fill="#fff"/>
+                            <rect x="3" y="6" width="18" height="15" rx="2" fill="#fff" stroke="#ddd" strokeWidth="1"/>
+                            <rect x="3" y="6" width="18" height="5" rx="2" fill="#FC3D39"/>
+                            <rect x="3" y="9" width="18" height="2" fill="#FC3D39"/>
+                            <line x1="8" y1="3" x2="8" y2="7" stroke="#555" strokeWidth="1.8" strokeLinecap="round"/>
+                            <line x1="16" y1="3" x2="16" y2="7" stroke="#555" strokeWidth="1.8" strokeLinecap="round"/>
+                            <text x="12" y="18" textAnchor="middle" fontFamily="sans-serif" fontSize="7" fontWeight="700" fill="#FC3D39">14</text>
+                          </svg>
+                        ),
+                        action: () => { downloadIcs(); setCalOpen(false); },
+                      },
+                      {
+                        label: 'Outlook',
+                        sub: 'Opens in browser',
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <rect width="24" height="24" rx="4" fill="#0072C6"/>
+                            <rect x="3" y="7" width="10" height="10" rx="1.5" fill="#fff" opacity="0.9"/>
+                            <circle cx="8" cy="12" r="2.5" fill="#0072C6"/>
+                            <rect x="14" y="7" width="7" height="10" rx="1" fill="#fff" opacity="0.4"/>
+                            <line x1="14" y1="10" x2="21" y2="10" stroke="#fff" strokeWidth="0.8" opacity="0.6"/>
+                            <line x1="14" y1="12" x2="21" y2="12" stroke="#fff" strokeWidth="0.8" opacity="0.6"/>
+                            <line x1="14" y1="14" x2="21" y2="14" stroke="#fff" strokeWidth="0.8" opacity="0.6"/>
+                          </svg>
+                        ),
+                        action: () => { window.open(OUTLOOK, '_blank'); setCalOpen(false); },
+                      },
+                    ].map(opt => (
+                      <button
+                        key={opt.label}
+                        onClick={opt.action}
+                        style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 13, background: 'transparent', border: 'none', borderRadius: 11, padding: '11px 12px', cursor: 'pointer', textAlign: 'left', transition: 'background 0.12s' }}
+                        onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
+                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                      >
+                        <div style={{ width: 34, height: 34, borderRadius: 9, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, background: 'rgba(255,255,255,0.06)' }}>
+                          {opt.icon}
+                        </div>
+                        <div>
+                          <div style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: '#fff', lineHeight: 1.2 }}>{opt.label}</div>
+                          <div style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.35)', marginTop: 1 }}>{opt.sub}</div>
+                        </div>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 'auto', flexShrink: 0 }}><polyline points="9 18 15 12 9 6"/></svg>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="tc-card-2" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
