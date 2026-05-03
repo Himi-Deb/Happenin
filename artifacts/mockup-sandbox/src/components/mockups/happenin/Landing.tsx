@@ -429,11 +429,12 @@ function Footer() {
         </div>
         </div>
       </div>
-      <div style={{ position: 'relative', height: 470, overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, width: '100%', padding: '0 32px 0 32px', transform: 'translateY(22px)' }}>
-          <div style={{ fontFamily: F, fontSize: 'min(30vw, 440px)', lineHeight: 0.86, fontWeight: 400, letterSpacing: '-8px', color: '#fff', whiteSpace: 'nowrap' }}>happenin</div>
-          <div style={{ fontFamily: F, fontSize: 'min(30vw, 440px)', lineHeight: 0.86, fontWeight: 400, color: '#7FE0D5' }}>*</div>
-        </div>
+      <div style={{ background: '#000', width: '100%', overflow: 'hidden', paddingTop: 48, paddingBottom: 48 }}>
+        <img
+          src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/happenin-wordmark-trimmed.png`}
+          alt="happenin*"
+          style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+        />
       </div>
     </footer>
   );
