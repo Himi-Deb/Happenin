@@ -270,19 +270,90 @@ export function Discover() {
       <Navbar />
 
       {/* ── Hero ── */}
-      <div style={{ position: 'relative', paddingTop: 160, paddingBottom: 60, paddingLeft: 80, paddingRight: 80, overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: 0, left: '-10%', width: 900, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(14,42,44,0.55) 0%, transparent 65%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: '-5%', right: '-5%', width: 700, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(50,40,8,0.4) 0%, transparent 65%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'relative', paddingTop: 130, paddingBottom: 80, paddingLeft: 80, paddingRight: 80, overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: 560 }}>
+        {/* Background glows */}
+        <div style={{ position: 'absolute', top: '-20%', left: '-5%', width: 1000, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(14,42,44,0.7) 0%, transparent 60%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '-10%', right: '-8%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(50,40,8,0.4) 0%, transparent 65%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: 0, right: '28%', width: 600, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(127,224,213,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: 860, marginBottom: 48 }}>
-          <h1 style={{ fontFamily: F, fontSize: 72, fontWeight: 800, letterSpacing: '-3px', color: '#fff', lineHeight: 1, margin: 0, marginBottom: 18 }}>
-            Discover<br/><span style={{ color: '#7FE0D5' }}>what's happening.</span>
+        {/* Left: text + stats */}
+        <div style={{ position: 'relative', zIndex: 1, flex: '0 0 54%', maxWidth: '54%', paddingRight: 60 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(127,224,213,0.08)', border: '1px solid rgba(127,224,213,0.18)', borderRadius: 9999, padding: '6px 18px', marginBottom: 28 }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#7FE0D5', display: 'inline-block', flexShrink: 0 }} />
+            <span style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: '#7FE0D5', textTransform: 'uppercase', letterSpacing: '2.5px' }}>London, UK · Events near you</span>
+          </div>
+          <h1 style={{ fontFamily: F, fontSize: 82, fontWeight: 800, letterSpacing: '-3.5px', color: '#fff', lineHeight: 0.93, margin: '0 0 26px' }}>
+            Discover<br/><span style={{ color: '#7FE0D5' }}>what's<br/>happening.</span>
           </h1>
-          <p style={{ fontFamily: F, fontSize: 18, color: 'rgba(255,255,255,0.4)', fontWeight: 400, margin: 0, lineHeight: 1.5, maxWidth: 520 }}>
+          <p style={{ fontFamily: F, fontSize: 18, color: 'rgba(255,255,255,0.38)', fontWeight: 400, margin: '0 0 40px', lineHeight: 1.65, maxWidth: 460 }}>
             Free tickets, real events, real people. Browse thousands of experiences happening this week and beyond.
           </p>
+          <div style={{ display: 'flex', gap: 12 }}>
+            {[['2,400+', 'events this month'], ['180+', 'cities worldwide'], ['Always', 'free tickets']].map(([val, label]) => (
+              <div key={label} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '14px 22px' }}>
+                <div style={{ fontFamily: F, fontSize: 20, fontWeight: 800, color: '#7FE0D5', letterSpacing: '-0.5px' }}>{val}</div>
+                <div style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 3 }}>{label}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* Right: staggered photo collage */}
+        <div style={{ position: 'relative', flex: '0 0 46%', maxWidth: '46%', height: 500, zIndex: 1 }}>
+
+          {/* Card 1 — tall left, music */}
+          <div style={{ position: 'absolute', left: 0, top: 30, width: 290, height: 370, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(-3deg)', boxShadow: '0 24px 64px rgba(0,0,0,0.55)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 2 }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.75) 100%)' }} />
+            <div style={{ position: 'absolute', bottom: 16, left: 16 }}>
+              <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: '#7FE0D5', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 4 }}>🎵 Music</div>
+              <div style={{ fontFamily: F, fontSize: 14, fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>Neon Pulse Festival</div>
+            </div>
+          </div>
+
+          {/* Card 2 — top right, art */}
+          <div style={{ position: 'absolute', right: 10, top: 0, width: 250, height: 258, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(2.5deg)', boxShadow: '0 18px 52px rgba(0,0,0,0.5)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 1 }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.78) 100%)' }} />
+            <div style={{ position: 'absolute', bottom: 14, left: 14 }}>
+              <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: '#EBE88A', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 4 }}>🎨 Art</div>
+              <div style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: '#fff' }}>Design Summit</div>
+            </div>
+          </div>
+
+          {/* Card 3 — bottom right, concert */}
+          <div style={{ position: 'absolute', right: 0, bottom: 0, width: 275, height: 220, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(-1.5deg)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 2 }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.78) 100%)' }} />
+            <div style={{ position: 'absolute', bottom: 14, left: 14 }}>
+              <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: '#ff6b4a', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 4 }}>🎵 Music</div>
+              <div style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: '#fff' }}>Coldplay World Tour</div>
+            </div>
+          </div>
+
+          {/* Floating FREE badge */}
+          <div style={{ position: 'absolute', top: 72, right: 248, background: '#7FE0D5', borderRadius: 9999, padding: '9px 18px', zIndex: 10, transform: 'rotate(-7deg)', boxShadow: '0 10px 28px rgba(127,224,213,0.35)' }}>
+            <span style={{ fontFamily: F, fontSize: 12, fontWeight: 800, color: '#0e2a2c', textTransform: 'uppercase', letterSpacing: '1px' }}>✦ Free</span>
+          </div>
+
+          {/* Floating attendees pill */}
+          <div style={{ position: 'absolute', top: 8, left: 256, background: 'rgba(10,12,14,0.82)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 16px', zIndex: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ display: 'flex' }}>
+                {['#7FE0D5', '#EBE88A', '#ff6b4a'].map((c, i) => (
+                  <div key={i} style={{ width: 22, height: 22, borderRadius: '50%', background: c, border: '2px solid #0a0c0e', marginLeft: i > 0 ? -7 : 0, flexShrink: 0 }} />
+                ))}
+              </div>
+              <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.65)' }}>+2.4k going</span>
+            </div>
+          </div>
+
+          {/* Floating date pill */}
+          <div style={{ position: 'absolute', bottom: 50, left: 264, background: 'rgba(10,12,14,0.82)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 16px', zIndex: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.7)" strokeWidth="2" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.65)' }}>This weekend</span>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       {/* ── Category Filter ── */}
