@@ -125,41 +125,11 @@ export function OrganizerHub() {
       <Navbar />
 
       {/* ── Event header bar ── */}
-      <div style={{ marginTop: 125, borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '0 56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 80, flexShrink: 0 }}>
-        {/* Left: event name */}
-        <div>
+      <div style={{ marginTop: 125, borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '0 56px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 80, flexShrink: 0 }}>
+        <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.5)', marginBottom: 4 }}>Event</div>
           <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '-0.6px', lineHeight: 1 }}>Neon Pulse Music Festival</div>
-        </div>
-
-        {/* Center: attendee stats */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, marginBottom: 3 }}>
-              <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#7FE0D5', animation: 'pulse-dot 2s ease-in-out infinite' }} />
-              <span style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: '-0.8px' }}>247</span>
-            </div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Chatting now</div>
-          </div>
-          <div style={{ width: 1, height: 36, background: 'rgba(255,255,255,0.07)' }} />
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: '-0.8px', marginBottom: 3 }}>842</div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Registered</div>
-          </div>
-          <div style={{ width: 1, height: 36, background: 'rgba(255,255,255,0.07)' }} />
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: '-0.8px', marginBottom: 3 }}>3</div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Channels</div>
-          </div>
-        </div>
-
-        {/* Right: event date + status */}
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(74,222,128,0.07)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: 9999, padding: '6px 16px', marginBottom: 6 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }} />
-            <span style={{ fontSize: 12, fontWeight: 600, color: '#4ade80' }}>Live tonight</span>
-          </div>
-          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', fontWeight: 500 }}>Sat 14 Jun 2025 · 5:30 PM</div>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', fontWeight: 500, marginTop: 6 }}>Sat 14 Jun 2025 · 5:30 PM</div>
         </div>
       </div>
 
