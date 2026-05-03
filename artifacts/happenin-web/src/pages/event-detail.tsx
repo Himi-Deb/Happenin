@@ -99,6 +99,7 @@ export default function EventDetail() {
   const [saved, setSaved] = useState(false);
   const [activeGallery, setActiveGallery] = useState(0);
   const [activeTab, setActiveTab] = useState<'about' | 'lineup' | 'agenda'>('about');
+  const [showChatNotice, setShowChatNotice] = useState(false);
 
   return (
     <div style={{ background: BG, minHeight: '100vh', color: '#fff' }}>
@@ -261,7 +262,14 @@ export default function EventDetail() {
                 <h3 style={{ fontFamily: F, fontSize: 24, fontWeight: 800, color: '#fff', margin: '0 0 8px', letterSpacing: '-0.5px' }}>Join the Community Chat</h3>
                 <p style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.4)', margin: 0 }}>Connect with 247 people attending this event. Anonymously.</p>
               </div>
-              <button onClick={() => navigate('/chat')} style={{ background: GOLD, border: 'none', borderRadius: 14, padding: '14px 28px', fontFamily: F, fontSize: 15, fontWeight: 800, color: '#0e2a2c', cursor: 'pointer', flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.3px' }}>
+              <button onClick={() => {
+                if (!saved) {
+                  setShowChatNotice(true);
+                  window.setTimeout(() => setShowChatNotice(false), 2200);
+                  return;
+                }
+                navigate('/chat');
+              }} style={{ background: GOLD, border: 'none', borderRadius: 14, padding: '14px 28px', fontFamily: F, fontSize: 15, fontWeight: 800, color: '#0e2a2c', cursor: 'pointer', flexShrink: 0, textTransform: 'uppercase', letterSpacing: '0.3px' }}>
                 Join the Chat →
               </button>
             </div>
@@ -294,6 +302,11 @@ export default function EventDetail() {
           </div>
         </div>
       </div>
+      {showChatNotice && (
+        <div style={{ position: 'fixed', left: '50%', bottom: 28, transform: 'translateX(-50%)', zIndex: 300, background: 'rgba(10,8,4,0.96)', border: '1px solid rgba(235,232,138,0.22)', borderRadius: 9999, padding: '12px 18px', color: '#fff', fontFamily: F, fontSize: 13, boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }}>
+          Please buy entry first to join the chat.
+        </div>
+      )}
       <Footer />
     </div>
   );
