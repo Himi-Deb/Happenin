@@ -294,7 +294,7 @@ export function TicketCheckout() {
       </div>
 
       {/* ── Main two-column section ── */}
-      <div style={{ position: 'relative', zIndex: 1, paddingTop: 128, padding: '128px 80px 0' }}>
+      <div style={{ position: 'relative', zIndex: 1, paddingTop: 180, padding: '180px 80px 0' }}>
         <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
 
           {/* ── LEFT: Live ticket preview ── */}
