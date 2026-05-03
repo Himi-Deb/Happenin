@@ -399,7 +399,8 @@ const SOCIAL_ICONS = [
 function Footer() {
   return (
     <footer style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-      <div style={{ padding: '72px 72px 24px', display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 560px)', gap: 72, alignItems: 'start' }}>
+      <div style={{ padding: '72px 72px 24px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 560px)', gap: 72, alignItems: 'start' }}>
         <div style={{ fontFamily: F, color: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 36, paddingLeft: 0, paddingRight: 24 }}>
           <div>
             <div style={{ fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 18 }}>ABOUT HAPPENIN</div>
@@ -435,6 +436,7 @@ function Footer() {
             <textarea placeholder="Comment" rows={4} style={{ width: '100%', background: '#070707', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, outline: 'none', padding: '14px 16px', color: '#fff', fontFamily: F, fontSize: 14, resize: 'none' }} />
             <button style={{ width: '100%', background: '#191919', border: 'none', borderRadius: 12, padding: '14px 16px', color: '#E7DCC8', fontFamily: F, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Ask</button>
           </div>
+        </div>
         </div>
       </div>
       <div style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
