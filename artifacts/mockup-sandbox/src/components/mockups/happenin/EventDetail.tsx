@@ -315,9 +315,28 @@ export function EventDetail() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 16, borderRadius: 16, overflow: 'hidden', height: 220, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 10 }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(177,216,212,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
-              <span style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.25)' }}>Map · {EVENT.address}</span>
+            <div style={{ marginTop: 16, borderRadius: 16, overflow: 'hidden', height: 220, background: 'linear-gradient(135deg, rgba(12,22,23,0.96), rgba(6,11,12,0.98))', border: '1px solid rgba(255,255,255,0.07)', position: 'relative' }}>
+              <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(127,224,213,0.16) 1px, transparent 1px)', backgroundSize: '18px 18px', opacity: 0.55 }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 100%)' }} />
+              <svg viewBox="0 0 720 320" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} fill="none">
+                <path d="M96 242C152 214 176 182 216 156C260 128 306 124 346 138C388 152 422 180 466 176C518 171 548 134 602 118" stroke="rgba(177,216,212,0.55)" strokeWidth="6" strokeLinecap="round" />
+                <path d="M70 94C122 102 164 92 204 74C246 55 280 50 324 62C370 74 402 104 448 110C500 117 550 100 632 72" stroke="rgba(127,224,213,0.24)" strokeWidth="4" strokeLinecap="round" />
+                <path d="M126 284C172 272 208 246 248 228C292 209 338 206 382 220C430 235 470 262 524 260C570 258 616 234 656 200" stroke="rgba(235,232,138,0.18)" strokeWidth="4" strokeLinecap="round" />
+                <circle cx="362" cy="160" r="14" fill="#7FE0D5" opacity="0.95" />
+                <circle cx="362" cy="160" r="30" stroke="rgba(127,224,213,0.28)" strokeWidth="2" />
+                <circle cx="362" cy="160" r="52" stroke="rgba(127,224,213,0.16)" strokeWidth="2" />
+                <path d="M362 128C366 138 374 146 384 150C374 154 366 162 362 172C358 162 350 154 340 150C350 146 358 138 362 128Z" fill="#EBE88A" opacity="0.9" />
+              </svg>
+              <div style={{ position: 'absolute', left: 20, top: 20, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 9999, padding: '7px 12px', fontFamily: F, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#B1D8D4' }}>Map · {EVENT.address}</div>
+              <div style={{ position: 'absolute', left: 20, bottom: 18, display: 'flex', alignItems: 'center', gap: 10, color: '#fff', fontFamily: F }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(127,224,213,0.15)', border: '1px solid rgba(127,224,213,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7FE0D5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z" /><circle cx="12" cy="10" r="2.5" /></svg>
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600 }}>Rooftop Arena</div>
+                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>South Bank · London</div>
+                </div>
+              </div>
             </div>
           </div>
 
