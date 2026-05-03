@@ -256,7 +256,7 @@ export function EventDetail() {
       <Hero />
 
       {/* Main content */}
-      <div style={{ maxWidth: 1360, margin: '0 auto', padding: '64px 72px', display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 72, alignItems: 'start' }}>
+      <div style={{ maxWidth: 1360, margin: '0 auto', padding: '64px 72px', display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 104, alignItems: 'start' }}>
 
         {/* Left column: About + Lineup */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
