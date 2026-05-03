@@ -435,19 +435,20 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div style={{ position: 'relative', height: 310, overflow: 'hidden' }}>
+      <div style={{ position: 'relative', height: 420, overflow: 'hidden' }}>
         <img
           src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/happenin-wordmark-4x_1777779439519.png`}
           alt="Happenin"
           style={{
             position: 'absolute',
             left: '50%',
-            bottom: -86,
+            bottom: -20,
             transform: 'translateX(-50%)',
-            width: 'min(96vw, 1800px)',
+            width: 'min(98vw, 2200px)',
             height: 'auto',
             pointerEvents: 'none',
             userSelect: 'none',
+            opacity: 1,
           }}
         />
       </div>
