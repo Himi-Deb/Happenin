@@ -449,7 +449,6 @@ export function Landing() {
       <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={FRESH_EVENTS} showViewMore />
       <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={CONCERT_EVENTS} showViewMore />
       <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={SPORTS_EVENTS} showViewMore />
-      <Footer />
     </div>
   );
 }
