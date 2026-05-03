@@ -365,7 +365,7 @@ export function Discover() {
           </div>
 
           {/* Card 2 — top right, art */}
-          <div style={{ position: 'absolute', right: 10, top: 0, width: 250, height: 258, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(2.5deg)', boxShadow: '0 18px 52px rgba(0,0,0,0.5)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 1 }}>
+          <div style={{ position: 'absolute', right: 160, top: 0, width: 250, height: 258, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(2.5deg)', boxShadow: '0 18px 52px rgba(0,0,0,0.5)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 1 }}>
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.78) 100%)' }} />
             <div style={{ position: 'absolute', bottom: 14, left: 14 }}>
               <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: '#EBE88A', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 4 }}>🎨 Art</div>
@@ -374,7 +374,7 @@ export function Discover() {
           </div>
 
           {/* Card 3 — bottom right, concert */}
-          <div style={{ position: 'absolute', right: 0, bottom: 0, width: 275, height: 220, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(-1.5deg)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 2 }}>
+          <div style={{ position: 'absolute', right: 150, bottom: 0, width: 275, height: 220, borderRadius: 22, overflow: 'hidden', backgroundImage: 'url(https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', transform: 'rotate(-1.5deg)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)', border: '2px solid rgba(255,255,255,0.07)', zIndex: 2 }}>
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.78) 100%)' }} />
             <div style={{ position: 'absolute', bottom: 14, left: 14 }}>
               <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: '#ff6b4a', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 4 }}>🎵 Music</div>
@@ -383,12 +383,12 @@ export function Discover() {
           </div>
 
           {/* Floating FREE badge */}
-          <div style={{ position: 'absolute', top: 72, right: 248, background: '#7FE0D5', borderRadius: 9999, padding: '9px 18px', zIndex: 10, transform: 'rotate(-7deg)', boxShadow: '0 10px 28px rgba(127,224,213,0.35)' }}>
+          <div style={{ position: 'absolute', top: 72, right: 398, background: '#7FE0D5', borderRadius: 9999, padding: '9px 18px', zIndex: 10, transform: 'rotate(-7deg)', boxShadow: '0 10px 28px rgba(127,224,213,0.35)' }}>
             <span style={{ fontFamily: F, fontSize: 12, fontWeight: 800, color: '#0e2a2c', textTransform: 'uppercase', letterSpacing: '1px' }}>✦ Free</span>
           </div>
 
           {/* Floating attendees pill */}
-          <div style={{ position: 'absolute', top: 8, left: 256, background: 'rgba(10,12,14,0.82)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 16px', zIndex: 10 }}>
+          <div style={{ position: 'absolute', top: 8, left: 306, background: 'rgba(10,12,14,0.82)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 16px', zIndex: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div style={{ display: 'flex' }}>
                 {['#7FE0D5', '#EBE88A', '#ff6b4a'].map((c, i) => (
@@ -400,7 +400,7 @@ export function Discover() {
           </div>
 
           {/* Floating date pill */}
-          <div style={{ position: 'absolute', bottom: 50, left: 264, background: 'rgba(10,12,14,0.82)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 16px', zIndex: 10 }}>
+          <div style={{ position: 'absolute', bottom: 50, left: 314, background: 'rgba(10,12,14,0.82)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 16px', zIndex: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.7)" strokeWidth="2" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.65)' }}>This weekend</span>
