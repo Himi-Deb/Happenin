@@ -425,17 +425,10 @@ export function TicketCheckout() {
           </div>
 
           {/* Two-column FAQ grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px' }}>
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-              {FAQS.filter((_, i) => i % 2 === 0).map((faq, i) => (
-                <FaqItem key={i} q={faq.q} a={faq.a} />
-              ))}
-            </div>
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-              {FAQS.filter((_, i) => i % 2 !== 0).map((faq, i) => (
-                <FaqItem key={i} q={faq.q} a={faq.a} />
-              ))}
-            </div>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+            {FAQS.map((faq, i) => (
+              <FaqItem key={i} q={faq.q} a={faq.a} />
+            ))}
           </div>
         </div>
       </div>
