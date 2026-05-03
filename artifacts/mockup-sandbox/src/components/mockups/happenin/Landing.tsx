@@ -438,7 +438,7 @@ function Footer() {
         </div>
       </div>
       <div style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, width: '100%', padding: '0 32px 0 32px', transform: 'translateY(18px)' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, width: '100%', padding: '0 32px 0 32px', transform: 'translateY(98px)' }}>
           <div style={{ fontFamily: F, fontSize: 'min(30vw, 440px)', lineHeight: 0.86, fontWeight: 400, letterSpacing: '-8px', color: '#fff', whiteSpace: 'nowrap' }}>happenin</div>
           <div style={{ fontFamily: F, fontSize: 'min(30vw, 440px)', lineHeight: 0.86, fontWeight: 400, color: '#7FE0D5' }}>*</div>
         </div>
