@@ -238,19 +238,17 @@ function Navbar() {
 
 export function Discover() {
   const [activecat, setActivecat] = useState('All');
-  const [searchVal, setSearchVal] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
   const [sortBy, setSortBy] = useState('Date');
   const [sortOpen, setSortOpen] = useState(false);
 
   const baseFiltered = ALL_EVENTS.filter(ev => {
     const catMatch = activecat === 'All' || ev.category === activecat;
-    const searchMatch = !searchVal || ev.title.toLowerCase().includes(searchVal.toLowerCase()) || ev.location.toLowerCase().includes(searchVal.toLowerCase());
     const freeMatch = activeFilter !== 'Free' || ev.price === 'Free';
     const weekMatch = activeFilter !== 'This Week' || ev.dateOrder <= 5;
     const wkndMatch = activeFilter !== 'This Weekend' || ev.dateOrder <= 3;
     const monthMatch = activeFilter !== 'This Month' || ev.dateOrder <= 10;
-    return catMatch && searchMatch && freeMatch && weekMatch && wkndMatch && monthMatch;
+    return catMatch && freeMatch && weekMatch && wkndMatch && monthMatch;
   });
 
   const sorted = [...baseFiltered].sort((a, b) => {
@@ -265,8 +263,6 @@ export function Discover() {
   return (
     <div className="happenin-root" style={{ background: '#080a0b', minHeight: '100vh', color: '#fff' }}>
       <style>{`
-        .dc-search:focus { outline: none; border-color: rgba(127,224,213,0.5) !important; }
-        .dc-search::placeholder { color: rgba(255,255,255,0.28); }
         .dc-cat:hover { background: rgba(127,224,213,0.1) !important; color: #7FE0D5 !important; }
         .dc-filt:hover { background: rgba(255,255,255,0.1) !important; }
         .dc-sort-item:hover { background: rgba(127,224,213,0.08) !important; color: #7FE0D5 !important; }
@@ -288,27 +284,6 @@ export function Discover() {
           </p>
         </div>
 
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', gap: 12, maxWidth: 900 }}>
-          <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center' }}>
-            <svg style={{ position: 'absolute', left: 20 }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.5)" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <input className="dc-search" type="text" placeholder="Search events, artists, venues..." value={searchVal} onChange={e => setSearchVal(e.target.value)}
-              style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '20px 20px 20px 54px', color: '#fff', fontFamily: F, fontSize: 16, boxSizing: 'border-box', transition: 'border-color 0.2s' }} />
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '0 24px', cursor: 'pointer', flexShrink: 0 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.6)" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span style={{ fontFamily: F, fontSize: 15, color: 'rgba(255,255,255,0.65)', fontWeight: 500, whiteSpace: 'nowrap' }}>London, UK</span>
-          </div>
-          <button style={{ background: '#7FE0D5', border: 'none', borderRadius: 16, padding: '0 40px', color: '#0e2a2c', fontFamily: F, fontSize: 16, fontWeight: 800, cursor: 'pointer', flexShrink: 0 }}>Search</button>
-        </div>
-
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', gap: 40, marginTop: 36 }}>
-          {[['2,400+', 'Events this month'], ['180+', 'Cities worldwide'], ['80k+', 'Active members'], ['Free', 'Always free tickets']].map(([val, label]) => (
-            <div key={label}>
-              <div style={{ fontFamily: F, fontSize: 22, fontWeight: 800, color: '#7FE0D5', letterSpacing: '-0.5px' }}>{val}</div>
-              <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>{label}</div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* ── Category Filter (sticky) ── */}
