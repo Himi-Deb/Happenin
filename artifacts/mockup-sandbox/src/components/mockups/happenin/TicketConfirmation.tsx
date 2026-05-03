@@ -49,17 +49,6 @@ function Navbar() {
   );
 }
 
-function Barcode() {
-  const pattern = [3,1,2,1,1,3,2,1,1,2,1,3,1,1,2,3,1,2,1,1,3,1,1,2,1,2,3,1,2,1,1,3,2,1,2,1,1,2,3,1,1,2,1,3,1,2,1,1,2,3,1,1,2,1,2,1,3,2,1,1,3,1,2,1,1,2,3,1,1,2,1,3,2,1,1,2,1,1,3,2];
-  return (
-    <div style={{ display: 'flex', alignItems: 'stretch', height: 64, gap: 0, width: '100%' }}>
-      {pattern.map((w, i) => (
-        <div key={i} style={{ flex: w, background: i % 2 === 0 ? '#0e2a2c' : 'transparent', height: '100%', borderRadius: 1 }} />
-      ))}
-    </div>
-  );
-}
-
 function TicketCard() {
   return (
     <div style={{
