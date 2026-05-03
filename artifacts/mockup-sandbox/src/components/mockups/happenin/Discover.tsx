@@ -286,20 +286,39 @@ export function Discover() {
 
       </div>
 
-      {/* ── Category Filter (sticky) ── */}
-      <div style={{ position: 'sticky', top: 82, zIndex: 50, background: 'rgba(8,10,11,0.92)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '14px 80px' }}>
-        <div style={{ display: 'flex', gap: 8, overflowX: 'auto' }}>
-          {CATS.map(cat => {
-            const active = cat.label === activecat;
-            return (
-              <button key={cat.label} className={active ? '' : 'dc-cat'} onClick={() => setActivecat(cat.label)}
-                style={{ display: 'flex', alignItems: 'center', gap: 7, background: active ? '#7FE0D5' : 'rgba(255,255,255,0.06)', border: `1px solid ${active ? '#7FE0D5' : 'rgba(255,255,255,0.1)'}`, borderRadius: 100, padding: '10px 20px', color: active ? '#0e2a2c' : 'rgba(255,255,255,0.65)', fontFamily: F, fontSize: 14, fontWeight: active ? 700 : 500, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.15s', flexShrink: 0 }}>
-                <span style={{ fontSize: 15 }}>{cat.icon}</span>{cat.label}
-              </button>
-            );
-          })}
+      {/* ── Category Filter ── */}
+      <section style={{ padding: '36px 72px 28px', background: '#000', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
+            {CATS.map(cat => {
+              const active = cat.label === activecat;
+              return (
+                <button key={cat.label} onClick={() => setActivecat(cat.label)} style={{
+                  background: active ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)',
+                  border: `1px solid ${active ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`,
+                  borderRadius: 12, padding: '10px 20px',
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  color: active ? '#B1D8D4' : 'rgba(255,255,255,0.5)',
+                  fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F,
+                  textTransform: 'uppercase', letterSpacing: '0.5px',
+                  transition: 'all 0.15s',
+                }}>
+                  <span>{cat.icon}</span><span>{cat.label}</span>
+                </button>
+              );
+            })}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '10px 16px', cursor: 'pointer', flexShrink: 0, marginLeft: 16 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(177,216,212,0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <span style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>London, UK</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* ── Content ── */}
       <div style={{ padding: '60px 80px 120px' }}>
