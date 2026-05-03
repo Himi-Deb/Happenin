@@ -58,16 +58,16 @@ function makeEvents(overrides: Partial<EventItem>[], base: Partial<EventItem> = 
 }
 
 const FEATURED_EVENTS = makeEvents([
-  { title: 'Neon Pulse Music Festival', date: 'Sat, 14 Jun 2025', time: '6:00 PM', location: 'Rooftop Arena, London', category: 'Music', price: 'Free', tag: 'Featured', attendees: 842 },
-  { title: 'Digital Art & Design Summit', date: 'Fri, 20 Jun 2025', time: '10:00 AM', location: 'East Wing Gallery, Berlin', category: 'Art', price: 'Free', tag: 'Trending', attendees: 320 },
-  { title: 'Startup Founders Meetup', date: 'Thu, 26 Jun 2025', time: '7:00 PM', location: 'Tech Hub, Amsterdam', category: 'Business', price: 'Free', tag: '', attendees: 178 },
-  { title: 'Global Street Food Festival', date: 'Sun, 6 Jul 2025', time: '12:00 PM', location: 'Victoria Park, Melbourne', category: 'Food', price: '£12', tag: 'Hot', attendees: 1240 },
-  { title: 'Theatre Night: Hamlet Redux', date: 'Fri, 27 Jun 2025', time: '8:00 PM', location: 'Royal Exchange, Manchester', category: 'Theatre', price: '£25', tag: '', attendees: 390 },
-  { title: 'Championship Gaming League', date: 'Fri, 11 Jul 2025', time: '3:00 PM', location: 'Esports Arena, Seoul', category: 'Gaming', price: 'Free', tag: 'New', attendees: 2100 },
-  { title: 'Wellness & Yoga Retreat', date: 'Sat, 5 Jul 2025', time: '9:00 AM', location: 'Kew Gardens, London', category: 'Sports', price: '£40', tag: '', attendees: 210 },
-  { title: 'Jazz Under the Stars', date: 'Wed, 9 Jul 2025', time: '7:30 PM', location: 'Harbour Park, Sydney', category: 'Music', price: '£18', tag: '', attendees: 560 },
-  { title: 'Python & AI Bootcamp', date: 'Mon, 30 Jun 2025', time: '10:00 AM', location: 'Code Space, Toronto', category: 'Education', price: '£60', tag: '', attendees: 145 },
-  { title: 'Craft Beer Festival', date: 'Sat, 19 Jul 2025', time: '2:00 PM', location: 'Battersea, London', category: 'Food', price: '£20', tag: '', attendees: 870 },
+  { title: 'Neon Pulse Music Festival', date: 'Sat, 14 Jun 2025', time: '6:00 PM', location: 'Rooftop Arena, London', category: 'Music', price: 'Free', tag: 'Featured', attendees: 842, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Digital Art & Design Summit', date: 'Fri, 20 Jun 2025', time: '10:00 AM', location: 'East Wing Gallery, Berlin', category: 'Art', price: 'Free', tag: 'Trending', attendees: 320, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Startup Founders Meetup', date: 'Thu, 26 Jun 2025', time: '7:00 PM', location: 'Tech Hub, Amsterdam', category: 'Business', price: 'Free', tag: '', attendees: 178, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Global Street Food Festival', date: 'Sun, 6 Jul 2025', time: '12:00 PM', location: 'Victoria Park, Melbourne', category: 'Food', price: '£12', tag: 'Hot', attendees: 1240, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Theatre Night: Hamlet Redux', date: 'Fri, 27 Jun 2025', time: '8:00 PM', location: 'Royal Exchange, Manchester', category: 'Theatre', price: '£25', tag: '', attendees: 390, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Championship Gaming League', date: 'Fri, 11 Jul 2025', time: '3:00 PM', location: 'Esports Arena, Seoul', category: 'Gaming', price: 'Free', tag: 'New', attendees: 2100, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Wellness & Yoga Retreat', date: 'Sat, 5 Jul 2025', time: '9:00 AM', location: 'Kew Gardens, London', category: 'Sports', price: '£40', tag: '', attendees: 210, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Jazz Under the Stars', date: 'Wed, 9 Jul 2025', time: '7:30 PM', location: 'Harbour Park, Sydney', category: 'Music', price: '£18', tag: '', attendees: 560, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Python & AI Bootcamp', date: 'Mon, 30 Jun 2025', time: '10:00 AM', location: 'Code Space, Toronto', category: 'Education', price: '£60', tag: '', attendees: 145, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80)' },
+  { title: 'Craft Beer Festival', date: 'Sat, 19 Jul 2025', time: '2:00 PM', location: 'Battersea, London', category: 'Food', price: '£20', tag: '', attendees: 870, image: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25)), url(https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80)' },
 ]);
 
 const TODAY_EVENTS = makeEvents([
@@ -278,30 +278,21 @@ function CategoryBar() {
 
 function EventCard({ event }: { event: EventItem }) {
   return (
-    <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, overflow: 'hidden', width: 320, flexShrink: 0 }}>
-      <div style={{ height: 200, background: event.image, position: 'relative', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: 14 }}>
-        {event.tag ? (
-          <span style={{ background: event.tag === 'Featured' || event.tag === 'Popular' ? '#B1D8D4' : '#EBE88A', color: '#0a1e1f', fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 9999, letterSpacing: '0.5px', fontFamily: F, textTransform: 'uppercase' }}>{event.tag}</span>
-        ) : <span />}
-        <button style={{ background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'white', fontSize: 14, flexShrink: 0 }}>♡</button>
-        <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)', borderRadius: 8, padding: '2px 8px', fontSize: 10, color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontFamily: F }}>{event.category}</div>
-      </div>
-      <div style={{ padding: '16px 18px 18px' }}>
-        <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 10, lineHeight: 1.3, color: '#fff', fontFamily: F }}>{event.title}</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 14 }}>
-          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 5, fontFamily: F }}><span>📅</span>{event.date} · {event.time}</div>
-          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'flex', alignItems: 'center', gap: 5, fontFamily: F }}><span>📍</span>{event.location}</div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-          <div>
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.5px', fontFamily: F }}>From</div>
-            <div style={{ fontSize: 16, fontWeight: 700, color: '#B1D8D4', fontFamily: F }}>{event.price}</div>
+    <div style={{ width: 360, flexShrink: 0 }}>
+      <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', background: '#111', aspectRatio: '4 / 5', boxShadow: '0 18px 60px rgba(0,0,0,0.35)' }}>
+        <div style={{ position: 'absolute', inset: 0, background: event.image, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.82) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.72)' }}>{event.category}</div>
+            <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#fff', background: 'rgba(0,0,0,0.22)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 9999, padding: '6px 10px' }}>{event.price === 'Free' ? 'Free' : event.price}</div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <div style={{ display: 'flex' }}>
-              {[0,1,2].map(i => (<div key={i} style={{ width: 22, height: 22, borderRadius: '50%', background: `hsl(${i * 40 + 160}, 25%, 38%)`, border: '2px solid rgba(0,0,0,0.4)', marginLeft: i > 0 ? -8 : 0 }} />))}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{ fontFamily: F, fontSize: 30, lineHeight: 0.98, fontWeight: 500, letterSpacing: '-1px', color: '#fff' }}>{event.title}</div>
+              <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.8)' }}>{event.date}</div>
+              <div style={{ fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.8)' }}>{event.location}</div>
             </div>
-            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontFamily: F }}>{event.attendees}+</span>
           </div>
         </div>
       </div>
