@@ -29,11 +29,11 @@ const FAQS = [
     a: 'Free tickets are non-transferable. The name on the ticket must match the attendee at the door. You can cancel and re-register under a different name if needed.',
   },
   {
-    q: 'What's included with a free Early Bird ticket?',
+    q: "What's included with a free Early Bird ticket?",
     a: 'Your Early Bird ticket gives you full access to all stages, the outdoor area, and the rooftop viewing deck throughout the event.',
   },
   {
-    q: 'What if I lose my ticket or can't find the email?',
+    q: "What if I lose my ticket or can't find the email?",
     a: 'Log in to your Happenin* account and visit My Tickets — your ticket will always be there. You can also download it as a PDF at any time.',
   },
   {
@@ -41,8 +41,8 @@ const FAQS = [
     a: 'This event is open to all ages. Attendees under 16 must be accompanied by an adult. Valid ID may be required at the door.',
   },
   {
-    q: 'Can I get a refund if I can't attend?',
-    a: 'Free tickets have no monetary value, so there's nothing to refund. Simply cancel your registration in advance so your spot can go to someone on the waitlist.',
+    q: "Can I get a refund if I can't attend?",
+    a: "Free tickets have no monetary value, so there's nothing to refund. Simply cancel your registration in advance so your spot can go to someone on the waitlist.",
   },
 ];
 
