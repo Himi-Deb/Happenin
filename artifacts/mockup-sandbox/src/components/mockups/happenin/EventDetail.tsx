@@ -342,7 +342,7 @@ export function EventDetail() {
       </div>
 
       {/* Related events */}
-      <section style={{ padding: '0 72px 80px' }}>
+      <section style={{ padding: '72px 72px 80px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 28 }}>
           <div>
             <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 8, fontFamily: F }}>More Like This</div>
