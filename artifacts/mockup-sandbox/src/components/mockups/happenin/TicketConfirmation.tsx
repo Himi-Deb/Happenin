@@ -173,8 +173,8 @@ export function TicketConfirmation() {
         <div style={{ position: 'absolute', top: '-8%', left: '-10%', width: 820, height: 760, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(72,46,25,0.55) 0%, rgba(72,46,25,0.22) 34%, transparent 72%)' }} />
         <div style={{ position: 'absolute', top: '8%', left: '26%', width: 700, height: 600, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,42,44,0.35) 0%, transparent 70%)' }} />
       </div>
-      <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100vh', display: 'flex', alignItems: 'center', padding: '80px 120px 0', boxSizing: 'border-box' }}>
-        <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 100, alignItems: 'center' }}>
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', minHeight: '100vh', display: 'flex', justifyContent: 'center', padding: '120px 120px 100px', boxSizing: 'border-box' }}>
+        <div style={{ width: '100%', maxWidth: 1360, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 100, alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div className="tc-ticket"><TicketCard /></div>
             <div className="tc-actions" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -194,6 +194,75 @@ export function TicketConfirmation() {
                 {copied ? <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg> : <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg>}
                 {copied ? 'Link Copied!' : 'Share Event'}
               </button>
+            </div>
+
+            <div className="tc-card-2" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+              {/* Header */}
+              <div style={{ padding: '20px 22px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600 }}>EVENT CHAT</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#7FE0D5', boxShadow: '0 0 6px #7FE0D5' }} />
+                  <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(127,224,213,0.8)', fontWeight: 600 }}>247 chatting</span>
+                </div>
+              </div>
+              {/* Mock chat bubbles */}
+              <div style={{ padding: '0 22px 18px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #0e2a2c, #1a4a4e)', border: '1.5px solid rgba(127,224,213,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <span style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: '#7FE0D5' }}>N</span>
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: '#7FE0D5' }}>NeonWave Events</span>
+                      <span style={{ fontFamily: F, fontSize: 10, color: 'rgba(255,255,255,0.2)' }}>Organiser</span>
+                    </div>
+                    <div style={{ background: 'rgba(127,224,213,0.08)', border: '1px solid rgba(127,224,213,0.15)', borderRadius: '4px 14px 14px 14px', padding: '9px 13px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.75)', lineHeight: 1.5, maxWidth: 340 }}>
+                      Doors open at 6 PM sharp — gates are on the riverside side of the building. See you all tonight! 🎶
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', paddingLeft: 8 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>Attendee</span>
+                      <span style={{ fontFamily: F, fontSize: 10, color: 'rgba(255,255,255,0.18)' }}>2h ago</span>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '4px 14px 14px 14px', padding: '9px 13px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5, maxWidth: 300 }}>
+                      Anyone taking the Jubilee line to Waterloo? Happy to meet by the exit 👋
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', paddingLeft: 8 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>Attendee</span>
+                      <span style={{ fontFamily: F, fontSize: 10, color: 'rgba(255,255,255,0.18)' }}>45m ago</span>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '4px 14px 14px 14px', padding: '9px 13px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5, maxWidth: 260 }}>
+                      Can't wait — first time at this venue. Is there a cloakroom?
+                    </div>
+                  </div>
+                </div>
+                <div style={{ height: 32, marginTop: -32, background: 'linear-gradient(to bottom, transparent, rgba(14,16,16,0.92))', pointerEvents: 'none', position: 'relative', zIndex: 1 }} />
+              </div>
+              {/* CTA + privacy */}
+              <div style={{ padding: '0 22px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <button
+                  onClick={() => window.location.href = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/preview/happenin/EventChat`}
+                  style={{ width: '100%', background: '#F4F1EA', border: 'none', borderRadius: 14, padding: '13px 0', color: '#0e1a1b', fontFamily: F, fontSize: 14, fontWeight: 800, cursor: 'pointer', letterSpacing: '0.3px' }}>
+                  Join the Chat
+                </button>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.28)', lineHeight: 1.5 }}>Your personal details are never shared with other attendees — only the organiser can see your booking info.</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -325,84 +394,6 @@ export function TicketConfirmation() {
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                   </svg>
-                </div>
-              </div>
-            </div>
-
-            <div className="tc-card-2" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-              {/* Header */}
-              <div style={{ padding: '20px 22px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ fontFamily: F, fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(177,216,212,0.45)', fontWeight: 600 }}>EVENT CHAT</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#7FE0D5', boxShadow: '0 0 6px #7FE0D5' }} />
-                  <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(127,224,213,0.8)', fontWeight: 600 }}>247 chatting</span>
-                </div>
-              </div>
-
-              {/* Mock chat bubbles */}
-              <div style={{ padding: '0 22px 18px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {/* Organiser message */}
-                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #0e2a2c, #1a4a4e)', border: '1.5px solid rgba(127,224,213,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: '#7FE0D5' }}>N</span>
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: '#7FE0D5' }}>NeonWave Events</span>
-                      <span style={{ fontFamily: F, fontSize: 10, color: 'rgba(255,255,255,0.2)' }}>Organiser</span>
-                    </div>
-                    <div style={{ background: 'rgba(127,224,213,0.08)', border: '1px solid rgba(127,224,213,0.15)', borderRadius: '4px 14px 14px 14px', padding: '9px 13px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.75)', lineHeight: 1.5, maxWidth: 340 }}>
-                      Doors open at 6 PM sharp — gates are on the riverside side of the building. See you all tonight! 🎶
-                    </div>
-                  </div>
-                </div>
-
-                {/* Attendee message 1 */}
-                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', paddingLeft: 8 }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>Attendee</span>
-                      <span style={{ fontFamily: F, fontSize: 10, color: 'rgba(255,255,255,0.18)' }}>2h ago</span>
-                    </div>
-                    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '4px 14px 14px 14px', padding: '9px 13px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5, maxWidth: 300 }}>
-                      Anyone taking the Jubilee line to Waterloo? Happy to meet by the exit 👋
-                    </div>
-                  </div>
-                </div>
-
-                {/* Attendee message 2 */}
-                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', paddingLeft: 8 }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>Attendee</span>
-                      <span style={{ fontFamily: F, fontSize: 10, color: 'rgba(255,255,255,0.18)' }}>45m ago</span>
-                    </div>
-                    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '4px 14px 14px 14px', padding: '9px 13px', fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5, maxWidth: 260 }}>
-                      Can't wait — first time at this venue. Is there a cloakroom?
-                    </div>
-                  </div>
-                </div>
-
-                {/* Fade gradient */}
-                <div style={{ height: 32, marginTop: -32, background: 'linear-gradient(to bottom, transparent, rgba(14,16,16,0.92))', pointerEvents: 'none', position: 'relative', zIndex: 1 }} />
-              </div>
-
-              {/* CTA + privacy */}
-              <div style={{ padding: '0 22px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <button
-                  onClick={() => window.location.href = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/preview/happenin/EventChat`}
-                  style={{ width: '100%', background: '#F4F1EA', border: 'none', borderRadius: 14, padding: '13px 0', color: '#0e1a1b', fontFamily: F, fontSize: 14, fontWeight: 800, cursor: 'pointer', letterSpacing: '0.3px' }}>
-                  Join the Chat
-                </button>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  <span style={{ fontFamily: F, fontSize: 12, color: 'rgba(255,255,255,0.28)', lineHeight: 1.5 }}>Your personal details are never shared with other attendees — only the organiser can see your booking info.</span>
                 </div>
               </div>
             </div>
