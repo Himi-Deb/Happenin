@@ -198,6 +198,33 @@ function Navbar() {
   );
 }
 
+function ListingSection() {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const toggleCategory = (category: string) => {
+    setSelectedCategories((current) =>
+      current.includes(category) ? current.filter((item) => item !== category) : [...current, category]
+    );
+  };
+  const sourceEvents = [...FEATURED_EVENTS, ...TODAY_EVENTS, ...FRESH_EVENTS, ...CONCERT_EVENTS, ...SPORTS_EVENTS];
+  const events = sourceEvents.filter(
+    (event, index, arr) => arr.findIndex((item) => item.title === event.title) === index && (selectedCategories.length === 0 || selectedCategories.includes(event.category))
+  );
+
+  return (
+    <>
+      <CategoryBar selectedCategories={selectedCategories} onToggleCategory={toggleCategory} />
+      <section style={{ padding: '48px 0 72px', paddingLeft: 72 }}>
+        <SectionHeader label="Happening Now" title="Featured Events" link="VIEW ALL" />
+        <HScrollRow events={events.filter((event) => ['Music', 'Art', 'Business', 'Food', 'Theatre', 'Gaming', 'Sports', 'Education'].includes(event.category))} showViewMore />
+      </section>
+      <EventSection label="Today Only" title="Happening Today" link="VIEW TODAY" events={events.filter((event) => TODAY_EVENTS.some((today) => today.title === event.title))} showViewMore />
+      <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={events.filter((event) => FRESH_EVENTS.some((fresh) => fresh.title === event.title))} showViewMore />
+      <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={events.filter((event) => CONCERT_EVENTS.some((concert) => concert.title === event.title))} showViewMore />
+      <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={events.filter((event) => SPORTS_EVENTS.some((sport) => sport.title === event.title))} showViewMore />
+    </>
+  );
+}
+
 function HeroCarousel() {
   const [, navigate] = useLocation();
   const [current, setCurrent] = useState(0);
@@ -266,16 +293,23 @@ function HeroCarousel() {
   );
 }
 
-function CategoryBar() {
+function CategoryBar({ selectedCategories, onToggleCategory }: { selectedCategories: string[]; onToggleCategory: (category: string) => void }) {
   return (
     <section style={{ padding: '48px 72px 36px', background: '#000' }}>
       <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
-          {CATEGORIES.map((cat, i) => (
-            <button key={cat.label} style={{ background: i === 0 ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 12, padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8, color: i === 0 ? '#B1D8D4' : 'rgba(255,255,255,0.5)', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              <span>{cat.icon}</span><span>{cat.label}</span>
-            </button>
-          ))}
+          {CATEGORIES.map((cat) => {
+            const active = selectedCategories.includes(cat.label);
+            return (
+              <button
+                key={cat.label}
+                onClick={() => onToggleCategory(cat.label)}
+                style={{ background: active ? 'rgba(177,216,212,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${active ? 'rgba(177,216,212,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 12, padding: '10px 20px', display: 'flex', alignItems: 'center', gap: 8, color: active ? '#B1D8D4' : 'rgba(255,255,255,0.5)', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: F, textTransform: 'uppercase', letterSpacing: '0.5px' }}
+              >
+                <span>{cat.icon}</span><span>{cat.label}</span>
+              </button>
+            );
+          })}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '10px 16px', cursor: 'pointer', flexShrink: 0, marginLeft: 16 }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(177,216,212,0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -289,6 +323,37 @@ function CategoryBar() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ListingSection() {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const toggleCategory = (category: string) => {
+    setSelectedCategories((current) =>
+      current.includes(category) ? current.filter((item) => item !== category) : [...current, category]
+    );
+  };
+  const sourceEvents = [...FEATURED_EVENTS, ...TODAY_EVENTS, ...FRESH_EVENTS, ...CONCERT_EVENTS, ...SPORTS_EVENTS];
+  const uniqueEvents = sourceEvents.filter((event, index, arr) => arr.findIndex((item) => item.title === event.title) === index);
+  const filteredEvents = uniqueEvents.filter((event) => selectedCategories.length === 0 || selectedCategories.includes(event.category));
+  const filteredFeatured = FEATURED_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
+  const filteredToday = TODAY_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
+  const filteredFresh = FRESH_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
+  const filteredConcerts = CONCERT_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
+  const filteredSports = SPORTS_EVENTS.filter((event) => filteredEvents.some((item) => item.title === event.title));
+
+  return (
+    <>
+      <CategoryBar selectedCategories={selectedCategories} onToggleCategory={toggleCategory} />
+      <section style={{ padding: '48px 0 72px', paddingLeft: 72 }}>
+        <SectionHeader label="Happening Now" title="Featured Events" link="VIEW ALL" />
+        <HScrollRow events={filteredFeatured} showViewMore />
+      </section>
+      <EventSection label="Today Only" title="Happening Today" link="VIEW TODAY" events={filteredToday} showViewMore />
+      <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={filteredFresh} showViewMore />
+      <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={filteredConcerts} showViewMore />
+      <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={filteredSports} showViewMore />
+    </>
   );
 }
 
@@ -448,15 +513,7 @@ export default function Landing() {
     <div style={{ background: '#0e0c09', minHeight: '100vh', color: '#fff' }}>
       <Navbar />
       <HeroCarousel />
-      <CategoryBar />
-      <section style={{ padding: '48px 0 72px', paddingLeft: 72 }}>
-        <SectionHeader label="Happening Now" title="Featured Events" link="VIEW ALL" />
-        <HScrollRow events={FEATURED_EVENTS} showViewMore />
-      </section>
-      <EventSection label="Today Only" title="Happening Today" link="VIEW TODAY" events={TODAY_EVENTS} showViewMore />
-      <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={FRESH_EVENTS} showViewMore />
-      <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={CONCERT_EVENTS} showViewMore />
-      <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={SPORTS_EVENTS} showViewMore />
+      <ListingSection />
       <OrganizerCTA />
       <Footer />
     </div>
