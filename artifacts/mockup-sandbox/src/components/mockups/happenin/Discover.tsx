@@ -334,9 +334,10 @@ export function Discover() {
         .dc-sort-item:hover { background: rgba(127,224,213,0.08) !important; color: #7FE0D5 !important; }
       `}</style>
       <Navbar />
-
       {/* ── Hero ── */}
-      <div style={{ position: 'relative', paddingTop: 130, paddingBottom: 80, paddingLeft: 80, paddingRight: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: 560 }}>
+      <div
+        style={{ position: 'relative', paddingTop: 130, paddingBottom: 80, paddingLeft: 80, paddingRight: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: 560 }}
+        className="pt-[140px]">
         {/* Background glows */}
         <div style={{ position: 'absolute', top: '-20%', left: '-5%', width: 1000, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(14,42,44,0.7) 0%, transparent 60%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: '-10%', right: '-8%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(50,40,8,0.4) 0%, transparent 65%)', pointerEvents: 'none' }} />
@@ -409,7 +410,6 @@ export function Discover() {
 
         </div>
       </div>
-
       {/* ── Category Filter ── */}
       <section style={{ padding: '36px 72px 28px', background: '#000', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
@@ -443,7 +443,6 @@ export function Discover() {
           </div>
         </div>
       </section>
-
       {/* ── Content ── */}
       <div style={{ padding: '60px 80px 120px' }}>
 
