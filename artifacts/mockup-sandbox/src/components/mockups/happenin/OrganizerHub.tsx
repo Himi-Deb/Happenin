@@ -151,7 +151,7 @@ export function OrganizerHub() {
   const SIDEBAR_W  = open ? 320 : 72;
 
   return (
-    <div style={{ height: '100vh', background: 'linear-gradient(180deg, #100d09 0%, #0e0c09 52%, #090705 100%)', display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: F }}>
+    <div style={{ height: '100vh', background: BG, display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: F }}>
       <style>{`
         .ch-row:hover  { background: rgba(127,224,213,0.05) !important; }
         .ch-icon:hover { background: rgba(127,224,213,0.1) !important; }
@@ -251,7 +251,7 @@ export function OrganizerHub() {
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          background: 'linear-gradient(180deg, rgba(14,12,9,0.96) 0%, rgba(10,8,4,0.98) 100%)',
+          background: CHAT_BG,
           borderRadius: 24,
           border: '1px solid rgba(255,255,255,0.05)',
           /* sunken / inset effect */
@@ -263,7 +263,7 @@ export function OrganizerHub() {
           {/* channel header inside chat card */}
           <div style={{ flexShrink: 0 }}>
             {/* colour accent top stripe */}
-            <div style={{ position: 'absolute', inset: 0, opacity: 0.92, pointerEvents: 'none' }}>
+            <div style={{ position: 'absolute', inset: 0, opacity: 0.6, pointerEvents: 'none' }}>
               <ChatWallpaper />
             </div>
             <div style={{ height: 2, background: `linear-gradient(90deg, ${ch.color}80 0%, ${ch.color}00 60%)`, borderRadius: '20px 20px 0 0' }} />
