@@ -437,16 +437,15 @@ function Footer() {
       </div>
       <div style={{ position: 'relative', height: 310, overflow: 'hidden' }}>
         <img
-          src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Happenin-Logo_1777779012108.png`}
+          src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/happenin-wordmark-4x_1777779439519.png`}
           alt="Happenin"
           style={{
             position: 'absolute',
             left: '50%',
-            bottom: -76,
+            bottom: -86,
             transform: 'translateX(-50%)',
-            width: 'min(96vw, 2100px)',
+            width: 'min(96vw, 1800px)',
             height: 'auto',
-            opacity: 0.9,
             pointerEvents: 'none',
             userSelect: 'none',
           }}
