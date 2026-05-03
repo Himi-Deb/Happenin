@@ -424,7 +424,7 @@ function Footer() {
           </a>
         </div>
       </div>
-      <div style={{ padding: '88px 72px 64px', textAlign: 'center' }}>
+      <div style={{ padding: '88px 72px 24px', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
           <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Sunflower-footer_1777778666678.png`} alt="Sunflower" style={{ width: 18, height: 18, objectFit: 'contain' }} />
           <h2 style={{ margin: 0, fontFamily: F, fontSize: 44, lineHeight: 0.94, fontWeight: 500, letterSpacing: '-1.8px', color: '#F2E9D8', maxWidth: 560 }}>
@@ -457,18 +457,18 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div style={{ position: 'relative', height: 210, overflow: 'hidden' }}>
+      <div style={{ position: 'relative', height: 310, overflow: 'hidden' }}>
         <img
           src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/Happenin-Logo_1777779012108.png`}
           alt="Happenin"
           style={{
             position: 'absolute',
             left: '50%',
-            bottom: -48,
+            bottom: -76,
             transform: 'translateX(-50%)',
-            width: 'min(94vw, 1800px)',
+            width: 'min(96vw, 2100px)',
             height: 'auto',
-            opacity: 0.82,
+            opacity: 0.9,
             pointerEvents: 'none',
             userSelect: 'none',
           }}
