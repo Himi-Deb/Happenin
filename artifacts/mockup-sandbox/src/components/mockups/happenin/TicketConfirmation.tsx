@@ -185,7 +185,8 @@ export function TicketConfirmation() {
 
       {/* Subtle background glow */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
-        <div style={{ position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)', width: 900, height: 700, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,42,44,0.45) 0%, transparent 68%)' }} />
+        <div style={{ position: 'absolute', top: '-8%', left: '-10%', width: 820, height: 760, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(72,46,25,0.55) 0%, rgba(72,46,25,0.22) 34%, transparent 72%)' }} />
+        <div style={{ position: 'absolute', top: '8%', left: '26%', width: 700, height: 600, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,42,44,0.35) 0%, transparent 70%)' }} />
       </div>
 
       <div style={{ position: 'relative', zIndex: 1, paddingTop: 140, paddingBottom: 120, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

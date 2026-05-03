@@ -76,6 +76,8 @@ function Hero() {
     <section style={{ position: 'relative', width: '100%', aspectRatio: '1920 / 1280', background: '#000' }}>
       {/* Background clipped separately so content can overflow the section bottom */}
       <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: 0 }}>
+        <div style={{ position: 'absolute', top: '-8%', left: '-10%', width: 820, height: 760, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(72,46,25,0.55) 0%, rgba(72,46,25,0.22) 34%, transparent 72%)' }} />
+        <div style={{ position: 'absolute', top: '8%', left: '26%', width: 700, height: 600, borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(14,42,44,0.35) 0%, transparent 70%)' }} />
         <div style={{ position: 'absolute', inset: 0, backgroundImage: EVENT.image, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.18) 70%, transparent 100%)' }} />
       </div>
