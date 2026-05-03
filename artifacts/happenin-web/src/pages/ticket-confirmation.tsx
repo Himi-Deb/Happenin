@@ -4,11 +4,32 @@ import wordmarkPng from '@assets/happenin-wordmark-4x_1777805318717.png';
 import logoPng from '@assets/Happenin-Logo_1777806807849.png';
 
 const F = 'Urbanist, sans-serif';
-const BG = '#0e0c09';
+const BG = '#000000';
 const CARD_BG = '#13110d';
 const TEAL = '#7FE0D5';
 const GOLD = '#EBE88A';
 const LOGO_URL = logoPng;
+
+function Navbar() {
+  return (
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
+      <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.13)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28 }}>
+        <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
+          <img src={LOGO_URL} alt="happenin" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontFamily: F, fontSize: 15, whiteSpace: 'nowrap' }}>Neon Pulse Music Festival</span>
+        </div>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
+        <div style={{ background: GOLD, borderRadius: 9999, display: 'flex', alignItems: 'center', height: 52, padding: '0 20px', cursor: 'pointer' }}>
+          <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c' }}>Maya Chen</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function AnimatedCheck() {
   const [visible, setVisible] = useState(false);
@@ -44,7 +65,7 @@ function QRCode() {
 
 function TicketCard() {
   return (
-    <div style={{ background: CARD_BG, border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, overflow: 'hidden', width: '100%', maxWidth: 400 }}>
+    <div style={{ background: CARD_BG, border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, overflow: 'hidden', width: '100%', maxWidth: 560 }}>
       {/* Event banner */}
       <div style={{ position: 'relative', height: 140, background: 'linear-gradient(135deg,#0d1e20,#1a1208)', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.5 }} />
@@ -147,6 +168,7 @@ export default function TicketConfirmation() {
   return (
     <div style={{ background: BG, minHeight: '100vh', color: '#fff', overflow: 'hidden' }}>
       <style>{`@keyframes confetti-fall { from{transform:translateY(-20px) rotate(0deg);opacity:1} to{transform:translateY(100vh) rotate(720deg);opacity:0} }`}</style>
+      <Navbar />
 
       {/* BG blobs */}
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
@@ -154,11 +176,9 @@ export default function TicketConfirmation() {
         <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '45%', height: '60%', background: 'radial-gradient(ellipse at 75% 75%, rgba(235,232,138,0.03) 0%, transparent 65%)', borderRadius: '50%' }} />
       </div>
 
-      {/* Main content */}
-      <div style={{ position: 'relative', zIndex: 1, padding: '0 80px', paddingTop: 93 }}>
-        <div style={{ maxWidth: 1360, margin: '0 auto', paddingTop: 64 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'start' }}>
-            {/* Left: ticket + actions */}
+      <div style={{ position: 'relative', zIndex: 1, paddingTop: 93 }}>
+        <div style={{ maxWidth: 1360, margin: '0 auto', padding: '0 80px', paddingTop: 64 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 560px) minmax(0, 1fr)', gap: 72, alignItems: 'start' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <TicketCard />
               {/* Action buttons */}
@@ -178,9 +198,7 @@ export default function TicketConfirmation() {
               </div>
             </div>
 
-            {/* Right: confirmation + map */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-              {/* Success */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <AnimatedCheck />
                 <div>
