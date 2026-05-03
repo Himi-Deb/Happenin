@@ -275,7 +275,6 @@ export function Discover() {
         <div style={{ position: 'absolute', top: '-5%', right: '-5%', width: 700, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(50,40,8,0.4) 0%, transparent 65%)', pointerEvents: 'none' }} />
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 860, marginBottom: 48 }}>
-          <div style={{ fontFamily: F, fontSize: 12, letterSpacing: '4px', textTransform: 'uppercase', color: 'rgba(127,224,213,0.6)', fontWeight: 600, marginBottom: 18 }}>Events near you · London, UK</div>
           <h1 style={{ fontFamily: F, fontSize: 72, fontWeight: 800, letterSpacing: '-3px', color: '#fff', lineHeight: 1, margin: 0, marginBottom: 18 }}>
             Discover<br/><span style={{ color: '#7FE0D5' }}>what's happening.</span>
           </h1>
