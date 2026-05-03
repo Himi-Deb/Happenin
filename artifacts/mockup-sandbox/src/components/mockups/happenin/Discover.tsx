@@ -481,7 +481,7 @@ export function Discover() {
             <button
               onClick={() => setPage(p => Math.max(1, p - 1))}
               disabled={safePage === 1}
-              style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: safePage === 1 ? 'default' : 'pointer', opacity: safePage === 1 ? 0.3 : 1, transition: 'all 0.15s' }}
+              style={{ width: 44, height: 44, borderRadius: 12, background: 'transparent', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: safePage === 1 ? 'default' : 'pointer', opacity: safePage === 1 ? 0.3 : 1, transition: 'all 0.15s' }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
@@ -495,11 +495,11 @@ export function Discover() {
               const showEllipsisAfter  = p === safePage + 2 && safePage + 2 < totalPages;
               if (!show && !showEllipsisBefore && !showEllipsisAfter) return null;
               if (showEllipsisBefore || showEllipsisAfter) return (
-                <span key={`e${p}`} style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.3)', padding: '0 4px' }}>…</span>
+                <span key={`e${p}`} style={{ fontFamily: F, fontSize: 16, color: 'rgba(255,255,255,0.3)', padding: '0 4px' }}>…</span>
               );
               return (
                 <button key={p} onClick={() => setPage(p)}
-                  style={{ width: 44, height: 44, borderRadius: 12, background: isActive ? '#7FE0D5' : 'rgba(255,255,255,0.05)', border: `1px solid ${isActive ? '#7FE0D5' : 'rgba(255,255,255,0.1)'}`, color: isActive ? '#0e2a2c' : 'rgba(255,255,255,0.7)', fontFamily: F, fontSize: 15, fontWeight: isActive ? 800 : 500, cursor: 'pointer', transition: 'all 0.15s' }}
+                  style={{ width: 44, height: 44, borderRadius: 12, background: isActive ? '#EBE88A' : 'transparent', border: 'none', color: isActive ? '#0e2a2c' : 'rgba(255,255,255,0.75)', fontFamily: F, fontSize: 17, fontWeight: isActive ? 600 : 400, cursor: 'pointer', transition: 'all 0.15s' }}
                 >
                   {p}
                 </button>
@@ -510,7 +510,7 @@ export function Discover() {
             <button
               onClick={() => setPage(p => Math.min(totalPages, p + 1))}
               disabled={safePage === totalPages}
-              style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: safePage === totalPages ? 'default' : 'pointer', opacity: safePage === totalPages ? 0.3 : 1, transition: 'all 0.15s' }}
+              style={{ width: 44, height: 44, borderRadius: 12, background: 'transparent', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: safePage === totalPages ? 'default' : 'pointer', opacity: safePage === totalPages ? 0.3 : 1, transition: 'all 0.15s' }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
