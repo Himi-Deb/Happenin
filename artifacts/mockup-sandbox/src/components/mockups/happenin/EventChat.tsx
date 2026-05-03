@@ -265,7 +265,7 @@ function SetupView({ avatar, setAvatar, username, setUsername, err, setErr, onJo
     <div style={{ height: '100vh', background: '#080a0b', display: 'flex', flexDirection: 'column' }}>
       <style>{`
         @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
-        .av-card:hover { border-color: rgba(127,224,213,0.5) !important; transform: translateY(-3px) !important; }
+        .av-card:hover { background: rgba(127,224,213,0.07) !important; border-color: rgba(127,224,213,0.35) !important; transform: translateY(-3px) !important; }
       `}</style>
       <Navbar label="Event Chat" />
 
@@ -323,10 +323,14 @@ function SetupView({ avatar, setAvatar, username, setUsername, err, setErr, onJo
                 const active = avatar.id === av.id;
                 return (
                   <button key={av.id} className="av-card" onClick={() => setAvatar(av)}
-                    style={{ background: av.cardBg, border: `2px solid ${active ? '#7FE0D5' : 'rgba(255,255,255,0.07)'}`, borderRadius: 18, padding: '16px 8px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, cursor: 'pointer', transition: 'all 0.18s', transform: active ? 'translateY(-3px)' : 'none', boxShadow: active ? '0 10px 28px rgba(127,224,213,0.2)' : 'none', outline: 'none' }}>
+                    style={{ position: 'relative', background: active ? 'rgba(127,224,213,0.07)' : 'rgba(255,255,255,0.025)', border: `2px solid ${active ? 'rgba(127,224,213,0.55)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 18, padding: '16px 8px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, cursor: 'pointer', transition: 'all 0.18s', transform: active ? 'translateY(-3px)' : 'none', boxShadow: active ? '0 10px 28px rgba(127,224,213,0.15)' : 'none', outline: 'none' }}>
+                    {active && (
+                      <div style={{ position: 'absolute', top: 8, left: 8, width: 20, height: 20, borderRadius: '50%', background: '#7FE0D5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5L9 3" stroke="#0e2a2c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </div>
+                    )}
                     <AvatarFace id={av.id} size={72}/>
                     <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: active ? '#7FE0D5' : 'rgba(255,255,255,0.38)', letterSpacing: '0.3px' }}>{av.label}</span>
-                    {active && <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#7FE0D5' }} />}
                   </button>
                 );
               })}
