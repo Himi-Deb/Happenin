@@ -94,14 +94,8 @@ function Navbar() {
         <button style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', padding: 4 }}>
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
-        {/* User pill — replaces LOGIN */}
-        <div style={{ background: 'rgba(177,216,212,0.1)', border: '1px solid rgba(127,224,213,0.2)', borderRadius: 9999, display: 'flex', alignItems: 'center', height: 52, padding: '0 20px 0 10px', gap: 12, cursor: 'pointer' }}>
-          <Av ini="MC" role="organiser" size={34}/>
-          <div>
-            <div style={{ fontFamily: F, fontSize: 14, fontWeight: 700, color: '#fff', lineHeight: 1.1 }}>Maya Chen</div>
-            <div style={{ fontFamily: F, fontSize: 11, fontWeight: 600, color: '#7FE0D5', lineHeight: 1.1 }}>Organiser</div>
-          </div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeLinecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <div style={{ background: '#EBE88A', borderRadius: 9999, display: 'flex', alignItems: 'center', height: 52, padding: '0 20px', cursor: 'pointer', boxShadow: '0 0 0 1px rgba(235,232,138,0.18) inset' }}>
+          <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c', whiteSpace: 'nowrap' }}>Maya Chen</span>
         </div>
       </div>
     </div>
