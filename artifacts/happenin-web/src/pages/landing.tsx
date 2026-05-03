@@ -112,6 +112,17 @@ const STEPS = [
   { num: '03', title: 'Engage Attendees', desc: 'Broadcast updates, chat live with ticket holders and collect feedback — no extra apps needed.' },
 ];
 
+const FEEDBACK_ITEMS = [
+  { name: 'Mia', category: 'Music', text: 'Loved the sound, crowd and pacing. Super easy to discover new events.' },
+  { name: 'Jordan', category: 'Art', text: 'The whole experience felt curated and clean — exactly what I was looking for.' },
+  { name: 'Sam', category: 'Business', text: 'Great way to find focused meetups without endless scrolling.' },
+  { name: 'Ava', category: 'Food', text: 'I found three great food events in seconds. The filters make it fast.' },
+  { name: 'Noah', category: 'Gaming', text: 'The event cards are sharp and the search/filter flow is really smooth.' },
+  { name: 'Lina', category: 'Sports', text: 'Perfect for picking the right event fast. The category filters are a big win.' },
+  { name: 'Priya', category: 'Education', text: 'I can narrow by topic immediately, which makes browsing much easier.' },
+  { name: 'Ethan', category: 'Theatre', text: 'It feels premium and the feedback section should definitely stay category-aware.' },
+];
+
 function HappeninLogo({ height = 32 }: { height?: number }) {
   return (
     <img
@@ -222,6 +233,61 @@ function ListingSection() {
       <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={events.filter((event) => CONCERT_EVENTS.some((concert) => concert.title === event.title))} showViewMore />
       <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={events.filter((event) => SPORTS_EVENTS.some((sport) => sport.title === event.title))} showViewMore />
     </>
+  );
+}
+
+function LandingPage() {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const toggleCategory = (category: string) => {
+    setSelectedCategories((current) =>
+      current.includes(category) ? current.filter((item) => item !== category) : [...current, category]
+    );
+  };
+  const sourceEvents = [...FEATURED_EVENTS, ...TODAY_EVENTS, ...FRESH_EVENTS, ...CONCERT_EVENTS, ...SPORTS_EVENTS];
+  const events = sourceEvents.filter(
+    (event, index, arr) => arr.findIndex((item) => item.title === event.title) === index && (selectedCategories.length === 0 || selectedCategories.includes(event.category))
+  );
+  return (
+    <>
+      <Navbar />
+      <HeroCarousel />
+      <CategoryBar selectedCategories={selectedCategories} onToggleCategory={toggleCategory} />
+      <section style={{ padding: '48px 0 72px', paddingLeft: 72 }}>
+        <SectionHeader label="Happening Now" title="Featured Events" link="VIEW ALL" />
+        <HScrollRow events={events.filter((event) => FEATURED_EVENTS.some((featured) => featured.title === event.title))} showViewMore />
+      </section>
+      <EventSection label="Today Only" title="Happening Today" link="VIEW TODAY" events={events.filter((event) => TODAY_EVENTS.some((today) => today.title === event.title))} showViewMore />
+      <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={events.filter((event) => FRESH_EVENTS.some((fresh) => fresh.title === event.title))} showViewMore />
+      <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={events.filter((event) => CONCERT_EVENTS.some((concert) => concert.title === event.title))} showViewMore />
+      <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={events.filter((event) => SPORTS_EVENTS.some((sport) => sport.title === event.title))} showViewMore />
+      <FeedbackSection selectedCategories={selectedCategories} />
+    </>
+  );
+}
+
+function FeedbackSection({ selectedCategories }: { selectedCategories: string[] }) {
+  const items = selectedCategories.length === 0
+    ? FEEDBACK_ITEMS
+    : FEEDBACK_ITEMS.filter((item) => selectedCategories.includes(item.category));
+
+  return (
+    <section style={{ padding: '24px 72px 84px', background: '#0e0c09' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 28 }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#B1D8D4', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 8, fontFamily: F }}>Feedback</div>
+          <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-1px', fontFamily: F, margin: 0 }}>What people are saying</h2>
+        </div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 18 }}>
+        {items.map((item) => (
+          <div key={`${item.name}-${item.category}`} style={{ background: '#13110d', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 18, padding: 20 }}>
+            <div style={{ fontFamily: F, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7FE0D5', marginBottom: 12 }}>{item.category}</div>
+            <div style={{ fontFamily: F, fontSize: 16, lineHeight: 1.45, color: '#fff' }}>{item.text}</div>
+            <div style={{ marginTop: 14, fontFamily: F, fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>— {item.name}</div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -480,9 +546,7 @@ function Footer() {
 export default function Landing() {
   return (
     <div style={{ background: '#0e0c09', minHeight: '100vh', color: '#fff' }}>
-      <Navbar />
-      <HeroCarousel />
-      <ListingSection />
+      <LandingPage />
       <OrganizerCTA />
       <Footer />
     </div>
