@@ -353,10 +353,6 @@ export function OrganizerHub() {
               boxShadow: '0 2px 12px rgba(0,0,0,0.3)',
               transition: 'border-color 0.2s',
             }}>
-              <div style={{ width: 34, height: 34, borderRadius: '50%', background: RC.organiser.bg, border: `1.5px solid ${RC.organiser.text}28`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <span style={{ fontFamily: F, fontSize: 12, fontWeight: 800, color: RC.organiser.text, letterSpacing: '-0.3px' }}>MC</span>
-              </div>
-              <div style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.07)', flexShrink: 0 }} />
               <button style={{ background: 'none', border: 'none', padding: 3, color: 'rgba(255,255,255,0.2)', cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center' }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
               </button>
