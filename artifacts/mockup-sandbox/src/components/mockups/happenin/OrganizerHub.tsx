@@ -300,12 +300,12 @@ export function OrganizerHub() {
             {msgs.map(m => (
               <div key={m.id} onMouseEnter={() => setHovered(m.id)} onMouseLeave={() => setHovered(null)}
                 style={{ display: 'flex', gap: 14, padding: '10px 32px', background: hovered === m.id ? 'rgba(255,255,255,0.018)' : 'transparent', transition: 'background 0.12s' }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: m.ac || RC[m.role]?.bg || RC.attendee.bg, border: `1.5px solid ${m.role === 'organiser' ? `${RC.organiser.text}28` : 'rgba(255,255,255,0.1)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <span style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: m.role === 'organiser' ? RC.organiser.text : RC.attendee.text, letterSpacing: '-0.3px' }}>{m.ini}</span>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: m.ac || RC[m.role]?.bg || RC.attendee.bg, border: `1.5px solid ${m.role === 'organiser' ? `${RC.organiser.text}28` : 'rgba(255,255,255,0.1)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
+                  <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/event-chat-avatar.png`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: 14.5, fontWeight: 700, color: m.role === 'organiser' ? '#7FE0D5' : 'rgba(255,255,255,0.8)', letterSpacing: '-0.2px' }}>{m.name}</span>
+                    <span style={{ fontSize: 14.5, fontWeight: 700, color: '#fff', letterSpacing: '-0.2px' }}>{m.name}</span>
                     {m.role !== 'attendee' && (
                       <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.7px', color: RC.organiser.text, background: `${RC.organiser.text}16`, border: `1px solid ${RC.organiser.text}25`, borderRadius: 5, padding: '2px 7px', textTransform: 'uppercase' }}>Organiser</span>
                     )}
@@ -325,10 +325,10 @@ export function OrganizerHub() {
                     </div>
                   )}
 
-                  {m.readers && (
-                    <div style={{ marginTop: 7, display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="2" strokeLinecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                      <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,0.18)', fontWeight: 500 }}>{m.readers.toLocaleString()} read</span>
+                  {m.url && (
+                    <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                      <a href={m.url} target="_blank" rel="noreferrer" style={{ fontSize: 12.5, color: '#7FE0D5', textDecoration: 'none', borderBottom: '1px solid rgba(127,224,213,0.35)' }}>{m.url}</a>
+                      <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)' }}>link attached</span>
                     </div>
                   )}
                 </div>
@@ -360,6 +360,7 @@ export function OrganizerHub() {
               <input value={input} onChange={e => setInput(e.target.value)}
                 placeholder={`Post to #${ch.name}…`}
                 style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: '#fff', fontFamily: F, fontSize: 14 }} />
+              <input value={''} readOnly placeholder="Add URL" style={{ width: 130, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, outline: 'none', color: 'rgba(255,255,255,0.7)', fontFamily: F, fontSize: 13, padding: '8px 10px' }} />
               <button style={{
                 background: input.trim() ? ch.color : 'rgba(255,255,255,0.05)',
                 border: 'none', borderRadius: 11, padding: '9px 22px',
