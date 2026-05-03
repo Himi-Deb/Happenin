@@ -27,6 +27,7 @@ const SECTIONS: { id: Section; label: string; icon: React.ReactNode }[] = [
 const CATEGORIES = ['Music', 'Arts & Culture', 'Food & Drink', 'Sports', 'Comedy', 'Film', 'Tech', 'Community', 'Wellness', 'Other'];
 
 function Navbar() {
+  const savedUser = 'Maya Chen';
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
       <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.13)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28 }}>
@@ -38,7 +39,7 @@ function Navbar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
         <button style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '12px 22px', color: 'rgba(255,255,255,0.55)', fontFamily: F, fontSize: 15, fontWeight: 600, cursor: 'pointer' }}>Save Draft</button>
         <div style={{ background: GOLD, borderRadius: 9999, display: 'flex', alignItems: 'center', height: 52, padding: '0 20px', cursor: 'pointer' }}>
-          <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c', whiteSpace: 'nowrap' }}>Maya Chen</span>
+          <span style={{ fontFamily: F, fontSize: 18, fontWeight: 600, color: '#0e2a2c', whiteSpace: 'nowrap' }}>{savedUser}</span>
         </div>
       </div>
     </div>
