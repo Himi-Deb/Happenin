@@ -223,9 +223,9 @@ function HeroCarousel() {
             <button onClick={prev} style={{ width: 120, height: 120, borderRadius: '50%', background: 'transparent', border: 'none', color: '#fff', fontSize: 45, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>←</button>
             <button onClick={next} style={{ width: 120, height: 120, borderRadius: '50%', background: 'transparent', border: 'none', color: '#fff', fontSize: 45, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F }}>→</button>
           </div>
-          <div style={{ display: 'flex', gap: 6, justifyContent: 'center', width: '100%' }}>
+          <div style={{ display: 'flex', gap: 10, justifyContent: 'center', width: '100%' }}>
             {CAROUSEL_SLIDES.map((_, i) => (
-              <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? 24 : 6, height: 6, borderRadius: 9999, background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s ease' }} />
+              <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? 40 : 12, height: 12, borderRadius: 9999, background: i === current ? '#B1D8D4' : 'rgba(255,255,255,0.25)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s ease' }} />
             ))}
           </div>
         </div>
