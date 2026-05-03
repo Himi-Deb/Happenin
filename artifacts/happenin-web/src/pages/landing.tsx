@@ -260,6 +260,7 @@ function LandingPage() {
       <EventSection label="Just Added" title="Fresh Finds" link="VIEW ALL" events={events.filter((event) => FRESH_EVENTS.some((fresh) => fresh.title === event.title))} showViewMore />
       <EventSection label="Most Popular" title="Concerts" link="VIEW ALL" events={events.filter((event) => CONCERT_EVENTS.some((concert) => concert.title === event.title))} showViewMore />
       <EventSection label="Get Active" title="GET ALIVE" link="VIEW ALL" events={events.filter((event) => SPORTS_EVENTS.some((sport) => sport.title === event.title))} showViewMore />
+      <OrganizerCTA />
       <FeedbackSection selectedCategories={selectedCategories} />
       <Footer />
     </>
@@ -572,7 +573,6 @@ export default function Landing() {
   return (
     <div style={{ background: '#0e0c09', minHeight: '100vh', color: '#fff' }}>
       <LandingPage />
-      <OrganizerCTA />
     </div>
   );
 }
