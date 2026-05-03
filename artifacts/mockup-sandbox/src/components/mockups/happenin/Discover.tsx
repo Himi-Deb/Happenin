@@ -5,7 +5,6 @@ const F = 'var(--font)';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 const LOGO_URL = `${BASE}/happenin-logo-new.png`;
 
-const NAV_LINKS = ['Discover', 'My Tickets', 'Saved', 'Chat'];
 
 const CATS = [
   { icon: '✦', label: 'All' },
@@ -217,26 +216,20 @@ function FeaturedCarousel({ items }: { items: Ev[] }) {
 function Navbar() {
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 56px 0', pointerEvents: 'none' }}>
-      <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.14)', backdropFilter: 'blur(16px)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 4, padding: '0 8px 0 0' }}>
-        <div style={{ background: '#0e2a2c', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
+      <div style={{ pointerEvents: 'all', background: 'rgba(177,216,212,0.16)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20, paddingRight: 28 }}>
+        <div style={{ background: '#0e2a2c', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 164, height: 61, padding: '16px 24px', flexShrink: 0, overflow: 'hidden' }}>
           <img src={LOGO_URL} alt="happenin" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
         </div>
-        {NAV_LINKS.map(link => (
-          <div key={link} style={{ padding: '0 16px', height: 61, display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-            <span style={{ fontFamily: F, fontSize: 16, fontWeight: link === 'Discover' ? 700 : 400, color: link === 'Discover' ? '#7FE0D5' : 'rgba(255,255,255,0.65)', borderBottom: link === 'Discover' ? '2px solid #7FE0D5' : '2px solid transparent', paddingBottom: 2 }}>
-              {link}
-            </span>
-          </div>
-        ))}
+        <span style={{ color: '#fff', fontFamily: F, fontSize: 18, fontWeight: 400, whiteSpace: 'nowrap' }}>Discover</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'all' }}>
-        <div style={{ background: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(12px)', borderRadius: 100, display: 'flex', alignItems: 'center', gap: 8, padding: '0 20px', height: 52 }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(127,224,213,0.8)" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span style={{ fontFamily: F, fontSize: 14, color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>London, UK</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
+        <button style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, padding: 4 }}>
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
         <div onClick={() => window.location.href = `${BASE}/preview/happenin/Login`} style={{ background: '#EBE88A', borderRadius: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52, padding: '0 32px', cursor: 'pointer', flexShrink: 0 }}>
-          <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 16, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>Sign In</span>
+          <span style={{ color: '#0e2a2c', fontFamily: F, fontSize: 18, fontWeight: 600, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>LOGIN</span>
         </div>
       </div>
     </div>
